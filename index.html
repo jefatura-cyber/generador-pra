@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Generador PRA | IES Ciudad de Coín</title>
+<style>
+:root{font-family:system-ui,-apple-system,'Segoe UI',sans-serif;color:#183248;background:#f2f6f8;--teal:#087e91;--navy:#14344d;--border:#dce7ec}*{box-sizing:border-box}body{margin:0}button,select,textarea{font:inherit}button{cursor:pointer}header{background:linear-gradient(120deg,#086a82,#0c91a6);color:white;padding:20px max(20px,calc((100vw - 1180px)/2));display:flex;align-items:center;gap:20px}header img{width:132px;height:auto;object-fit:contain;border-radius:5px;flex-shrink:0}header h1{margin:0;font-size:clamp(21px,3vw,32px)}header p{margin:5px 0 0;color:#e2fcff}.wrap{max-width:1180px;margin:25px auto;padding:0 18px}.intro{background:#fff;border:1px solid var(--border);border-radius:15px;padding:20px;margin-bottom:20px}.intro p{margin:6px 0;line-height:1.5}.layout{display:grid;grid-template-columns:340px minmax(0,1fr);gap:20px;align-items:start}.panel{background:white;border:1px solid var(--border);border-radius:15px;padding:20px;box-shadow:0 3px 13px #11304709}.panel h2{font-size:20px;margin:0 0 15px}.step{display:inline-grid;place-items:center;background:#e3f6f9;color:#006b7f;font-weight:800;width:28px;height:28px;border-radius:50%;margin-right:8px}.choices{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}.choice{border:2px solid var(--border);border-radius:11px;background:white;padding:13px 6px;font-weight:750;color:#29445a}.choice.active{border-color:var(--teal);background:#e7f9fa;color:#00687d}label.field{display:block;font-weight:700;margin-bottom:8px}select{width:100%;padding:11px;border:1px solid #cbdce3;border-radius:9px;color:#123149;background:#fff}.note{font-size:13px;color:#506879;line-height:1.5}.actions{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.btn{border:1px solid #c6dbe3;border-radius:9px;background:#fff;color:#145269;padding:10px 14px;font-weight:700}.btn.primary{background:var(--teal);color:#fff;border-color:var(--teal)}.btn:hover{filter:brightness(.96)}.btn:focus-visible,.choice:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #edb65f;outline-offset:2px}.stat{color:#60727b;font-size:13px}.sections{display:grid;gap:17px}.section{background:#fff;border:1px solid var(--border);border-radius:15px;padding:20px}.section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.section h3{margin:0;font-size:18px}.desc{font-size:13px;color:#607681;margin:6px 0 15px}.pill{background:#edf5f6;border-radius:50px;padding:6px 10px;font-size:12px;white-space:nowrap;color:#35606c}.guides{display:grid;gap:8px}.guide{display:flex;gap:11px;align-items:flex-start;border:1px solid #e1ebef;border-radius:9px;padding:10px 11px;line-height:1.4;font-size:14px;cursor:pointer}.guide:has(input:checked){border-color:#75c3ce;background:#f0fbfc}.guide input{width:18px;height:18px;margin-top:1px;accent-color:#00869a;flex-shrink:0}.editlabel{font-weight:700;font-size:13px;display:block;margin:15px 0 7px}textarea{display:block;width:100%;min-height:110px;resize:vertical;border:1px solid #cbdce3;border-radius:9px;padding:11px;line-height:1.55;color:#14344d;background:#fbfdfe}.footerline{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap}.empty{padding:36px 20px;color:#607681;text-align:center;background:white;border:1px dashed #bbd2da;border-radius:14px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#123c4a;color:#fff;border-radius:10px;padding:12px 20px;box-shadow:0 8px 30px #183f4c40;display:none;z-index:9}footer{text-align:center;font-size:12px;color:#647b87;margin:28px auto;padding:0 15px 20px}a{color:#087e91}@media(max-width:800px){.layout{grid-template-columns:1fr}header{padding:16px}header img{width:98px;height:auto}.panel{padding:17px}.section{padding:16px}}
+.profiles{display:grid;gap:9px}.profile-choice{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--border);border-radius:9px;padding:12px;cursor:pointer;line-height:1.35;font-size:14px}.profile-choice:has(input:checked){background:#e7f9fa;border-color:var(--teal)}.profile-choice input{accent-color:var(--teal);width:18px;height:18px;flex-shrink:0;margin:1px 0 0}.profile-choice:focus-within{outline:2px solid #eebd70;outline-offset:2px}header img{align-self:center} .selection-hint{font-size:13px;color:#607681;margin:0 0 8px}</style>
+</head>
+<body>
+<header><img src="https://2.bp.blogspot.com/-nb3vWSkMs_w/W17LXzfO4xI/AAAAAAAAAeg/rO-bqkq8XcA4CnPZJqY9mlSDwgC8LxMOQCLcBGAs/s1600/Sin%2Bt%25C3%25ADtulo-2.png" alt="Logotipo del IES Ciudad de Coín"><div><h1>Generador de PRA</h1><p>IES Ciudad de Coín · Departamento de Orientación</p></div></header>
+<main class="wrap"><div class="intro"><strong>Propuestas de otros aspectos a trabajar en el programa</strong><p>Selecciona la situación del alumnado, marca únicamente las pautas aplicables y copia los textos en los cinco campos de Séneca. Puedes modificar libremente cada apartado antes de copiarlo.</p><p class="note">Esta herramienta es orientativa y no sustituye la valoración individual ni la selección de elementos curriculares en Séneca. No solicita ni almacena datos del alumnado.</p></div>
+<div class="layout"><aside class="panel"><h2><span class="step">1</span>Situación del alumnado</h2><div class="choices"><button id="neae" class="choice" type="button" aria-pressed="false">Alumnado NEAE</button><button id="noneae" class="choice" type="button" aria-pressed="false">Alumnado no NEAE</button></div><div id="profileWrap" hidden><label class="field" for="profile"><span class="step">2</span>Perfil o circunstancia</label><div id="profile" class="profiles" role="group" aria-label="Perfiles y circunstancias del alumnado"></div><p class="note" id="profileNote"></p></div><div id="selectionTools" hidden><h2><span class="step">3</span>Selecciona las pautas</h2><p class="note">Puedes combinar pautas de varias circunstancias con modificaciones propias. Los textos de las cinco cajas son los que se copiarán.</p><div class="actions"><button class="btn" id="all" type="button">Seleccionar todas</button><button class="btn" id="none" type="button">Desmarcar todas</button></div><div class="stat" id="count" aria-live="polite"></div><div class="actions"><button class="btn primary" id="copyAll" type="button">Copiar los 5 apartados</button><button class="btn" id="reset" type="button">Reiniciar</button></div></div></aside><div id="output"><div class="empty">Elige «Alumnado NEAE» o «Alumnado no NEAE» para comenzar.</div></div></div></main>
+<footer>Herramienta de apoyo a la cumplimentación de PRA en Séneca · <a href="https://docs.google.com/document/d/1zAdKyDjzR_pkk1ueXbuNuCAODUzVWFF90HKPDniLIik/edit" target="_blank" rel="noopener">Consultar Guía PRA</a> · Uso sin registro</footer><div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script>
+'use strict';
+const headings=['Tipos de actividades y tareas','Agrupamientos, distribución de espacios y tiempos','Instrumentos de evaluación','Formas de acceso a la información','Recursos didácticos'];
+const descriptions=['Presentación, secuenciación y tipología de las actividades.','Ubicación, agrupamientos, pausas y flexibilidad temporal.','Pruebas, formatos y seguimiento de los aprendizajes.','Apoyos visuales, formatos y claridad en las instrucciones.','Materiales y herramientas de apoyo.'];
+const profiles={
+'dea':{label:'Dificultades específicas del aprendizaje (dislexia, discalculia, disortografía)',data:[
+['Fraccionar actividades complejas en pasos cortos y secuenciados.','Eximir de la copia de enunciados extensos.','Simplificar las instrucciones redactadas y verificar su comprensión oral.','Permitir esquemas visuales de apoyo durante el trabajo diario.'],
+['Ubicación estratégica cercana a la pizarra y al docente.','Asignación de pareja cooperativa tutorizada.','Concesión de tiempo adicional en tareas escritas diarias y trabajos.'],
+['Concesión de un 25-50 % de tiempo extra en pruebas escritas.','Lectura guiada e individual de preguntas antes del examen.','Reducción de la densidad de preguntas por página y uso de tipografía clara.','No penalizar faltas de ortografía derivadas de la dislexia.','Cuando la competencia evaluada no sea la expresión escrita, permitir complementar oralmente una respuesta si las dificultades lectoescritoras impiden mostrar adecuadamente lo aprendido.'],
+['Acompañar presentaciones orales con guías y esquemas impresos.','Permitir formato digital, procesadores con corrector y audiotextos.','Uso de macrotipos o tipografías de alta legibilidad.'],
+['Uso permitido de calculadora y tablas matemáticas de consulta.','Apoyo en ordenador o tableta para la redacción de textos.','Agenda escolar o digital compartida para supervisión de entregas.']]},
+'tdah':{label:'TDAH (déficit de atención e hiperactividad)',data:[
+['Actividades breves, estructuradas y con objetivos cerrados.','Supervisión inicial del comienzo de cada tarea.','Alternar tareas de alta concentración con actividades manipulativas o prácticas.','Fragmentar proyectos largos en entregas parciales semanales.','Comprobar que ha comprendido la consigna antes de iniciar la tarea.'],
+['Asiento en primera fila, alejado de ventanas y distracciones.','Permitir pausas activas o descansos breves de 1-2 minutos tras tareas intensas.','Establecer rutinas fijas de aula para el inicio y cierre de clase.'],
+['Fraccionar los exámenes extensos en dos sesiones o bloques.','Recordatorios individuales del tiempo restante durante la prueba.','Permitir aclaraciones individuales en voz baja durante el examen.'],
+['Presentar la información con apoyos visuales destacados en color.','Dar instrucciones de una en una, de forma clara y directa, comprobando la atención del alumno o alumna.'],
+['Agenda escolar supervisada al final de la jornada.','Lista de comprobación (checklist) de tareas en el pupitre.','Uso de temporizadores visuales para la gestión del tiempo.']]},
+'cil':{label:'Capacidad intelectual límite (CIL)',data:[
+['Priorizar contenidos esenciales y saberes básicos de la materia.','Actividades de carácter práctico, inductivo y funcional.','Proporcionar modelos o ejemplos resueltos de referencia.','Intercalar repasos sistemáticos para consolidar el aprendizaje.'],
+['Integración en grupos cooperativos heterogéneos para tareas prácticas.','Flexibilidad en los tiempos de ejecución de trabajos.'],
+['Pruebas escritas adaptadas en vocabulario y estructura.','Predominio de preguntas de respuesta corta, opción múltiple o relacionar.','Apoyo de la evaluación continua a través de diarios de clase y observaciones.'],
+['Utilización de lenguaje claro, sencillo y directo.','Textos adaptados a lectura fácil y resúmenes estructurados.'],
+['Guías de autoinstrucciones paso a paso.','Materiales didácticos manipulativos y visuales.']]},
+'tea':{label:'Trastorno del espectro autista (TEA)',data:[
+['Presentación anticipada del plan de trabajo y normas claras.','Evitar enunciados ambiguos, dobles sentidos, metáforas o ironías.','Actividades estructuradas con inicio, desarrollo y fin claramente delimitados.','Anticipar de forma explícita qué se espera del producto final, ofreciendo un modelo o ejemplo cuando sea necesario.'],
+['Entorno de aula estructurado, estable y predecible.','Anticipación de cambios de aula, profesorado o calendario.','Asignación de un espacio tranquilo en caso de sobrecarga sensorial.'],
+['Pruebas en entornos tranquilos y sin ruidos distractores.','Preguntas directas y literales sin ambigüedad en el enunciado.','Permitir aclaraciones breves sobre el significado exacto de preguntas.'],
+['Uso intensivo de apoyos visuales, pictogramas y guías escritas.','Canal de comunicación claro, directo y estructurado.'],
+['Guion de trabajo diario en el pupitre.','Temporizador visual para la regulación de los tiempos.']]},
+'auditiva':{label:'Discapacidad auditiva / hipoacusia',data:[
+['Presentación visual previa de los contenidos y vocabulario clave.','Comprobación de la recepción del mensaje sin dar por hecha la comprensión.'],
+['Ubicación en primera fila con visibilidad directa al rostro del profesorado.','Iluminación adecuada del aula que no produzca contraluz sobre el docente.'],
+['Concesión de tiempo extra por el esfuerzo en el procesamiento lingüístico.','Apoyo visual en las preguntas de exámenes e instrucciones escritas.'],
+['Uso de emisora de frecuencia modulada (FM) o micrófono si procede.','Facilitar apuntes o esquemas previos para evitar la copia simultánea a la lectura labial.','Subtitulado en materiales audiovisuales empleados en clase.','Hablar de frente al alumnado, con vocalización natural, evitando dar instrucciones mientras se escribe en la pizarra o se permanece de espaldas.'],
+['Diccionarios visuales, procesadores de texto y aplicaciones de transcripción.']]},
+'comp':{label:'Compensación educativa / ATAL',data:[
+['Tareas contextualizadas con apoyo lingüístico adaptado.','Glosarios de términos clave traducidos o ilustrados.'],
+['Ubicación con compañeros tutores que faciliten la integración social y el idioma.'],
+['Adaptación de pruebas iniciales al nivel de competencia lingüística.','Valoración prioritaria del progreso individual y esfuerzo.','En materias no lingüísticas, diferenciar en lo posible la evaluación del contenido de las dificultades derivadas del nivel de competencia en español.'],
+['Uso de textos traducidos, diccionarios bilingües y apoyo audiovisual.'],
+['Material didáctico de español como segunda lengua (EL2) y TIC.']]},
+'no':{label:'Repetidores, materias pendientes o dificultades de aprendizaje',data:[
+['Priorizar los aprendizajes no adquiridos o aquellos en los que presenta mayores dificultades.','Proponer actividades breves, graduadas y secuenciadas, con modelos o ejemplos resueltos cuando sea necesario.','Fragmentar trabajos o tareas extensas en entregas parciales y realizar seguimiento periódico.'],
+['Utilizar agrupamientos flexibles y, cuando resulte útil, apoyo o tutoría entre iguales.','Establecer momentos breves de seguimiento individual dentro del aula.','Flexibilizar razonablemente los tiempos de ejecución cuando las dificultades lo justifiquen.'],
+['Diversificar los instrumentos de evaluación: tareas, pruebas breves, observación, producciones y trabajos.','Realizar comprobaciones frecuentes y concretas de los aprendizajes esenciales.','Facilitar la recuperación progresiva de aprendizajes o partes no superadas.'],
+['Dar instrucciones claras, breves y por escrito, acompañadas de ejemplos cuando sea necesario.','Facilitar esquemas, resúmenes o listados de contenidos esenciales y fechas de entrega.','Comprobar la comprensión de las consignas antes de comenzar la tarea.'],
+['Utilizar agenda o checklist para tareas y entregas.','Facilitar materiales de refuerzo graduados, fichas de repaso, resúmenes y recursos digitales de la materia.','Usar Classroom, Moodle u otra plataforma del centro para centralizar materiales, tareas y fechas.']]}
+};
+const $=id=>document.getElementById(id);
+let mode=null;
+let chosenProfiles=[];
+const selected=Array.from({length:5},()=>new Set());
+const textOverrides=Array(5).fill(null);
+let timer;
+function toast(msg){$('toast').textContent=msg;$('toast').style.display='block';clearTimeout(timer);timer=setTimeout(()=>$('toast').style.display='none',2600)}
+function data(){return headings.map((_,i)=>[...new Set(chosenProfiles.flatMap(key=>profiles[key].data[i]))])}
+function outputText(i){return textOverrides[i]!==null?textOverrides[i]:data()[i].filter(t=>selected[i].has(t)).map(t=>'• '+t).join('\n')}
+function count(){const n=selected.reduce((sum,set)=>sum+set.size,0);$('count').textContent=n+' pautas seleccionadas · '+Array.from({length:5},(_,i)=>outputText(i).trim()).filter(Boolean).length+' de 5 apartados con texto'}
+function updateTextarea(i){const ta=$('text'+i);if(ta && textOverrides[i]===null)ta.value=outputText(i);count()}
+function resetSelection(){selected.forEach(s=>s.clear());textOverrides.fill(null)}
+function setMode(m){
+  if(mode===m)return;
+  mode=m;
+  $('neae').classList.toggle('active',m==='neae');$('noneae').classList.toggle('active',m==='noneae');
+  $('neae').setAttribute('aria-pressed',m==='neae');$('noneae').setAttribute('aria-pressed',m==='noneae');
+  $('profileWrap').hidden=false;
+  const options=m==='neae'?['dea','tdah','cil','tea','auditiva','comp']:['no'];
+  const area=$('profile');area.replaceChildren();
+  options.forEach(key=>{
+    const label=document.createElement('label');label.className='profile-choice';
+    const cb=document.createElement('input');cb.type='checkbox';cb.value=key;
+    cb.addEventListener('change',()=>{
+      chosenProfiles=options.filter(k=>area.querySelector('input[value="'+k+'"]:checked'));
+      // Conservar las pautas marcadas que sigan disponibles, sin duplicados.
+      const available=data();selected.forEach((set,i)=>{for(const t of set){if(!available[i].includes(t))set.delete(t)}});
+      textOverrides.fill(null);render();
+    });
+    const span=document.createElement('span');span.textContent=profiles[key].label;label.append(cb,span);area.append(label);
+  });
+  resetSelection();chosenProfiles=[];
+  $('selectionTools').hidden=false;
+  $('profileNote').textContent=m==='neae'?'Puedes marcar más de un perfil o circunstancia. Las pautas se combinarán sin duplicados.':'Selecciona la circunstancia de repetición, materias pendientes o dificultades de aprendizaje.';
+  render();
+}
+function render(){
+  const root=$('output');root.replaceChildren();
+  if(!chosenProfiles.length){root.innerHTML='<div class="empty">Marca al menos una circunstancia para ver las pautas de los cinco apartados.</div>';$('count').textContent='0 pautas seleccionadas';return}
+  const sections=document.createElement('div');sections.className='sections';
+  data().forEach((items,i)=>{
+    const section=document.createElement('section');section.className='section';
+    const head=document.createElement('div');head.className='section-head';
+    const h=document.createElement('h3');h.textContent=(i+1)+'. '+headings[i];
+    const pill=document.createElement('span');pill.className='pill';pill.textContent=selected[i].size+' de '+items.length+' pautas';head.append(h,pill);section.append(head);
+    const description=document.createElement('p');description.className='desc';description.textContent=descriptions[i];section.append(description);
+    const guides=document.createElement('div');guides.className='guides';
+    items.forEach(t=>{
+      const label=document.createElement('label');label.className='guide';
+      const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.checked=selected[i].has(t);checkbox.setAttribute('aria-label','Seleccionar pauta: '+t);
+      const span=document.createElement('span');span.textContent=t;
+      checkbox.addEventListener('change',()=>{
+        if(checkbox.checked)selected[i].add(t);else selected[i].delete(t);
+        textOverrides[i]=null;updateTextarea(i);pill.textContent=selected[i].size+' de '+items.length+' pautas';
+      });label.append(checkbox,span);guides.append(label);
+    });section.append(guides);
+    const lab=document.createElement('label');lab.className='editlabel';lab.htmlFor='text'+i;lab.textContent='Texto final editable para pegar en Séneca';section.append(lab);
+    const ta=document.createElement('textarea');ta.id='text'+i;ta.placeholder='Selecciona alguna pauta o escribe aquí tu propia propuesta…';ta.value=outputText(i);
+    ta.addEventListener('input',()=>{textOverrides[i]=ta.value;count()});section.append(ta);
+    const foot=document.createElement('div');foot.className='footerline';
+    const hint=document.createElement('span');hint.className='stat';hint.textContent='Puedes corregir, añadir o eliminar texto.';
+    const copy=document.createElement('button');copy.type='button';copy.className='btn primary';copy.textContent='Copiar apartado '+(i+1);copy.addEventListener('click',()=>copyText(ta.value,'Apartado '+(i+1)+' copiado'));
+    foot.append(hint,copy);section.append(foot);sections.append(section);
+  });root.append(sections);count();
+}
+async function copyText(t,msg){
+  if(!t.trim()){toast('Este apartado no tiene texto para copiar.');return}
+  try{await navigator.clipboard.writeText(t);toast(msg)}catch(e){
+    const box=document.createElement('textarea');box.value=t;box.style.position='fixed';box.style.opacity='0';document.body.append(box);box.select();
+    const ok=document.execCommand('copy');box.remove();toast(ok?msg:'No se pudo copiar automáticamente. Selecciona el texto y cópialo manualmente.');
+  }
+}
+$('neae').addEventListener('click',()=>setMode('neae'));
+$('noneae').addEventListener('click',()=>setMode('noneae'));
+$('all').addEventListener('click',()=>{
+  if(!chosenProfiles.length){toast('Primero selecciona al menos una circunstancia.');return}
+  data().forEach((arr,i)=>{selected[i].clear();arr.forEach(t=>selected[i].add(t));textOverrides[i]=null});
+  render();toast('Todas las pautas seleccionadas; revisa cuáles proceden.');
+});
+$('none').addEventListener('click',()=>{resetSelection();render()});
+$('reset').addEventListener('click',()=>{resetSelection();render();toast('Selección reiniciada')});
+$('copyAll').addEventListener('click',()=>{
+  if(!chosenProfiles.length){toast('Primero selecciona una circunstancia.');return}
+  const t=headings.map((h,i)=>`${i+1}. ${h}\n${outputText(i)}`).join('\n\n');
+  if(!Array.from({length:5},(_,i)=>outputText(i)).some(s=>s.trim())){toast('Selecciona o escribe al menos una pauta.');return}
+  copyText(t,'Se han copiado los apartados con sus encabezados');
+});
+</script></body></html>
