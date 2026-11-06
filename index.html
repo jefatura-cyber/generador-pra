@@ -71,7 +71,7 @@ const textOverrides=Array(5).fill(null);
 let timer;
 function toast(msg){$('toast').textContent=msg;$('toast').style.display='block';clearTimeout(timer);timer=setTimeout(()=>$('toast').style.display='none',2600)}
 function data(){return headings.map((_,i)=>[...new Set(chosenProfiles.flatMap(key=>profiles[key].data[i]))])}
-function outputText(i){return textOverrides[i]!==null?textOverrides[i]:data()[i].filter(t=>selected[i].has(t)).map(t=>'• '+t).join('\n')}
+function outputText(i){return textOverrides[i]!==null?textOverrides[i]:data()[i].filter(t=>selected[i].has(t)).map((t,index)=>(index+1)+'. '+t).join('\n')}
 function count(){const n=selected.reduce((sum,set)=>sum+set.size,0);$('count').textContent=n+' pautas seleccionadas · '+Array.from({length:5},(_,i)=>outputText(i).trim()).filter(Boolean).length+' de 5 apartados con texto'}
 function updateTextarea(i){const ta=$('text'+i);if(ta && textOverrides[i]===null)ta.value=outputText(i);count()}
 function resetSelection(){selected.forEach(s=>s.clear());textOverrides.fill(null)}
