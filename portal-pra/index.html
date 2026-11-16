@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#123d3d">
+<title>Portal PRA | Gestor y Seguimiento</title>
+<style>
+:root{--deep:#163d3e;--deep2:#205551;--green:#117565;--green-d:#095c51;--pale:#e9f5ef;--blue:#2b608e;--blue-pale:#eaf1f9;--ink:#193438;--soft:#6c8082;--border:#e1eae7;--bg:#f5f8f7;--white:#fff;--shadow:0 8px 22px rgba(23,67,59,.045)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "Segoe UI",Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #8bd9bf;outline-offset:2px}
+.layout{display:flex;min-height:100vh}.side{width:250px;flex:none;background:var(--deep);color:#e5f3ec;padding:24px 14px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}.brand{display:flex;gap:11px;align-items:center;padding:2px 12px 28px}.mark{height:42px;width:42px;display:grid;place-items:center;background:#e1f5ea;color:#0a6456;border-radius:12px;font-weight:900;font-size:18px}.brand strong{font-size:20px;letter-spacing:-.6px;display:block;line-height:1.1}.brand small{font-size:11px;color:#a6ccc0}.sect{font-size:10px;color:#8bb2a8;letter-spacing:.13em;font-weight:800;padding:14px 14px 9px}.nav{display:flex;align-items:center;gap:11px;text-align:left;width:100%;padding:12px;border:0;color:#cfdfda;background:transparent;border-radius:10px;font-weight:750;margin-bottom:4px}.nav:hover,.nav.active{background:#285854;color:white}.nav.active{box-shadow:inset 3px 0 #adedd3}.nav span{font-size:17px;width:23px;text-align:center}.sidefooter{margin-top:auto;border-top:1px solid #36615b;padding:15px 12px 3px;font-size:11px;color:#a7c8be;line-height:1.55}.sidefooter b{display:block;color:#e7f5ec}
+main{flex:1;min-width:0}.top{height:72px;border-bottom:1px solid var(--border);background:#ffffffed;display:flex;align-items:center;justify-content:space-between;padding:0 4%;gap:12px}.crumb{color:#8ca09d;font-size:12px;font-weight:800}.crumb b{color:var(--ink)}.topright{display:flex;gap:11px;align-items:center}.state{background:#fff1d7;color:#926218;border-radius:999px;padding:6px 10px;font-size:10px;font-weight:850;white-space:nowrap}.avatar{height:34px;width:34px;display:grid;place-items:center;background:#e3efe9;color:#256753;border-radius:50%;font-size:11px;font-weight:900}
+.container{max-width:1450px;margin:0 auto;padding:30px 4% 70px}.page{display:none}.page.active{display:block}.h1{font-size:29px;letter-spacing:-.8px;margin:0 0 6px}.lead{color:var(--soft);margin:0 0 22px;font-size:13px;max-width:850px}.hero{padding:33px;background:linear-gradient(115deg,#0d7566,#0d5f5a 69%,#163e49);color:white;border-radius:19px;display:flex;align-items:center;justify-content:space-between;gap:15px}.hero h1{font-size:clamp(29px,3.3vw,43px);margin:9px 0 10px;line-height:1.11;letter-spacing:-1.3px}.hero p{max-width:620px;margin:0;color:#cee8df;font-size:13px}.eyebrow{font-size:10px;font-weight:800;letter-spacing:.15em;color:#b7e6d6}.heroart{height:125px;width:125px;border-radius:28px;background:#ffffff18;border:1px solid #8fc1b6;display:grid;place-items:center;font-size:64px;transform:rotate(-9deg);flex:none}.buttons{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:19px}.btn{border:1px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:10px;padding:11px 15px;font-size:12px;font-weight:800;transition:.15s}.btn:active{transform:translateY(1px)}.btn.primary{background:var(--green);color:white}.btn.primary:hover{background:var(--green-d)}.btn.secondary{background:#e7f4ec;color:#176b5c}.btn.blue{background:var(--blue);color:white}.btn.light{background:white;color:var(--green)}.btn.outline{border-color:#d7e5df;background:#fff;color:#2c6d5c}.btn.ghost{background:#edf2ef;color:#496a61}.btn:disabled{opacity:.47;cursor:not-allowed}.btn.sm{padding:8px 11px;font-size:11px}.btn.wide{width:100%}.badge{background:#e9f5ed;color:#1f7557;border-radius:16px;font-size:10px;font-weight:900;padding:5px 9px;display:inline-block;letter-spacing:.01em}.badge.blue{background:#e7f0fa;color:#315f8b}.badge.amber{background:#fff2db;color:#916321}.note{background:#fff5e4;color:#86632c;border:1px solid #f2e3c4;padding:12px 15px;border-radius:11px;font-size:12px;display:flex;gap:10px;margin:17px 0;align-items:flex-start;line-height:1.5}.note span:first-child{font-size:15px;font-weight:900}.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:23px 0 28px}.tile{background:#fff;border:1px solid var(--border);border-radius:16px;padding:24px;box-shadow:var(--shadow);overflow:hidden;position:relative}.tile::after{content:"";height:160px;width:160px;border:22px solid #eaf4ee;border-radius:50%;position:absolute;right:-80px;top:-80px;pointer-events:none}.tile.blue::after{border-color:#eef4fa}.tile .symbol{width:48px;height:48px;background:#e9f6ef;color:#0e7864;border-radius:13px;display:grid;place-items:center;font-size:24px;margin-bottom:13px}.tile.blue .symbol{background:#e9f0f8;color:#28628f}.tile h2{font-size:22px;letter-spacing:-.4px;margin:8px 0}.tile p{font-size:13px;color:var(--soft);line-height:1.6;max-width:460px}.pills{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0}.pills span{font-size:10px;background:#f1f7f4;padding:6px 9px;color:#44695f;border-radius:6px;font-weight:800}.tile.blue .pills span{background:#f1f5fa;color:#4b6884}
+.card{background:white;border:1px solid var(--border);border-radius:15px;box-shadow:var(--shadow)}.pad{padding:22px}.heading{display:flex;justify-content:space-between;align-items:flex-end;gap:15px;margin-bottom:14px}.heading h2{font-size:18px;margin:0;letter-spacing:-.25px}.heading p{font-size:12px;color:var(--soft);margin:3px 0 0}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:17px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:19px 0 28px}.stat{background:white;border:1px solid var(--border);border-radius:13px;padding:18px;box-shadow:var(--shadow)}.stat small{font-weight:800;color:#7c9692;font-size:11px}.stat strong{display:block;font-size:27px;letter-spacing:-.8px;margin:5px 0 0}.stat .si{font-size:16px}.subtle{font-size:12px;color:var(--soft)}.feature{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid #ecf1ee}.feature:last-child{border-bottom:0}.step{height:35px;width:35px;border-radius:10px;background:#e7f5ed;color:#177761;display:grid;place-items:center;font-weight:900;flex:none}.feature b{display:block;margin-bottom:4px}.feature p{font-size:12px;color:var(--soft);margin:0}.input{width:100%;border:1px solid #d8e5df;border-radius:9px;padding:10px 11px;background:white;color:var(--ink);min-height:42px;outline:none}.input:focus{border-color:#43aa90;box-shadow:0 0 0 3px #e0f4ec}.input::placeholder{color:#9aafab}.input[readonly]{background:#f3f7f5;color:#657c76}textarea.input{min-height:95px;resize:vertical}.field label{display:block;font-size:11px;color:#546c69;font-weight:850;margin-bottom:7px}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.full{grid-column:1/-1}.band{background:#eaf5ee;border-left:3px solid var(--green);border-radius:0 9px 9px 0;padding:10px 14px;font-weight:850;margin:24px 0 15px}.band small{display:block;font-size:11px;color:#6b8578;font-weight:500;margin-top:3px}.bar{display:flex;justify-content:space-between;align-items:center;gap:11px;flex-wrap:wrap;margin-bottom:15px}.tablewrap{overflow-x:auto}table{border-collapse:collapse;width:100%}th{text-align:left;background:#f5f9f7;color:#82958f;text-transform:uppercase;letter-spacing:.07em;font-size:10px;padding:12px}td{font-size:12px;padding:13px 12px;border-bottom:1px solid #edf2ef;vertical-align:middle}tbody tr:last-child td{border-bottom:0}.name b{display:block}.name small{display:block;color:#8a9e99;margin-top:3px}.selectrow{accent-color:var(--green);height:15px;width:15px}.tiny{font-size:11px;color:#80918e}.row{border:1px solid #e4ede8;border-radius:10px;padding:12px;display:flex;gap:11px;justify-content:space-between;align-items:center;margin-top:10px}.row .rr{flex:1}.row .rr b{display:block}.row .rr small{display:block;color:var(--soft);font-size:11px}.sidecard{background:#f0f7f3;border:1px solid #e2eee7;border-radius:12px;padding:16px;margin-top:15px}.sidecard h3{margin:0 0 9px;font-size:13px}.directory{background:#fbfdfb;border:1px solid #e6eee9;border-radius:11px;padding:15px;font-size:12px}.directory div{padding:7px 0}.folderin{padding-left:24px!important}.folderdeep{padding-left:48px!important}
+.modal{position:fixed;inset:0;background:#102a2dbd;display:none;align-items:flex-start;justify-content:center;z-index:50;overflow-y:auto;padding:22px}.modal.active{display:flex}.dialog{width:min(780px,100%);background:#f6f8f7;border-radius:15px;box-shadow:0 22px 80px #0002;overflow:hidden}.dialoghead{background:white;padding:17px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #e6eeea}.dialoghead h3{margin:0;font-size:15px}.preview{padding:1px 18px 20px;max-height:76vh;overflow:auto}.paper{background:white;box-shadow:0 5px 20px #15332915;margin:18px auto;padding:27px;width:92%;font-size:12px;line-height:1.6;min-height:390px}.paper h3{font-size:14px;text-align:center;margin:2px 0 17px}.paper table td{border:1px solid #cddad4;padding:8px;font-size:11px}.paper strong{color:#235f56}.paper p{white-space:pre-wrap}.paper .signature{margin-top:25px}.toast{position:fixed;bottom:22px;right:22px;max-width:430px;background:var(--deep);color:white;font-size:12px;font-weight:800;padding:13px 16px;border-radius:10px;opacity:0;transform:translateY(10px);transition:.2s;pointer-events:none;z-index:70;box-shadow:0 10px 28px #0f302855}.toast.show{opacity:1;transform:none}.empty{padding:30px;text-align:center;color:var(--soft);font-size:13px}.footer{text-align:center;font-size:11px;color:#8b9e9a;margin-top:40px}
+@media(max-width:1024px){.side{width:212px}.stats{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:1fr}.tile h2{font-size:20px}.container{padding:23px}}
+@media(max-width:730px){.layout{display:block}.side{height:auto;position:static;width:100%;padding:12px}.brand{padding:0 7px 10px}.sect,.sidefooter{display:none}.nav{display:inline-flex;width:auto;font-size:12px;padding:9px 8px}.nav span{width:auto;font-size:14px}.top{height:52px;padding:0 15px}.container{padding:15px 12px 40px}.hero{padding:24px 17px}.heroart{display:none}.tiles,.grid2,.formgrid{grid-template-columns:1fr}.full{grid-column:auto}.pad{padding:15px}.stats{gap:8px;margin:15px 0}.stat{padding:13px}.stat strong{font-size:24px}.state{font-size:9px}.paper{width:97%;padding:18px}.bar{align-items:stretch}}
+@media print{body>.layout{display:none}.modal{display:block;position:static;padding:0;background:#fff}.dialog{width:100%;box-shadow:none}.dialoghead{display:none}.preview{max-height:none;overflow:visible;padding:0}.paper{width:100%;box-shadow:none;margin:0;min-height:auto;padding:15mm;break-after:page}.toast{display:none}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="side">
+<div class="brand"><div class="mark">PRA</div><div><strong>Portal PRA</strong><small>Gestión y seguimiento</small></div></div>
+<div class="sect">PANEL PRINCIPAL</div>
+<button class="nav active" data-screen="home"><span>▦</span> Vista general</button>
+<div class="sect">APLICACIONES</div>
+<button class="nav" data-screen="manager"><span>▤</span> Gestor PRA</button>
+<button class="nav" data-screen="follow"><span>◷</span> Seguimiento PRA</button>
+<div class="sect">CENTRO</div>
+<button class="nav" data-screen="docs"><span>▣</span> Documentos</button>
+<button class="nav" data-screen="settings"><span>⚙</span> Configuración</button>
+<button class="nav" data-screen="guide"><span>ⓘ</span> Cómo funciona</button>
+<div class="sidefooter"><b>🔒 Borrador con datos ficticios</b>Una sola web con las dos aplicaciones. No conectada a Séneca ni a Google Drive.</div>
+</aside>
+<main>
+<header class="top"><div class="crumb">Portal PRA &nbsp; / &nbsp; <b id="crumb">Vista general</b></div><div class="topright"><span class="state">DEMOSTRACIÓN INTERACTIVA</span><div class="avatar">CEP</div></div></header>
+<div class="container">
+<section class="page active" id="home">
+<div class="hero"><div><div class="eyebrow">DOS HERRAMIENTAS · UNA SOLA PLATAFORMA</div><h1>Todo el trabajo con los PRAs,<br>en una misma web.</h1><p>Gestiona las comunicaciones a las familias y realiza el seguimiento del aprendizaje sin cambiar de aplicación. Una experiencia unificada para los centros educativos.</p><div class="buttons"><button class="btn light" data-screen="manager">Entrar en Gestor PRA →</button><button class="btn" style="color:#fff;border-color:#8bcabc;background:#ffffff18" data-screen="follow">Abrir Seguimiento PRA</button></div></div><div class="heroart">▤</div></div>
+<div class="note"><span>ⓘ</span><div><b>Esta es una demostración visual.</b> Puedes probar los botones y los formularios con alumnado ficticio. Los resultados son simulados y no se guardan en Google Drive ni en Séneca.</div></div>
+<div class="tiles">
+<div class="tile"><div class="symbol">▤</div><span class="badge">APLICACIÓN 01</span><h2>Gestor PRA</h2><p>Convierte los registros de Séneca en comunicaciones individuales para las familias, conservando la estructura y las tablas de la plantilla del centro.</p><div class="pills"><span>Selección de alumnado</span><span>Plantilla familiar</span><span>PDFs por grupo</span></div><button class="btn primary" data-screen="manager">Acceder al gestor →</button></div>
+<div class="tile blue"><div class="symbol">◷</div><span class="badge blue">APLICACIÓN 02</span><h2>Seguimiento PRA</h2><p>Registra los cinco apartados de seguimiento de cada materia y reúne todos los informes del mismo alumno en un único documento acumulativo.</p><div class="pills"><span>Profesor y materia</span><span>5 apartados</span><span>PDF acumulativo</span></div><button class="btn blue" data-screen="follow">Acceder al seguimiento →</button></div>
+</div>
+<div class="grid2">
+<div class="card pad"><div class="heading"><div><h2>Un solo origen de datos</h2><p>Desde una hoja de Google Sheets por centro</p></div></div><div class="feature"><div class="step">01</div><div><b>Alumnado y materias</b><p>Los datos de Séneca alimentan tanto el gestor familiar como el seguimiento del profesorado.</p></div></div><div class="feature"><div class="step">02</div><div><b>Dos procesos independientes</b><p>Las comunicaciones y los seguimientos utilizan sus propias carpetas y plantillas.</p></div></div><div class="feature"><div class="step">03</div><div><b>Documentos organizados</b><p>La estructura de salida sigue el nivel y el grupo del alumnado.</p></div></div></div>
+<div class="card pad"><div class="heading"><div><h2>Actividad de muestra</h2><p>Indicadores demostrativos</p></div></div><div class="grid2"><div class="stat"><small>Alumnado</small><strong id="homeStudents">5</strong></div><div class="stat"><small>Comunicaciones</small><strong id="homeComms">0</strong></div><div class="stat"><small>Seguimientos</small><strong id="homeFollows">0</strong></div><div class="stat"><small>Informes acumulativos</small><strong id="homeReports">0</strong></div></div><p class="subtle" style="margin-top:16px">Los indicadores se actualizan cuando utilizas las herramientas del borrador.</p></div>
+</div>
+</section>
+
+<section class="page" id="manager">
+<h1 class="h1">Gestor PRA</h1><p class="lead">Generación de comunicaciones para las familias desde los datos de Séneca. Elige alumnado, revisa la plantilla y simula la creación de PDFs organizados por grupo.</p>
+<div class="stats"><div class="stat"><small>Alumnos detectados</small><strong id="mStudents">5</strong></div><div class="stat"><small>Materias con PRA</small><strong id="mSubjects">8</strong></div><div class="stat"><small>Comunicaciones creadas</small><strong id="mCreated">0</strong></div><div class="stat"><small>Grupos</small><strong id="mGroups">4</strong></div></div>
+<div class="grid2">
+<div class="card pad">
+<div class="bar"><div><h2 style="margin:0;font-size:17px">1. Seleccionar alumnado</h2><div class="subtle">Base de datos ficticia, con Infantil, ESO y Bachillerato</div></div><button class="btn outline sm" id="allManager">Seleccionar todos</button></div>
+<div class="field" style="margin-bottom:13px"><label>Filtrar por curso</label><select class="input" id="managerLevel"></select></div>
+<div id="managerRoster"></div>
+<div class="buttons"><button class="btn primary" id="makeComms">Simular generación de PDFs</button><button class="btn outline" id="previewFamily">Vista previa de plantilla</button></div>
+<p class="tiny" style="margin-top:12px">No se envían datos ni se generan archivos reales durante esta prueba.</p>
+</div>
+<div class="card pad"><div class="heading"><div><h2>2. Documento para las familias</h2><p>Conserva las tablas del comunicado</p></div><span class="badge">PLANTILLA</span></div>
+<div class="row"><div class="step">▤</div><div class="rr"><b>Datos del alumno y del grupo</b><small>Identificación y curso académico</small></div><span class="badge">Automático</span></div>
+<div class="row"><div class="step">▦</div><div class="rr"><b>Tipo de programa y materias</b><small>Datos del registro PRA</small></div><span class="badge">Automático</span></div>
+<div class="row"><div class="step">✓</div><div class="rr"><b>Colaboración familiar</b><small>Compromisos y seguimiento en casa</small></div><span class="badge">Plantilla</span></div>
+<div class="sidecard"><h3>Carpeta de comunicaciones</h3><div class="subtle">Mi unidad / Comunicaciones PRA / Curso / Grupo</div><div class="buttons"><button class="btn secondary" data-screen="settings">Configurar carpetas</button><button class="btn outline" data-screen="docs">Ver comunicaciones</button></div></div>
+</div>
+</div>
+</section>
+
+<section class="page" id="follow">
+<h1 class="h1">Seguimiento PRA</h1><p class="lead">Formulario del profesorado con selección dependiente de curso, grupo, alumno y materia. Cada envío se incorpora al informe acumulativo de su alumno.</p>
+<div class="stats"><div class="stat"><small>Alumnos con PRA</small><strong>5</strong></div><div class="stat"><small>Seguimientos registrados</small><strong id="fEntries">3</strong></div><div class="stat"><small>Informes únicos</small><strong id="fFiles">2</strong></div><div class="stat"><small>Materias distintas</small><strong id="fTypes">3</strong></div></div>
+<div class="card pad">
+<div class="bar"><div><h2 style="margin:0;font-size:17px">Formulario de seguimiento</h2><div class="subtle">Una respuesta por materia y profesor</div></div><span class="badge blue">5 APARTADOS</span></div>
+<form id="followForm">
+<div class="formgrid">
+<div class="field"><label>Curso escolar *</label><select class="input" id="year" required><option>2026/2027</option></select></div>
+<div class="field"><label>Profesor/a (Apellidos, nombre) *</label><input class="input" id="teacher" required placeholder="Ej.: Gómez Pérez, Elena"></div>
+<div class="field"><label>Curso del alumno/a *</label><select class="input" id="level" required></select></div>
+<div class="field"><label>Grupo *</label><select class="input" id="group" required></select></div>
+<div class="field"><label>Alumno/a *</label><select class="input" id="student" required></select></div>
+<div class="field"><label>Materia *</label><select class="input" id="subject" required></select></div>
+<div class="field full"><label>Situación del alumno/a (desde Séneca)</label><input class="input" id="situation" readonly></div>
+</div>
+<div class="band">1. Progreso del alumno/a<small>Indique los aspectos observados.</small></div><div class="field"><textarea class="input" id="progress" required placeholder="Señala los avances observados..."></textarea></div>
+<div class="band">2. Dificultades detectadas<small>Identifique las dificultades que persisten.</small></div><div class="field"><textarea class="input" id="difficulties" required placeholder="Indica las dificultades observadas..."></textarea></div><div class="field" style="margin-top:13px"><label>Otras dificultades u observaciones</label><textarea class="input" id="other" style="min-height:70px" placeholder="Opcional"></textarea></div>
+<div class="band">3. Eficacia de la medida<small>Valoración general de su eficacia.</small></div><div class="field"><textarea class="input" id="effectiveness" required placeholder="Valora las medidas aplicadas..."></textarea></div>
+<div class="band">4. Modificaciones propuestas<small>Propuestas y recomendaciones del profesorado.</small></div><div class="field"><textarea class="input" id="changes" required placeholder="Indica los cambios que recomiendas..."></textarea></div><div class="field" style="margin-top:13px"><label>Observaciones finales y recomendaciones</label><textarea class="input" id="observations" style="min-height:70px" placeholder="Opcional"></textarea></div>
+<div class="band">5. Continuación de la medida<small>¿Es necesario continuar con la medida en cursos posteriores?</small></div><div class="field"><select class="input" id="continuation" required><option value="">Seleccionar respuesta...</option><option>Sí</option><option>No</option><option>Pendiente de valoración</option></select></div>
+<div class="note" style="margin-top:20px"><span>ⓘ</span><div>Los envíos se simulan en el navegador. La versión integrada con Google Workspace necesitará autorización de acceso, un formulario real y la generación efectiva del PDF.</div></div>
+<div class="buttons"><button type="submit" class="btn blue">Guardar seguimiento de prueba</button><button type="reset" class="btn outline">Limpiar formulario</button><button type="button" class="btn secondary" data-screen="docs">Ver informes</button></div>
+</form>
+</div>
+</section>
+
+<section class="page" id="docs">
+<h1 class="h1">Documentos del centro</h1><p class="lead">Consulta las comunicaciones familiares y los informes acumulativos de seguimiento en el mismo lugar.</p>
+<div class="card pad">
+<div class="bar"><div class="buttons" style="margin:0"><button class="btn primary" data-docmode="family" id="familyTab">Comunicaciones PRA</button><button class="btn ghost" data-docmode="follow" id="followTab">Seguimientos acumulativos</button></div><input class="input" id="docSearch" type="search" placeholder="Buscar alumno o grupo..." style="max-width:280px"></div>
+<div class="tablewrap"><table><thead><tr id="docHeaders"></tr></thead><tbody id="docRows"></tbody></table></div>
+</div>
+<div class="note"><span>ⓘ</span><div>En la demostración los documentos son vistas previas. En el sistema real, cada seguimiento de un alumno se incorporará al mismo PDF, con una sección por materia.</div></div>
+</section>
+
+<section class="page" id="settings">
+<h1 class="h1">Configuración</h1><p class="lead">Dos carpetas y dos plantillas distintas, pero una única base de datos en Google Sheets. Estos campos son solo ilustrativos: no guardan ni transmiten URLs.</p>
+<div class="grid2">
+<div class="card pad"><span class="badge">GESTOR PRA</span><h2 style="font-size:18px">Comunicaciones familiares</h2><div class="field"><label>Carpeta de destino</label><input class="input" id="folderFamily" placeholder="Pega aquí el enlace de Google Drive"></div><div class="buttons"><button class="btn primary" id="simFolderFamily">Simular configuración</button><button class="btn outline" id="simTemplateFamily">Ver modelo familiar</button></div><p class="tiny">La plantilla real conserva las cuatro tablas originales del comunicado familiar.</p></div>
+<div class="card pad"><span class="badge blue">SEGUIMIENTO PRA</span><h2 style="font-size:18px">Informes del profesorado</h2><div class="field"><label>Carpeta de destino</label><input class="input" id="folderFollow" placeholder="Pega aquí el enlace de Google Drive"></div><div class="buttons"><button class="btn blue" id="simFolderFollow">Simular configuración</button><button class="btn outline" id="simFormCreate">Crear formulario de prueba</button></div><p class="tiny">La plantilla real conserva las tablas originales del informe de seguimiento.</p></div>
+</div>
+<div class="card pad" style="margin-top:17px"><div class="heading"><div><h2>Estructura prevista en Google Drive</h2><p>Se creará por cada centro que haga su copia</p></div></div><div class="grid2"><div class="directory"><div>📁 <b>Comunicaciones PRA</b></div><div class="folderin">📁 1º ESO</div><div class="folderdeep">📁 1º ESO A</div><div class="folderdeep">📄 Comunicación familiar.pdf</div><div class="folderin">📁 Infantil 4 años</div></div><div class="directory"><div>📁 <b>Seguimiento de PRAs</b></div><div class="folderin">📁 1º ESO</div><div class="folderdeep">📁 1º ESO A</div><div class="folderdeep">📄 Seguimiento PRA - Alumno.pdf</div><div class="folderin">📊 Respuestas de Google Forms</div><div class="folderin">📋 Plantilla de Google Docs</div></div></div></div>
+</section>
+
+<section class="page" id="guide">
+<h1 class="h1">Cómo funciona</h1><p class="lead">La misma hoja de cálculo se convierte en la base de dos aplicaciones complementarias.</p>
+<div class="grid2">
+<div class="card pad"><span class="badge">01 · GESTOR PRA</span><div class="feature"><div class="step">1</div><div><b>Pegar datos de Séneca</b><p>Cada centro copia la hoja maestra y carga sus pestañas de alumnado.</p></div></div><div class="feature"><div class="step">2</div><div><b>Revisar la plantilla familiar</b><p>La plantilla editable mantiene sus tablas y sus campos automáticos.</p></div></div><div class="feature"><div class="step">3</div><div><b>Generar comunicaciones</b><p>Un documento individual por alumno, organizado por grupo.</p></div></div><button class="btn primary" data-screen="manager">Probar Gestor PRA</button></div>
+<div class="card pad"><span class="badge blue">02 · SEGUIMIENTO PRA</span><div class="feature"><div class="step">1</div><div><b>Seleccionar alumno y materia</b><p>Curso, grupo y materia se vinculan al listado de Séneca.</p></div></div><div class="feature"><div class="step">2</div><div><b>Rellenar cinco apartados</b><p>Progreso, dificultades, eficacia, modificaciones y continuidad.</p></div></div><div class="feature"><div class="step">3</div><div><b>Documento acumulativo</b><p>Los distintos profesores aportan seguimientos al mismo alumno.</p></div></div><button class="btn blue" data-screen="follow">Probar Seguimiento PRA</button></div>
+</div>
+<div class="note"><span>🔒</span><div><b>Protección de datos:</b> esta web pública es solamente un prototipo con registros inventados. Para emplearla con datos reales de alumnado debe implementarse dentro del entorno Google Workspace autorizado, con controles de acceso y sin publicar las bases de datos ni los documentos en GitHub.</div></div>
+</section>
+<footer class="footer">Portal PRA · Borrador interactivo para el curso de formación · Datos ficticios</footer>
+</div>
+</main>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="dialog"><div class="dialoghead"><h3 id="modalTitle">Vista previa del documento</h3><div class="buttons" style="margin:0"><button class="btn secondary sm" id="printPreview">Imprimir muestra</button><button class="btn ghost sm" id="closeModal">Cerrar ×</button></div></div><div class="preview" id="previewContent"></div></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+"use strict";
+const $=s=>document.getElementById(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const uniq=a=>Array.from(new Set(a)).sort((a,b)=>a.localeCompare(b,"es"));
+const students=[
+{id:"S1",name:"Clara Montes Vidal",level:"1º ESO",group:"1º ESO A",situation:"PRA alumnado NEAE",type:"Programa de Refuerzo del Aprendizaje · NEAE",subjects:["Matemáticas","Lengua Castellana y Literatura"]},
+{id:"S2",name:"Hugo Medina Campos",level:"1º ESO",group:"1º ESO A",situation:"PRA alumnado con dificultades",type:"Programa de Refuerzo del Aprendizaje · Dificultades",subjects:["Matemáticas","Inglés"]},
+{id:"S3",name:"Irene Soto Morales",level:"2º ESO",group:"2º ESO B",situation:"PRA alumnado NEAE",type:"Programa de Refuerzo del Aprendizaje · NEAE",subjects:["Geografía e Historia","Lengua Castellana y Literatura"]},
+{id:"S4",name:"Lucas Martín Ruiz",level:"Infantil 4 años",group:"Infantil 4 años A",situation:"PRA alumnado NEAE",type:"Programa de Refuerzo del Aprendizaje · NEAE",subjects:["Crecimiento en armonía","Comunicación y representación de la realidad"]},
+{id:"S5",name:"Vera Ortega Blanco",level:"1º Bachillerato",group:"1º Bachillerato A",situation:"PRA alumnado con dificultades",type:"Programa de Refuerzo del Aprendizaje · Dificultades",subjects:["Matemáticas Aplicadas a las Ciencias Sociales"]}
+];
+const communications=new Set(["S2"]);
+const entries=[
+{sid:"S1",subject:"Matemáticas",teacher:"Pérez Molina, Elena",date:"10/11/2026",progress:"Se observa mayor autonomía al resolver ejercicios de números enteros.",difficulties:"Continúa necesitando apoyo en problemas de varios pasos.",other:"",effectiveness:"La adaptación de tareas está resultando eficaz.",changes:"Mantener el apoyo visual y las tareas graduadas.",observations:"",continuation:"Sí"},
+{sid:"S1",subject:"Lengua Castellana y Literatura",teacher:"García Ruiz, Daniel",date:"12/11/2026",progress:"Mejora en la comprensión de textos breves.",difficulties:"Dificultad para localizar las ideas principales.",other:"",effectiveness:"Buena respuesta a los apoyos proporcionados.",changes:"Incorporar esquemas y guiones de lectura.",observations:"",continuation:"Pendiente de valoración"},
+{sid:"S2",subject:"Inglés",teacher:"Moreno Castro, Ana",date:"13/11/2026",progress:"Participa con mayor frecuencia en las actividades orales.",difficulties:"Necesita repetir los audios varias veces.",other:"",effectiveness:"Evolución moderadamente positiva.",changes:"Ofrecer audios cortos con apoyo visual.",observations:"",continuation:"Sí"}
+];
+const navLabels={home:"Vista general",manager:"Gestor PRA",follow:"Seguimiento PRA",docs:"Documentos",settings:"Configuración",guide:"Cómo funciona"};
+let docMode="family",toastTimer,selectAll=false;
+function notify(t){$("toast").textContent=t;$("toast").classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>$("toast").classList.remove("show"),3500)}
+function go(s){$$(".page").forEach(p=>p.classList.toggle("active",p.id===s));$$(".nav").forEach(n=>n.classList.toggle("active",n.dataset.screen===s));$("crumb").textContent=navLabels[s];if(s==="docs")renderDocs();window.scrollTo({top:0,behavior:"smooth"})}
+$$("[data-screen]").forEach(x=>x.addEventListener("click",()=>go(x.dataset.screen)));
+function setOptions(id,values,placeholder){const e=$(id);e.innerHTML="";if(placeholder){let o=document.createElement("option");o.value="";o.textContent=placeholder;e.appendChild(o)}values.forEach(x=>{let o=document.createElement("option");o.value=x;o.textContent=x;e.appendChild(o)})}
+function updateHome(){
+$("homeStudents").textContent=students.length;
+$("homeComms").textContent=communications.size;
+$("homeFollows").textContent=entries.length;
+$("homeReports").textContent=uniq(entries.map(e=>e.sid)).length;
+$("mStudents").textContent=students.length;
+$("mSubjects").textContent=students.reduce((a,s)=>a+s.subjects.length,0);
+$("mCreated").textContent=communications.size;
+$("mGroups").textContent=uniq(students.map(s=>s.group)).length;
+$("fEntries").textContent=entries.length;
+$("fFiles").textContent=uniq(entries.map(e=>e.sid)).length;
+$("fTypes").textContent=uniq(entries.map(e=>e.subject)).length;
+}
+function managerInit(){setOptions("managerLevel",uniq(students.map(s=>s.level)),"Todos los cursos");managerRender()}
+function managerRender(){
+const level=$("managerLevel").value, roster=students.filter(s=>!level||s.level===level);
+$("managerRoster").innerHTML=roster.map(s=>'<label class="row" style="cursor:pointer"><input type="checkbox" class="selectrow" data-mgr="'+esc(s.id)+'" '+(selectAll?'checked':'')+'><div class="rr"><b>'+esc(s.name)+'</b><small>'+esc(s.group)+' · '+esc(s.subjects.join(" · "))+'</small></div><span class="badge '+(communications.has(s.id)?"":"amber")+'">'+(communications.has(s.id)?"Generado":"Pendiente")+'</span></label>').join("");
+if(!roster.length)$("managerRoster").innerHTML='<div class="empty">No hay alumnos de ese curso.</div>';
+}
+$("managerLevel").addEventListener("change",()=>{selectAll=false;managerRender()});
+$("allManager").addEventListener("click",()=>{selectAll=!selectAll;$$("[data-mgr]").forEach(x=>x.checked=selectAll);$("allManager").textContent=selectAll?"Deseleccionar todos":"Seleccionar todos"});
+function managerSelected(){return $$("[data-mgr]:checked").map(x=>x.dataset.mgr)}
+$("makeComms").addEventListener("click",()=>{const ids=managerSelected();if(!ids.length){notify("Selecciona al menos un alumno");return}ids.forEach(x=>communications.add(x));updateHome();managerRender();notify(ids.length+" comunicaciones simuladas. Puedes verlas en Documentos.")});
+function familyPaper(s){
+return '<div class="paper"><h3>INFORMACIÓN Y COLABORACIÓN CON LA FAMILIA O REPRESENTANTES LEGALES SOBRE LOS PROGRAMAS DE REFUERZO DEL APRENDIZAJE</h3><p style="text-align:center"><b>2026-2027</b></p><table><tr><td>Alumno/a: <b>'+esc(s.name)+'</b></td><td>Grupo: <b>'+esc(s.group)+'</b></td></tr><tr><td colspan="2">Los/as representantes legales manifiestan haber sido informados/as del PROGRAMA DE REFUERZO DEL APRENDIZAJE orientado a la superación de las dificultades detectadas en las materias o ámbitos indicados en este documento.</td></tr></table><table style="margin-top:13px"><tr><td><b>Tipo de programa de refuerzo del aprendizaje</b></td></tr><tr><td>'+esc(s.type)+'</td></tr></table><table style="margin-top:13px"><tr><td><b>Materias/Ámbitos/Áreas</b></td></tr><tr><td>'+esc(s.subjects.join(" · "))+'</td></tr></table><table style="margin-top:13px"><tr><td><b>COLABORACIÓN FAMILIAR</b></td></tr><tr><td>Realizar un seguimiento académico (iPasen, tutorías, etc.).<br>Supervisar el trabajo diario y las tareas.<br>Limitar el horario de ocio con dispositivos tecnológicos.<br>Utilizar el refuerzo positivo.<br>Favorecer la asistencia al PROA/PALI, si procede.</td></tr></table><p style="color:#82948f;font-size:10px;margin-top:20px">Vista aproximada del contenido; la versión real conserva el formato y logotipo de la plantilla de Google Docs.</p></div>';
+}
+function showModal(title,body){$("modalTitle").textContent=title;$("previewContent").innerHTML=body;$("modal").classList.add("active")}
+$("previewFamily").addEventListener("click",()=>{let s=students.find(x=>managerSelected().includes(x.id))||students[0];showModal("Comunicación familiar · "+s.name,familyPaper(s))});
+function levelInit(){setOptions("level",uniq(students.map(s=>s.level)),"Seleccionar curso...");groupChange()}
+function groupChange(){const l=$("level").value;setOptions("group",uniq(students.filter(s=>s.level===l).map(s=>s.group)),"Seleccionar grupo...");studentChange()}
+function studentChange(){const filtered=students.filter(s=>s.group===$("group").value);const select=$("student");select.innerHTML='<option value="">Seleccionar alumno/a...</option>'+filtered.map(s=>'<option value="'+esc(s.id)+'">'+esc(s.name)+'</option>').join("");subjectChange()}
+function subjectChange(){const s=students.find(s=>s.id===$("student").value);$("situation").value=s?s.situation:"";setOptions("subject",s?s.subjects:[],"Seleccionar materia...")}
+$("level").addEventListener("change",groupChange);
+$("group").addEventListener("change",studentChange);
+$("student").addEventListener("change",subjectChange);
+$("followForm").addEventListener("reset",()=>setTimeout(levelInit,0));
+$("followForm").addEventListener("submit",function(e){
+e.preventDefault();if(!this.reportValidity())return;
+const s=students.find(s=>s.id===$("student").value);if(!s){notify("Selecciona un alumno");return}
+const teacher=$("teacher").value.trim();if(!teacher.includes(",")){notify("Escribe el nombre como «Apellidos, nombre»");$("teacher").focus();return}
+const r={sid:s.id,teacher,subject:$("subject").value,date:new Date().toLocaleDateString("es-ES"),progress:$("progress").value.trim(),difficulties:$("difficulties").value.trim(),other:$("other").value.trim(),effectiveness:$("effectiveness").value.trim(),changes:$("changes").value.trim(),observations:$("observations").value.trim(),continuation:$("continuation").value};
+entries.push(r);this.reset();levelInit();updateHome();docMode="follow";renderDocs();go("docs");notify("Seguimiento añadido al PDF acumulativo de "+s.name+" (simulación)");
+});
+function followPaper(s,r,i,total){
+return '<div class="paper"><h3>SEGUIMIENTO DE LA MEDIDA ESPECÍFICA</h3><table><tr><td><b>TIPO DE MEDIDA</b></td><td>PROGRAMA DE REFUERZO DEL APRENDIZAJE</td></tr><tr><td><b>NOMBRE ALUMNO/A</b></td><td>'+esc(s.name)+'</td></tr><tr><td><b>NIVEL/GRUPO</b></td><td>'+esc(s.group)+'</td></tr><tr><td><b>CURSO ESCOLAR</b></td><td>2026/2027</td></tr></table><table style="margin-top:13px"><tr><td><b>PROFESOR/A:</b> '+esc(r.teacher)+'</td></tr><tr><td><b>MATERIA:</b> '+esc(r.subject)+'</td></tr><tr><td><b>SITUACIÓN DEL ALUMNO/A:</b> '+esc(s.situation)+'</td></tr><tr><td style="text-align:center"><b>SEGUIMIENTO</b></td></tr><tr><td><b>1. Progreso:</b> '+esc(r.progress)+'</td></tr><tr><td><b>2. Dificultades detectadas:</b> '+esc(r.difficulties)+(r.other?'<br><b>Otras observaciones:</b> '+esc(r.other):'')+'</td></tr><tr><td><b>3. Eficacia de la medida:</b> '+esc(r.effectiveness)+'</td></tr><tr><td><b>4. Modificaciones propuestas:</b> '+esc(r.changes)+(r.observations?'<br><b>Observaciones:</b> '+esc(r.observations):'')+'</td></tr><tr><td><b>5. Continuación en cursos posteriores:</b> '+esc(r.continuation)+'</td></tr></table><p class="signature">Fdo. '+esc(r.teacher)+'</p><p style="font-size:10px;color:#78928b">Documento realizado: '+esc(r.date)+' · Página '+i+' de '+total+' · Ejemplo ficticio</p></div>';
+}
+function showFollow(id){const s=students.find(x=>x.id===id);const rs=entries.filter(x=>x.sid===id);showModal("Seguimiento acumulativo · "+s.name,rs.map((x,i)=>followPaper(s,x,i+1,rs.length)).join(""))}
+function renderDocs(){
+$("familyTab").className="btn "+(docMode==="family"?"primary":"ghost");
+$("followTab").className="btn "+(docMode==="follow"?"primary":"ghost");
+const search=$("docSearch").value.trim().toLowerCase();
+let rows=[];
+if(docMode==="family"){
+$("docHeaders").innerHTML="<th>Alumno/a</th><th>Grupo</th><th>Materias</th><th>Documento</th>";
+rows=students.filter(s=>communications.has(s.id)&&(s.name+" "+s.group).toLowerCase().includes(search)).map(s=>'<tr><td class="name"><b>'+esc(s.name)+'</b><small>Comunicación familiar</small></td><td>'+esc(s.group)+'</td><td>'+esc(s.subjects.join(" · "))+'</td><td><button class="btn secondary sm" data-family="'+esc(s.id)+'">Ver muestra</button></td></tr>');
+}else{
+$("docHeaders").innerHTML="<th>Alumno/a</th><th>Grupo</th><th>Materias incluidas</th><th>Documento único</th>";
+rows=students.filter(s=>entries.some(r=>r.sid===s.id)&&(s.name+" "+s.group).toLowerCase().includes(search)).map(s=>{const rs=entries.filter(r=>r.sid===s.id);return '<tr><td class="name"><b>'+esc(s.name)+'</b><small>'+rs.length+' seguimientos en un documento</small></td><td>'+esc(s.group)+'</td><td>'+esc(uniq(rs.map(r=>r.subject)).join(" · "))+'</td><td><button class="btn secondary sm" data-follow="'+esc(s.id)+'">Ver '+rs.length+' página(s)</button></td></tr>'});
+}
+$("docRows").innerHTML=rows.join("")||'<tr><td colspan="4" class="empty">No hay documentos que coincidan con la búsqueda.</td></tr>';
+$$("[data-family]",$("docRows")).forEach(b=>b.addEventListener("click",()=>{const s=students.find(x=>x.id===b.dataset.family);showModal("Comunicación familiar · "+s.name,familyPaper(s))}));
+$$("[data-follow]",$("docRows")).forEach(b=>b.addEventListener("click",()=>showFollow(b.dataset.follow)));
+}
+$$("[data-docmode]").forEach(b=>b.addEventListener("click",()=>{docMode=b.dataset.docmode;renderDocs()}));
+$("docSearch").addEventListener("input",renderDocs);
+function closeModal(){$("modal").classList.remove("active")}
+$("closeModal").addEventListener("click",closeModal);
+$("modal").addEventListener("click",e=>{if(e.target===$("modal"))closeModal()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+$("printPreview").addEventListener("click",()=>window.print());
+["simFolderFamily","simFolderFollow"].forEach(id=>$(id).addEventListener("click",()=>notify("Carpeta de prueba: en este borrador no se guarda ninguna URL.")));
+$("simTemplateFamily").addEventListener("click",()=>showModal("Plantilla de comunicación",familyPaper(students[0])));
+$("simFormCreate").addEventListener("click",()=>{notify("Formulario simulado. Puedes probarlo en Seguimiento PRA.");go("follow")});
+managerInit();levelInit();updateHome();renderDocs();
+})();
+</script>
+</body>
+</html>
