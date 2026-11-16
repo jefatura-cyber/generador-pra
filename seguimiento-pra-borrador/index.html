@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Seguimiento PRA · Borrador interactivo</title>
+<style>
+:root{--navy:#163a3b;--navy2:#215351;--teal:#117065;--deep:#0b5e57;--mint:#e6f4ed;--ink:#19363b;--muted:#687f82;--line:#e4ece9;--bg:#f5f8f7;--white:#fff;--amber:#fff4df;--red:#9e3939;--shadow:0 8px 25px rgba(27,67,62,.045)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:14px/1.45 Inter,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}
+.shell{display:flex;min-height:100vh}.side{background:var(--navy);color:#e8f5f0;width:242px;flex:none;display:flex;flex-direction:column;padding:25px 15px 22px;position:sticky;top:0;height:100vh}.brand{display:flex;align-items:center;gap:11px;padding:2px 11px 29px}.logo{width:40px;height:40px;background:#cfebdf;color:#0b6157;border-radius:12px;display:grid;place-items:center;font-weight:900;font-size:22px}.brand b{display:block;font-size:20px;letter-spacing:-.6px}.brand small{color:#a3c6bd;font-size:11px}.navsmall{font-size:10px;font-weight:800;color:#8db6aa;letter-spacing:.13em;padding:14px 13px;text-transform:uppercase}.nav{border:0;background:transparent;color:#cfdfdb;border-radius:10px;padding:12px 12px;margin-bottom:5px;display:flex;align-items:center;gap:11px;text-align:left;font-weight:700;width:100%}.nav .sym{font-size:17px;width:22px;text-align:center;font-weight:400}.nav:hover,.nav.active{background:var(--navy2);color:white}.nav.active{box-shadow:inset 3px 0 #a6e2cc}.sidebottom{margin-top:auto;border-top:1px solid #37615d;padding:16px 12px;color:#b8d4cd;font-size:11px;line-height:1.6}.sidebottom strong{display:block;color:#eaf7f1;margin-bottom:3px}
+main{flex:1;min-width:0}.top{height:75px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.86);display:flex;justify-content:space-between;align-items:center;padding:0 4%;gap:10px}.crumb{display:flex;gap:8px;align-items:center;color:#7d9395;font-size:12px;font-weight:700}.crumb b{color:var(--ink)}.topright{display:flex;gap:12px;align-items:center}.pill{border-radius:20px;background:#fff0d7;color:#88601c;padding:7px 11px;font-size:11px;font-weight:800}.avatar{width:33px;height:33px;border-radius:50%;background:#e0eae7;display:grid;place-items:center;font-size:11px;color:#365b55;font-weight:900}
+.container{padding:29px 4% 70px;max-width:1490px;margin:auto}.page{display:none}.page.active{display:block}.hero{background:linear-gradient(110deg,#11766a,#0c5755 70%,#0b454b);border-radius:18px;color:#fff;padding:30px 32px;display:flex;justify-content:space-between;gap:20px;align-items:center;box-shadow:0 16px 32px rgba(8,77,68,.09)}.hero h1{margin:6px 0 9px;font-size:clamp(26px,3vw,37px);line-height:1.12;letter-spacing:-.9px}.hero p{max-width:650px;margin:0;color:#d2e9e2;font-size:13px}.eyebrow{font-size:10px;font-weight:800;letter-spacing:.14em;color:#b4e2ce}.heroSymbol{height:100px;width:100px;border:1px solid #75a8a4;border-radius:24px;display:grid;place-items:center;font-size:54px;transform:rotate(-7deg);background:#ffffff16;flex:none}
+.alert{margin:18px 0;background:#fff5e0;color:#7d5e27;border:1px solid #f0dfb8;border-radius:11px;padding:12px 15px;display:flex;gap:10px;align-items:center;font-size:12px}.alert b{font-size:15px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:22px 0 30px}.stat{background:white;border:1px solid var(--line);border-radius:14px;padding:20px 19px;box-shadow:var(--shadow)}.stat .num{font-size:30px;letter-spacing:-1px;font-weight:800;margin:7px 0 3px}.stat small{color:#7c8f91;font-size:12px;font-weight:700}.stat .ico{font-size:19px}
+.sectionhead{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;margin-bottom:14px}.sectionhead h2{font-size:19px;margin:0;letter-spacing:-.3px}.sectionhead p{margin:3px 0 0;color:var(--muted);font-size:12px}.card{background:#fff;border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow)}.padding{padding:22px}.grid2{display:grid;grid-template-columns:1.05fr .95fr;gap:16px}.stack{display:flex;flex-direction:column;gap:16px}.feature{display:flex;gap:14px;align-items:flex-start;padding:15px 0;border-bottom:1px solid #ecf1ef}.feature:last-child{border-bottom:0}.step{height:35px;width:35px;background:var(--mint);color:var(--teal);border-radius:10px;display:grid;place-items:center;font-weight:900;flex:none}.feature b{display:block;margin-bottom:4px}.feature p{font-size:12px;color:var(--muted);margin:0}.button{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid transparent;border-radius:10px;padding:11px 15px;font-size:12px;font-weight:800;transition:.15s}.button:active{transform:translateY(1px)}.button.primary{background:var(--teal);color:white}.button.primary:hover{background:var(--deep)}.button.ghost{background:#eff7f3;color:#17675c}.button.outline{background:white;border-color:#d9e8e1;color:var(--teal)}.button.muted{background:#e8efec;color:#476b62}.button.wide{width:100%}.button:disabled{opacity:.5;cursor:default}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}.hint{font-size:11px;color:#7d908e;line-height:1.6}.previewline{border:1px solid #e7eeeb;border-radius:11px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:9px}.dot{width:8px;height:8px;background:#0d956e;border-radius:50%;display:inline-block;margin-right:5px}.tag{display:inline-block;font-size:10px;font-weight:800;background:#e7f5ed;color:#277453;border-radius:20px;padding:5px 8px;white-space:nowrap}.tag.gold{background:#fff2df;color:#966826}
+.pageTitle{margin:0 0 5px;font-size:26px;letter-spacing:-.7px}.lead{margin:0 0 23px;font-size:13px;color:var(--muted);max-width:850px}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.full{grid-column:1/-1}.field label{display:block;font-size:11px;font-weight:800;color:#546d6e;margin-bottom:7px}.input{width:100%;border:1px solid #d9e5e1;border-radius:9px;padding:11px 12px;background:#fff;min-height:42px;color:var(--ink);outline:0}.input:focus{border-color:var(--teal);box-shadow:0 0 0 3px #e1f3ec}.input[readonly]{background:#f3f7f5;color:#617974}.input::placeholder{color:#9caaaa}textarea.input{min-height:102px;resize:vertical}.subhead{font-size:15px;font-weight:850;margin:25px 0 15px;padding:10px 13px;background:#eaf6f0;border-left:3px solid var(--teal);border-radius:0 8px 8px 0}.subhead small{display:block;font-size:11px;color:#648277;font-weight:500;margin-top:3px}.required{color:#d26c4a}.formnote{background:#fff9ed;border:1px solid #f2e4c4;border-radius:10px;padding:11px 13px;color:#795f30;font-size:12px}.sectionbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+table{width:100%;border-collapse:collapse}th{color:#7f9092;text-transform:uppercase;font-size:10px;letter-spacing:.06em;text-align:left;background:#f5f9f7;font-weight:800;padding:12px}td{font-size:12px;border-bottom:1px solid #eef2f0;padding:15px 12px;vertical-align:middle}tr:last-child td{border-bottom:0}.tablewrap{overflow:auto}.namecell b{display:block}.namecell small{display:block;color:#8ca09d;margin-top:4px}.search{width:260px;max-width:100%}.reportbadge{display:inline-block;background:#e4f2ea;color:#167354;border-radius:20px;font-size:11px;font-weight:800;padding:6px 9px}.mutedtext{font-size:12px;color:var(--muted)}.directory{padding:15px;border:1px solid #e5eeea;border-radius:10px;background:#fbfdfc;margin-bottom:11px}.directory b{display:block;margin-bottom:5px}.directory small{color:var(--muted)}.folder{display:flex;align-items:center;gap:10px;margin:9px 0;font-size:13px}.folder .level1{padding-left:21px}.folder .level2{padding-left:41px}.empty{padding:29px;text-align:center;color:var(--muted)}
+.modal{display:none;position:fixed;inset:0;background:#0b1e27a8;align-items:center;justify-content:center;padding:22px;z-index:30}.modal.active{display:flex}.dialog{background:#f5f8f7;border-radius:16px;width:min(760px,100%);max-height:91vh;overflow:auto;box-shadow:0 24px 85px #0e292b40}.dialoghead{padding:19px 22px;background:white;display:flex;justify-content:space-between;align-items:center;gap:12px;border-radius:16px 16px 0 0;border-bottom:1px solid var(--line)}.dialoghead h3{margin:0}.close{border:0;background:#ecf2ef;color:#46685f;border-radius:7px;padding:8px 12px}.paper{background:white;margin:18px auto;padding:28px 32px;width:89%;min-height:330px;box-shadow:0 6px 20px #213a2b12;font-size:12px;line-height:1.6}.paper h3{text-align:center;font-size:15px;margin:0 0 15px}.paper strong{color:#0d625a}.paper table td{border:1px solid #c9d8d5;padding:8px;font-size:11px}.paper p{white-space:pre-wrap}.paper+ .paper{margin-top:13px}.foot{padding:22px 0;text-align:center;color:#839394;font-size:11px}.toast{position:fixed;bottom:24px;right:25px;background:var(--navy);color:white;padding:12px 16px;border-radius:10px;box-shadow:0 8px 30px #253d3955;font-weight:700;font-size:12px;opacity:0;transform:translateY(12px);pointer-events:none;transition:.2s;z-index:100}.toast.on{opacity:1;transform:none}
+@media(max-width:1000px){.stats{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.side{width:205px}.heroSymbol{height:70px;width:70px;font-size:40px}.top{padding:0 20px}.container{padding-left:22px;padding-right:22px}}
+@media(max-width:680px){.shell{display:block}.side{position:static;width:100%;height:auto;padding:13px;display:block}.brand{padding:3px 8px 10px}.navsmall,.sidebottom{display:none}.nav{display:inline-flex;width:auto;padding:9px 10px;margin-bottom:3px;font-size:12px}.nav .sym{font-size:14px;width:auto}.top{height:56px}.topright .avatar{display:none}.container{padding:17px 13px 45px}.hero{padding:24px 18px}.heroSymbol{display:none}.stats{gap:9px;margin:15px 0}.stat{padding:14px}.stat .num{font-size:24px}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}.padding{padding:16px}.paper{padding:17px;width:96%}.dialog{max-height:96vh}.search{width:100%}}
+@media print{body>*:not(.modal){display:none!important}.modal{position:static;display:block;background:white;padding:0}.dialog{width:100%;overflow:visible;box-shadow:none;max-height:none}.dialoghead,.toast{display:none!important}.paper{box-shadow:none;page-break-after:always;margin:0;width:100%;padding:20mm}}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="side">
+ <div class="brand"><div class="logo">P</div><div><b>Seguimiento PRA</b><small>Panel educativo</small></div></div>
+ <div class="navsmall">GESTIÓN DEL CENTRO</div>
+ <button class="nav active" data-go="inicio"><span class="sym">▦</span> Inicio</button>
+ <button class="nav" data-go="formulario"><span class="sym">▤</span> Formulario del docente</button>
+ <button class="nav" data-go="informes"><span class="sym">▣</span> Informes acumulativos</button>
+ <button class="nav" data-go="configurar"><span class="sym">⚙</span> Configuración</button>
+ <button class="nav" data-go="ayuda"><span class="sym">ⓘ</span> Cómo funciona</button>
+ <div class="sidebottom"><strong>🔒 Datos de demostración</strong>Esta vista no se conecta a Séneca, Google Drive ni Forms. No introduzcas datos reales del alumnado.</div>
+</aside>
+<main>
+ <header class="top"><div class="crumb"><span>Gestión académica</span><span>›</span><b id="crumb">Inicio</b></div><div class="topright"><span class="pill">BORRADOR INTERACTIVO</span><div class="avatar">CEP</div></div></header>
+ <div class="container">
+ <section class="page active" id="inicio">
+  <div class="hero"><div><div class="eyebrow">CENTRO EDUCATIVO · CURSO 2026/2027</div><h1>El seguimiento de los PRAs,<br>en un solo lugar</h1><p>Organiza el profesorado, registra las materias y visualiza un único informe acumulativo por alumno. Diseñado para Infantil, ESO y Bachillerato.</p><div class="actions"><button class="button" style="background:#fff;color:#0a655b" data-go="formulario">Probar el formulario →</button><button class="button" style="background:#ffffff18;color:white;border:1px solid #ffffff4a" data-go="informes">Ver informes de ejemplo</button></div></div><div class="heroSymbol">▤</div></div>
+  <div class="alert"><b>ⓘ</b><span><strong>Prototipo visual.</strong> Los nombres son ficticios. Las acciones simulan el funcionamiento; todavía no crean Google Forms ni PDFs reales.</span></div>
+  <div class="stats">
+   <div class="stat"><div class="ico">👥</div><small>Alumnado con PRA</small><div class="num" id="statStudents">4</div></div>
+   <div class="stat"><div class="ico">📝</div><small>Seguimientos registrados</small><div class="num" id="statResponses">3</div></div>
+   <div class="stat"><div class="ico">📑</div><small>Informes únicos</small><div class="num" id="statFiles">2</div></div>
+   <div class="stat"><div class="ico">🎓</div><small>Grupos detectados</small><div class="num" id="statGroups">3</div></div>
+  </div>
+  <div class="grid2">
+   <section class="card padding"><div class="sectionhead"><div><h2>Así funciona</h2><p>De la exportación de Séneca a un informe único por alumno</p></div></div><div class="feature"><div class="step">01</div><div><b>Importa los datos de Séneca</b><p>Una hoja de cálculo compartimentada por niveles: Infantil, ESO, Bachillerato y otros cursos.</p></div></div><div class="feature"><div class="step">02</div><div><b>Crea el formulario del profesorado</b><p>Selecciona curso, grupo, alumno y materia; responde los cinco apartados del seguimiento.</p></div></div><div class="feature"><div class="step">03</div><div><b>Un informe consolidado por alumno</b><p>Si Matemáticas, Lengua e Inglés rellenan seguimientos, los tres se añaden uno detrás de otro al mismo informe.</p></div></div><div class="actions"><button class="button primary" data-go="formulario">Explorar formulario</button></div></section>
+   <section class="card padding"><div class="sectionhead"><div><h2>Últimos seguimientos</h2><p>Registros de ejemplo</p></div></div><div id="recent"></div><div class="actions"><button class="button ghost" data-go="informes">Ver todos los documentos →</button></div></section>
+  </div>
+ </section>
+ <section class="page" id="formulario">
+  <h1 class="pageTitle">Formulario de seguimiento</h1><p class="lead">Simulación del formulario para el profesorado. Los desplegables se filtran por curso, grupo, alumno y materia; solo se muestran datos inventados.</p>
+  <div class="card padding">
+   <div class="sectionbar"><div><h2 style="margin:0">Datos del PRA</h2><p class="mutedtext" style="margin:4px 0 0">Identificación del docente y del alumno</p></div><span class="tag">CURSO 2026/2027</span></div>
+   <form id="praForm">
+    <div class="formgrid">
+     <div class="field"><label>Curso escolar <span class="required">*</span></label><select class="input" id="schoolYear" required><option value="2026/2027">2026/2027</option></select></div>
+     <div class="field"><label>Profesor/a (Apellidos, nombre) <span class="required">*</span></label><input class="input" id="teacher" required placeholder="Ejemplo: Pérez Molina, Elena"></div>
+     <div class="field"><label>Curso del alumnado <span class="required">*</span></label><select class="input" id="level" required></select></div>
+     <div class="field"><label>Grupo <span class="required">*</span></label><select class="input" id="group" required></select></div>
+     <div class="field"><label>Alumno/a <span class="required">*</span></label><select class="input" id="student" required></select></div>
+     <div class="field"><label>Materia o ámbito <span class="required">*</span></label><select class="input" id="subject" required></select></div>
+     <div class="field full"><label>Situación del alumno/a (detectada en la base de datos)</label><input class="input" id="situation" readonly></div>
+    </div>
+    <div class="subhead">1. Progreso del alumno/a<small>Indique los aspectos observados.</small></div>
+    <div class="field"><textarea class="input" id="progress" placeholder="Describe los avances observados..." required></textarea></div>
+    <div class="subhead">2. Dificultades detectadas<small>Dificultades observadas y otras observaciones, si procede.</small></div>
+    <div class="field"><textarea class="input" id="difficulties" placeholder="¿Qué dificultades siguen presentes?" required></textarea></div>
+    <div class="field" style="margin-top:13px"><label>Otras dificultades u observaciones</label><textarea class="input" id="other" placeholder="Opcional" style="min-height:75px"></textarea></div>
+    <div class="subhead">3. Eficacia de la medida<small>Valoración general de la eficacia.</small></div>
+    <div class="field"><textarea class="input" id="effectiveness" placeholder="Valora las medidas aplicadas..." required></textarea></div>
+    <div class="subhead">4. Modificaciones propuestas<small>Modificaciones recomendadas y observaciones finales.</small></div>
+    <div class="field"><textarea class="input" id="changes" placeholder="Propón las adaptaciones necesarias..." required></textarea></div>
+    <div class="field" style="margin-top:13px"><label>Observaciones finales y recomendaciones</label><textarea class="input" id="observations" placeholder="Opcional" style="min-height:75px"></textarea></div>
+    <div class="subhead">5. Continuación de la medida<small>¿Es necesario continuar con la medida para cursos posteriores?</small></div>
+    <div class="field"><select class="input" id="continuation" required><option value="">Seleccionar respuesta...</option><option>Sí</option><option>No</option><option>Pendiente de valoración</option></select></div>
+    <div class="formnote" style="margin-top:19px"><b>Modo demostración:</b> al pulsar guardar, la respuesta se añadirá únicamente a esta pantalla. No se enviará a Google ni se generará un PDF real.</div>
+    <div class="actions"><button type="submit" class="button primary">✓ Guardar seguimiento de prueba</button><button type="reset" class="button outline">Limpiar respuestas</button></div>
+   </form>
+  </div>
+ </section>
+ <section class="page" id="informes">
+  <h1 class="pageTitle">Informes acumulativos</h1><p class="lead">Un documento por alumno, que reúne los seguimientos de todas sus materias. Aquí puedes abrir una vista previa con páginas independientes.</p>
+  <div class="card padding"><div class="sectionbar"><div><h2 style="margin:0">Documentos del centro</h2><p class="mutedtext" style="margin:4px 0">Cada registro representa un único PDF acumulativo.</p></div><input class="input search" type="search" id="reportSearch" placeholder="Buscar alumno o grupo..."></div><div class="tablewrap"><table><thead><tr><th>Alumno/a</th><th>Grupo</th><th>Materias incluidas</th><th>Documento</th></tr></thead><tbody id="reports"></tbody></table></div></div>
+  <div class="alert" style="margin-top:16px"><b>ⓘ</b><span>El botón «Ver documento» abre una recreación visual de la plantilla. En la versión conectada, se generará y actualizará un PDF real en la carpeta de Drive.</span></div>
+ </section>
+ <section class="page" id="configurar">
+  <h1 class="pageTitle">Configuración del centro</h1><p class="lead">Así será la configuración que realizará cada instituto desde su propia hoja de cálculo.</p>
+  <div class="grid2">
+    <div class="card padding"><div class="sectionhead"><div><h2>Carpeta de destino</h2><p>El lugar en que se guardarán las respuestas y los informes.</p></div></div><div class="field"><label>URL de Google Drive</label><input class="input" id="folderUrl" placeholder="https://drive.google.com/drive/folders/..."></div><div class="actions"><button class="button primary" id="demoFolder">Simular guardado de la carpeta</button></div><p class="hint">Este borrador no accede a tu Drive ni almacena la dirección.</p></div>
+    <div class="card padding"><div class="sectionhead"><div><h2>Formulario del profesorado</h2><p>Creación desde un solo botón en la versión final.</p></div></div><div class="previewline"><div><b>Formulario de seguimiento</b><br><span class="mutedtext">5 apartados · Cuestionario del centro</span></div><span id="formStatus" class="tag gold">Simulación</span></div><button class="button primary wide" id="demoCreate">✦ Simular creación del formulario</button><p class="hint">En la versión conectada se generará Google Forms con una hoja de respuestas independiente.</p></div>
+  </div>
+  <div class="card padding" style="margin-top:16px"><div class="sectionhead"><div><h2>Estructura de carpetas</h2><p>Organización prevista en el Drive del centro.</p></div></div><div class="directory"><div class="folder">📁 <b>Seguimiento de PRAs</b></div><div class="folder" style="padding-left:20px">📁 <b>1º ESO</b></div><div class="folder" style="padding-left:42px">📁 <b>1º ESO A</b></div><div class="folder" style="padding-left:64px">📄 Seguimiento PRA - Clara Montes.pdf</div><div class="folder" style="padding-left:20px">📁 <b>Infantil 4 años</b></div><div class="folder" style="padding-left:42px">📁 <b>Infantil 4 años A</b></div><div class="folder" style="padding-left:20px">📊 Hoja de respuestas del formulario</div><div class="folder" style="padding-left:20px">📋 Plantilla editable de Google Docs</div></div></div>
+ </section>
+ <section class="page" id="ayuda">
+  <h1 class="pageTitle">Cómo funcionará la aplicación</h1><p class="lead">Un proceso sencillo para el profesorado, con toda la información centralizada en Google Workspace.</p>
+  <div class="grid2">
+   <div class="card padding"><div class="feature"><div class="step">1</div><div><b>Copia la hoja maestra</b><p>Cada centro trabaja con sus datos, su carpeta de Drive y su plantilla.</p></div></div><div class="feature"><div class="step">2</div><div><b>Pega el listado exportado de Séneca</b><p>El sistema identifica curso, grupo, alumnado, situación y materias abiertas.</p></div></div><div class="feature"><div class="step">3</div><div><b>Crea el formulario</b><p>Jefatura genera el Google Form desde el menú superior de la hoja de cálculo.</p></div></div><div class="feature"><div class="step">4</div><div><b>El profesorado rellena su seguimiento</b><p>Selecciona la materia y completa los cinco apartados.</p></div></div><div class="feature"><div class="step">5</div><div><b>PDF consolidado</b><p>El sistema añade el nuevo seguimiento detrás de los anteriores, con un único PDF por alumno.</p></div></div></div>
+   <div class="card padding"><h2>Privacidad y estado del borrador</h2><p class="mutedtext">Los datos utilizados aquí son ficticios. Esta página no recopila información del alumnado y no envía respuestas a ningún servidor.</p><p class="mutedtext">La automatización real requiere integrar Google Sheets, Forms, Docs y Drive con permisos institucionales, probar los activadores y verificar la plantilla con tablas.</p><div class="actions"><button class="button primary" data-go="formulario">Probar el formulario</button></div></div>
+  </div>
+ </section>
+ <footer class="foot">Seguimiento PRA · Prototipo del curso CEP · Solo datos ficticios · No sustituye a Séneca</footer>
+ </div>
+</main>
+</div>
+<div class="modal" id="previewModal" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
+  <div class="dialog"><div class="dialoghead"><h3 id="modalHeading">Informe acumulativo de ejemplo</h3><div style="display:flex;gap:7px"><button class="button ghost" id="printReport">Imprimir muestra</button><button class="close" id="closeModal" aria-label="Cerrar">✕</button></div></div><div id="reportPages"></div></div>
+</div>
+<div class="toast" id="toast" aria-live="polite" role="status"></div>
+<script>
+(function(){
+"use strict";
+const roster=[
+{id:"a1",name:"Clara Montes",level:"1º ESO",group:"1º ESO A",situation:"PRA alumnado NEAE",subjects:["Matemáticas","Lengua Castellana y Literatura"]},
+{id:"a2",name:"Hugo Medina",level:"1º ESO",group:"1º ESO A",situation:"PRA por dificultades de aprendizaje",subjects:["Matemáticas","Inglés"]},
+{id:"a3",name:"Irene Soto",level:"2º ESO",group:"2º ESO B",situation:"PRA alumnado NEAE",subjects:["Lengua Castellana y Literatura","Geografía e Historia"]},
+{id:"a4",name:"Lucas Martín",level:"Infantil 4 años",group:"Infantil 4 años A",situation:"PRA alumnado NEAE",subjects:["Crecimiento en armonía","Comunicación y representación de la realidad"]}
+];
+const responses=[
+{sid:"a1",subject:"Matemáticas",teacher:"Pérez Molina, Elena",date:"10/11/2026",progress:"Mayor autonomía en operaciones con números enteros.",difficulties:"Persisten dificultades con problemas de varios pasos.",other:"",effectiveness:"Evolución positiva con andamiaje.",changes:"Mantener tareas graduadas.",observations:"",continuation:"Sí"},
+{sid:"a1",subject:"Lengua Castellana y Literatura",teacher:"García Ruiz, Daniel",date:"12/11/2026",progress:"Mejora en la lectura de textos cortos.",difficulties:"Necesita apoyo para identificar ideas principales.",other:"",effectiveness:"Los apoyos visuales funcionan adecuadamente.",changes:"Incorporar guiones de lectura.",observations:"",continuation:"Pendiente de valoración"},
+{sid:"a2",subject:"Inglés",teacher:"Moreno Castro, Ana",date:"13/11/2026",progress:"Participa de forma más frecuente en actividades orales.",difficulties:"Dificultades de comprensión auditiva.",other:"",effectiveness:"Avance moderado.",changes:"Ofrecer audios cortos y repetición guiada.",observations:"",continuation:"Sí"}
+];
+const el=id=>document.getElementById(id);
+const q=(s,p=document)=>Array.from(p.querySelectorAll(s));
+const escapeHTML=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let toastTimer;
+function toast(t){el("toast").textContent=t;el("toast").classList.add("on");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el("toast").classList.remove("on"),3200)}
+const labels={inicio:"Inicio",formulario:"Formulario del docente",informes:"Informes acumulativos",configurar:"Configuración",ayuda:"Cómo funciona"};
+function navigate(to){q(".page").forEach(p=>p.classList.toggle("active",p.id===to));q(".nav").forEach(b=>b.classList.toggle("active",b.dataset.go===to));el("crumb").textContent=labels[to];window.scrollTo({top:0,behavior:"smooth"});if(to==="informes")renderReports()}
+q("[data-go]").forEach(b=>b.addEventListener("click",()=>navigate(b.dataset.go)));
+function fill(id,opts,placeholder){const node=el(id);node.innerHTML="";if(placeholder){const op=document.createElement("option");op.value="";op.textContent=placeholder;node.appendChild(op)}opts.forEach(t=>{const op=document.createElement("option");op.value=t;op.textContent=t;node.appendChild(op)})}
+function uniq(items){return Array.from(new Set(items)).sort((a,b)=>a.localeCompare(b,"es"))}
+function selectedStudent(){return roster.find(s=>s.id===el("student").value)}
+function levels(){fill("level",uniq(roster.map(s=>s.level)),"Seleccionar curso...");groups()}
+function groups(){const selected=el("level").value;fill("group",uniq(roster.filter(s=>s.level===selected).map(s=>s.group)),"Seleccionar grupo...");students()}
+function students(){const selected=roster.filter(s=>s.group===el("group").value);el("student").innerHTML='<option value="">Seleccionar alumno/a...</option>'+selected.map(s=>'<option value="'+escapeHTML(s.id)+'">'+escapeHTML(s.name)+'</option>').join("");subjects()}
+function subjects(){const s=selectedStudent();el("situation").value=s?s.situation:"";fill("subject",s?s.subjects:[],"Seleccionar materia...")}
+el("level").addEventListener("change",groups);el("group").addEventListener("change",students);el("student").addEventListener("change",subjects);
+el("praForm").addEventListener("submit",function(e){
+ e.preventDefault();if(!this.reportValidity())return;const s=selectedStudent();if(!s){toast("Selecciona el alumno");return}const teacher=el("teacher").value.trim();if(!teacher.includes(",")){toast("Escribe el profesor como Apellidos, nombre");el("teacher").focus();return}
+const now=new Date();const entry={sid:s.id,subject:el("subject").value,teacher,date:now.toLocaleDateString("es-ES"),progress:el("progress").value,difficulties:el("difficulties").value,other:el("other").value,effectiveness:el("effectiveness").value,changes:el("changes").value,observations:el("observations").value,continuation:el("continuation").value};
+responses.push(entry);this.reset();levels();refresh();navigate("informes");toast("Seguimiento ficticio añadido al informe acumulativo");
+});
+el("praForm").addEventListener("reset",()=>setTimeout(()=>levels(),0));
+function byStudent(){return roster.filter(s=>responses.some(r=>r.sid===s.id))}
+function refresh(){
+el("statStudents").textContent=roster.length;
+el("statResponses").textContent=responses.length;
+el("statFiles").textContent=byStudent().length;
+el("statGroups").textContent=uniq(roster.map(x=>x.group)).length;
+el("recent").innerHTML=responses.slice().reverse().slice(0,4).map(r=>{const s=roster.find(x=>x.id===r.sid);return '<div class="previewline"><div><b>'+escapeHTML(s.name)+'</b><div class="mutedtext">'+escapeHTML(s.group)+' · '+escapeHTML(r.subject)+'</div></div><span class="tag">'+escapeHTML(r.date)+'</span></div>'}).join("");
+renderReports();
+}
+function renderReports(){
+const search=el("reportSearch").value.toLowerCase().trim();
+const list=byStudent().filter(s=>(s.name+" "+s.group).toLowerCase().includes(search));
+el("reports").innerHTML=list.length?list.map(s=>{
+const rs=responses.filter(r=>r.sid===s.id);
+return '<tr><td class="namecell"><b>'+escapeHTML(s.name)+'</b><small>'+rs.length+' seguimiento(s) en un único documento</small></td><td>'+escapeHTML(s.group)+'</td><td>'+escapeHTML(uniq(rs.map(r=>r.subject)).join(" · "))+'</td><td><button class="button ghost" data-preview="'+escapeHTML(s.id)+'">Ver documento ↗</button></td></tr>';
+}).join(""):'<tr><td colspan="4" class="empty">No hay informes que coincidan con la búsqueda.</td></tr>';
+q("[data-preview]",el("reports")).forEach(b=>b.addEventListener("click",()=>showPreview(b.dataset.preview)));
+}
+el("reportSearch").addEventListener("input",renderReports);
+function showPreview(id){
+const s=roster.find(x=>x.id===id);const rs=responses.filter(x=>x.sid===id);
+el("modalHeading").textContent="Informe único · "+s.name;
+el("reportPages").innerHTML=rs.map((r,i)=>'<div class="paper"><h3>SEGUIMIENTO DE LA MEDIDA ESPECÍFICA</h3><table><tr><td><b>TIPO DE MEDIDA</b></td><td>PROGRAMA DE REFUERZO DEL APRENDIZAJE</td></tr><tr><td><b>NOMBRE ALUMNO/A</b></td><td>'+escapeHTML(s.name)+'</td></tr><tr><td><b>NIVEL / GRUPO</b></td><td>'+escapeHTML(s.group)+'</td></tr><tr><td><b>CURSO ESCOLAR</b></td><td>2026/2027</td></tr></table><table style="margin-top:14px"><tr><td><b>PROFESOR/A:</b> '+escapeHTML(r.teacher)+'</td></tr><tr><td><b>MATERIA:</b> '+escapeHTML(r.subject)+'</td></tr><tr><td><b>SITUACIÓN DEL ALUMNO/A:</b> '+escapeHTML(s.situation)+'</td></tr><tr><td style="text-align:center"><b>SEGUIMIENTO</b></td></tr><tr><td><b>1. Progreso:</b> '+escapeHTML(r.progress)+'</td></tr><tr><td><b>2. Dificultades detectadas:</b> '+escapeHTML(r.difficulties)+(r.other?'<p><b>Otras observaciones:</b> '+escapeHTML(r.other)+'</p>':'')+'</td></tr><tr><td><b>3. Eficacia de la medida:</b> '+escapeHTML(r.effectiveness)+'</td></tr><tr><td><b>4. Modificaciones propuestas:</b> '+escapeHTML(r.changes)+(r.observations?'<p><b>Recomendaciones:</b> '+escapeHTML(r.observations)+'</p>':'')+'</td></tr><tr><td><b>5. Continuación en cursos posteriores:</b> '+escapeHTML(r.continuation)+'</td></tr></table><p style="margin-top:24px">Fdo. '+escapeHTML(r.teacher)+'</p><p style="font-size:10px;color:#738981">Documento realizado: '+escapeHTML(r.date)+' · Página '+(i+1)+' de '+rs.length+' · Demostración</p></div>').join("");
+el("previewModal").classList.add("active");
+}
+function closePreview(){el("previewModal").classList.remove("active")}
+el("closeModal").addEventListener("click",closePreview);
+el("previewModal").addEventListener("click",e=>{if(e.target===el("previewModal"))closePreview()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closePreview()});
+el("printReport").addEventListener("click",()=>window.print());
+el("demoFolder").addEventListener("click",()=>{if(!el("folderUrl").value.trim())toast("Introduce una carpeta de ejemplo");else toast("Carpeta simulada, no guardada en Drive")});
+el("demoCreate").addEventListener("click",()=>{el("formStatus").className="tag";el("formStatus").textContent="Vista creada";toast("Simulación lista: formulario de ejemplo");navigate("formulario")});
+levels();refresh();
+})();
+</script>
+</body>
+</html>
