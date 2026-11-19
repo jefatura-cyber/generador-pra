@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Portal PRA · Google Workspace</title>
+<style>
+:root{--green:#0a6b5a;--navy:#163f3c;--mint:#e9f5ed;--ink:#183e35;--muted:#61796e;--line:#dae9e0;--warn:#fdf5e5}
+*{box-sizing:border-box}body{margin:0;background:#f5f8f6;font:14px/1.5 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--ink)}
+header{background:linear-gradient(120deg,#133e3b,#106f5d);color:#fff;padding:22px max(18px,calc((100vw - 1130px)/2))}
+header h1{margin:0;font-size:27px}header p{font-size:12px;color:#c3e7d8;margin:4px 0}
+button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}input,select,textarea{padding:10px 11px;min-height:42px;border:1px solid #c8ddd1;border-radius:9px;background:white;color:var(--ink);width:100%}
+input[readonly]{background:#eff7f1;color:#39715c}textarea{min-height:83px}
+label{font-weight:750;font-size:12px;display:block;margin:10px 0 6px}.wrap{max-width:1130px;margin:22px auto 70px;padding:0 15px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{border:1px solid transparent;border-radius:9px;padding:11px 15px;font-weight:800;background:var(--green);color:white}.btn.alt{background:white;color:var(--green);border-color:#c6dfd2}.btn.small{font-size:12px;padding:8px 10px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}.tab{border:1px solid #cfe0d4;background:white;color:#376855;border-radius:9px;padding:10px 13px;font-weight:800}.tab.active{background:var(--green);color:white}.panel{display:none}.panel.active{display:block}.card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:22px;margin-bottom:16px}.card h2{font-size:20px;margin:0 0 7px}.card h3{font-size:15px;margin:17px 0 8px}.card p{font-size:12px;color:var(--muted);margin:3px 0 14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 15px}.callout{background:var(--warn);border:1px solid #ebdbb7;color:#755d30;border-radius:10px;padding:13px 16px;font-size:12px;margin:14px 0}.callout.good{background:#edf8f0;border-color:#cbe5d4;color:#2f6a48}.hint{font-size:11px!important;color:#759085!important}.state{font-size:12px;font-weight:800;color:#155c45;background:#e9f5ed;border-radius:40px;padding:6px 10px}.badge{font-size:11px;font-weight:900;border-radius:40px;padding:5px 9px;background:#dff3e7;color:#1b6650;display:inline-block}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}a{color:#145d4d}.links{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.links a{font-size:12px;font-weight:750}.course-list{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:13px 0}.course-list label{font-size:12px;border:1px solid var(--line);padding:10px;border-radius:9px;margin:0;display:flex;align-items:center;gap:8px}.course-list input{width:15px;height:15px;min-height:0;accent-color:var(--green)}.tbl{width:100%;border-collapse:collapse;font-size:12px}.tbl td,.tbl th{text-align:left;padding:9px;border-bottom:1px solid #e6eee8}.tbl th{background:#f0f7f2}.scroll{max-height:280px;overflow:auto;border:1px solid var(--line);border-radius:10px;margin:13px 0}.foldertree{padding:10px 15px;border:1px solid var(--line);border-radius:11px;margin:12px 0}.foldertree:empty{display:none}.foldertree a{display:block;padding:5px 0}.choices{display:grid;grid-template-columns:1fr 1fr;gap:5px 15px}.choices label{margin:0;display:flex;align-items:flex-start;gap:7px;padding:5px 3px;font-weight:500}.choices input{width:17px;height:17px;min-height:17px;margin:3px 0 0;accent-color:var(--green);flex:none}.question{border:1px solid var(--line);border-radius:12px;margin-bottom:14px;overflow:hidden}.question h3{margin:0!important;background:#f0f7f2;padding:13px}.question .inner{padding:13px}.question textarea{margin-top:9px}.msg{padding:12px 15px;border-radius:11px;background:#eff7ef;border:1px solid #d4ead8;font-size:12px;margin:12px 0;white-space:pre-wrap}.msg.error{background:#fff0ed;border-color:#ebc6bd;color:#9b4032}.msg:empty{display:none}.muted{color:var(--muted)}.footer{font-size:11px;color:#72887e;margin-top:25px}
+@media(max-width:750px){.grid,.form-grid,.choices{grid-template-columns:1fr}.course-list{grid-template-columns:repeat(2,1fr)}header h1{font-size:22px}.card{padding:17px}}
+</style>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="app.js" defer></script>
+</head>
+<body>
+<header><div class="badge">Google Workspace · Portal PRA</div><h1>Gestor y Seguimiento PRA</h1><p>Una sola hoja por centro, comunicaciones a familias y seguimiento del profesorado</p></header>
+<div class="wrap">
+<div class="callout" id="security"><strong>Privacidad:</strong> los datos personales se consultan mediante Google y solo se mantienen en la memoria de esta pestaña. No se envían a GitHub. Los archivos se crean en el Google Drive de la cuenta autorizada. El acceso a Drive requiere consentimiento de Google.</div>
+<section class="card">
+<div class="row" style="justify-content:space-between"><div><h2>Acceso a Google Workspace</h2><p id="sessionInfo">Sin conexión a Google</p></div><div class="row"><span id="connState" class="state">Sin conectar</span><button id="btnLogin" class="btn">Conectar Google</button><button id="btnLogout" class="btn alt" disabled>Desconectar</button></div></div>
+<div id="oauthSetup">
+<label for="clientId">ID de cliente OAuth de la aplicación (configuración única del organizador)</label><div class="row"><input id="clientId" placeholder="123456...apps.googleusercontent.com" style="flex:1;min-width:240px"><button class="btn alt" id="saveClient">Aplicar ID</button></div><p class="hint">El ID de cliente no es una contraseña. El organizador debe habilitar Drive, Docs y Sheets API y registrar el origen JavaScript https://jefatura-cyber.github.io en Google Cloud. Hasta configurarlo, Google no permitirá autorizar esta web. Nunca introduzcas aquí una clave secreta.</p>
+</div>
+<div id="sessionMessage" class="msg" role="status"></div>
+</section>
+<nav class="tabs" aria-label="Aplicaciones"><button class="tab active" data-tab="gestor">▤ Gestor PRA</button><button class="tab" data-tab="seguimiento">☷ Seguimiento PRA</button><a href="../" style="margin-left:auto;align-self:center;font-size:12px">← Volver al portal</a></nav>
+<section class="panel active" id="gestor">
+<div class="grid">
+<div class="card"><h2>1. Configuración del centro</h2>
+<div class="form-grid"><div><label for="centro">Nombre del centro</label><input id="centro" placeholder="IES / CEIP..." value="Mi centro"></div><div><label for="curso">Curso escolar</label><input id="curso" value="2026-2027"></div></div>
+<h3>Tu copia de la hoja maestra</h3><p>Se creará una copia privada en tu Drive. Importa después las exportaciones de Séneca en las pestañas de esa copia, empezando por A1.</p>
+<div class="actions"><button id="crearHoja" class="btn">Crear mi hoja PRA en Google Drive</button><a class="btn alt" href="https://docs.google.com/spreadsheets/d/1wUa9HEmeSHkxUtBF8wnpMHk9pWg7BYAB3lsvTmj9Yfk/copy" target="_blank" rel="noopener">Copiar manualmente ↗</a></div>
+<div id="sheetStatus" class="msg"></div><div class="links"><a href="#" id="sheetLink" target="_blank" rel="noopener" hidden>Abrir mi hoja de Séneca ↗</a></div>
+<label for="folderG">Carpeta de Drive para comunicaciones</label><input id="folderG" type="url" placeholder="https://drive.google.com/drive/folders/...">
+<div class="actions"><button class="btn alt" id="checkG">Comprobar carpeta y guardar</button></div><div id="folderGStatus" class="msg"></div>
+</div>
+<div class="card"><h2>2. Plantilla de comunicación</h2><p>La plantilla original tiene cuatro tablas. Se copia a tu Drive para poder modificarla sin alterar el modelo del curso.</p>
+<div class="actions"><button class="btn alt" id="copyTemplateG">Crear/abrir mi plantilla</button><a class="btn alt" href="https://docs.google.com/document/d/1C44fN_f6DQssGx9ejTKIoOcx1Q9IVbz1y2TQTf_zods/edit" target="_blank" rel="noopener">Consultar modelo ↗</a></div><div id="templateGStatus" class="msg"></div>
+<h2 style="margin-top:24px">3. Datos y comprobación</h2><p>Solo se leerán los PRAs que figuran abiertos en el curso escolar elegido. Cada registro se valida antes de generar los documentos.</p><div class="course-list" id="levelChecks"></div>
+<div class="actions"><button class="btn alt" id="checkData">Comprobar datos de Séneca</button><button class="btn alt" id="checkAll">Seleccionar todas</button><button class="btn alt" id="checkNone">Desmarcar</button></div><div id="dataStatus" class="msg"></div>
+<div class="scroll" id="dataPreview" hidden><table class="tbl"><thead><tr><th>Nivel</th><th>Grupo</th><th>PRAs abiertos</th></tr></thead><tbody id="dataRows"></tbody></table></div>
+</div>
+</div>
+<div class="card"><h2>4. Generación de comunicaciones</h2><p>Los PDF se crearán por alumno, dentro de las subcarpetas reales de nivel y grupo, en tu Drive.</p>
+<div class="actions"><button id="runG" class="btn" disabled>Generar PDF reales</button><button id="refreshFoldersG" class="btn alt">Actualizar carpetas</button></div><div class="msg" id="generateStatus"></div><div class="foldertree" id="foldersG"></div>
+<p class="hint">Este listado empieza vacío. Solo muestra carpetas efectivamente encontradas en Google Drive.</p></div>
+</section>
+<section class="panel" id="seguimiento">
+<div class="grid">
+<div class="card"><h2>1. Configuración del seguimiento</h2>
+<p>Usa la misma copia de la hoja de Séneca. Define una carpeta propia para los informes del profesorado.</p>
+<label for="folderS">Carpeta para PDF de seguimiento</label><input id="folderS" type="url" placeholder="https://drive.google.com/drive/folders/...">
+<div class="actions"><button id="checkS" class="btn alt">Comprobar y guardar carpeta</button><button id="copyTemplateS" class="btn alt">Crear/abrir plantilla de seguimiento</button></div><div class="msg" id="followConfigStatus"></div>
+<h3>Enlace del formulario para el profesorado</h3><p>Este enlace dirige a la misma aplicación, filtrada por centro. Cada docente deberá autorizar su cuenta y disponer de permisos sobre los documentos compartidos por el centro.</p>
+<label for="formLink">Enlace del formulario</label><input id="formLink" readonly placeholder="Se generará tras configurar Google y la carpeta">
+<div class="actions"><button id="makeLink" class="btn" disabled>Crear enlace del formulario</button><button id="copyLink" class="btn alt" disabled>Copiar enlace</button></div><p class="hint">El enlace no da acceso por sí solo: Google Drive verifica los permisos efectivos del usuario.</p>
+</div>
+<div class="card"><h2>2. Cumplimentar un seguimiento</h2><p>Correo obtenido de Google; niveles, grupos, alumnado, situaciones y materias dependen de los PRAs abiertos.</p>
+<label for="teacherEmail">Correo autenticado</label><input id="teacherEmail" readonly>
+<label for="teacher">Profesor/a (Apellidos, nombre)</label><input id="teacher" placeholder="Apellidos, nombre">
+<div class="form-grid">
+<div><label for="levelS">Curso</label><select id="levelS"></select></div><div><label for="groupS">Grupo</label><select id="groupS"></select></div>
+<div><label for="studentS">Alumno/a</label><select id="studentS"></select></div><div><label for="situationS">Situación PRA</label><select id="situationS"></select></div>
+<div style="grid-column:1/-1"><label for="subjectS">Materia del alumno/a</label><select id="subjectS"></select></div>
+</div><div class="actions"><button id="loadStudents" class="btn alt">Cargar alumnado desde Séneca</button></div><div id="studentStatus" class="msg"></div>
+</div>
+</div>
+<div id="questions"></div>
+<div class="card"><div class="actions"><button id="saveS" class="btn" disabled>Guardar y generar PDF acumulativo</button><button id="regenS" class="btn alt" disabled>Regenerar el PDF del alumno</button></div><div id="saveStatus" class="msg"></div><div class="foldertree" id="foldersS"></div></div>
+</section>
+<footer class="footer">Portal PRA · Los datos del alumnado no se publican en GitHub. La aplicación requiere autorización Google y permisos de acceso en Drive.</footer>
+</div>
+</body>
+</html>
