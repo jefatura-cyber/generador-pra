@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Portal PRA · Gestor y Seguimiento · Formación</title>
+<style>
+:root{--deep:#103b39;--deep2:#245951;--green:#0b6b5d;--mint:#e9f5ee;--ink:#233f3e;--muted:#647c76;--border:#dfe9e4;--bg:#f5f8f6;--white:#fff;--blue:#315c88;--softblue:#ecf3fa;--amber:#8a6525;--amberg:#fff6e5;--shadow:0 8px 24px rgba(10,51,44,.045)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{font:14px/1.5 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;margin:0;background:var(--bg);color:var(--ink)}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #9bd9ba;outline-offset:2px}a{text-decoration:none;color:inherit}
+.layout{display:flex;min-height:100vh}.side{position:sticky;top:0;height:100vh;width:242px;flex:none;background:var(--deep);color:#e7f5ef;padding:21px 13px;display:flex;flex-direction:column}.brand{display:flex;align-items:center;gap:10px;padding:4px 10px 27px}.brandmark{width:43px;height:43px;background:#dff3e8;color:#095d50;border-radius:12px;display:grid;place-items:center;font-size:18px;font-weight:900}.brandname{font-size:19px;font-weight:850;letter-spacing:-.6px}.brand small{display:block;color:#9fc6b9;font-size:10px;letter-spacing:.04em}.asidehead{font-size:10px;font-weight:800;color:#95baaf;letter-spacing:.12em;padding:6px 12px 11px;text-transform:uppercase}.nav{border:0;border-radius:10px;color:#d1e1dc;background:none;width:100%;text-align:left;padding:12px;display:flex;align-items:center;gap:10px;font-weight:750;margin-bottom:5px}.nav:hover,.nav.active{background:#285d54;color:white}.nav.active{box-shadow:inset 3px 0 #c0ecd8}.symbol{font-size:18px;display:inline-grid;place-items:center;width:23px}.asidefoot{margin-top:auto;padding:16px 12px 6px;border-top:1px solid #37635b;font-size:11px;color:#b6d2c7;line-height:1.6}.asidefoot b{display:block;color:#e4f2e9}
+main{flex:1;min-width:0}.top{background:#fff;border-bottom:1px solid var(--border);height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 3.8%;gap:12px}.bread{font-size:12px;color:#78918a;font-weight:750}.bread b{color:var(--ink)}.state{padding:6px 11px;border-radius:99px;background:var(--amberg);color:#825e20;font-size:10px;font-weight:900}.user{width:32px;height:32px;border-radius:50%;background:#e0efe7;color:#24634e;display:grid;place-items:center;font-size:11px;font-weight:900}.right{display:flex;align-items:center;gap:11px}.container{padding:30px 3.8% 75px;margin:auto;max-width:1430px}.page{display:none}.page.active{display:block}.hero{padding:33px 34px;border-radius:17px;background:linear-gradient(116deg,#0f7868,#0e615b 68%,#103e47);color:white;display:flex;justify-content:space-between;gap:20px;align-items:center}.hero .kicker{font-size:10px;letter-spacing:.15em;color:#c2e7d8;font-weight:850}.hero h1{font-size:clamp(27px,3.2vw,41px);margin:7px 0 9px;line-height:1.13;letter-spacing:-1px}.hero p{color:#cee9df;font-size:13px;max-width:660px;margin:0}.heroicon{width:95px;height:95px;flex:none;display:grid;place-items:center;border-radius:22px;border:1px solid #75aaa0;background:#ffffff14;transform:rotate(-8deg);font-size:53px}.notice{padding:13px 15px;border-radius:11px;background:var(--amberg);border:1px solid #f0e1c6;color:#876329;font-size:12px;margin:16px 0 22px;line-height:1.55}
+h1.heading{font-size:27px;letter-spacing:-.6px;margin:0 0 5px}p.lead{color:var(--muted);font-size:13px;margin:0 0 23px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:17px}.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.card{background:white;border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow)}.pad{padding:22px}.minihead{font-size:11px;font-weight:800;letter-spacing:.08em;color:#67827a;text-transform:uppercase}.card h2{margin:6px 0;font-size:19px;letter-spacing:-.25px}.card p{font-size:12px;color:var(--muted);margin:4px 0 15px}.largeicon{width:50px;height:50px;display:grid;place-items:center;border-radius:13px;background:#eaf6ef;color:var(--green);font-size:24px}.largeicon.blue{color:#315f89;background:#edf3f9}.pickcard{min-height:240px;display:flex;flex-direction:column}.pickcard .go{margin-top:auto;align-self:flex-start}.boxrow{display:flex;align-items:center;gap:14px}.step{display:flex;align-items:flex-start;gap:12px;padding:13px 0;border-bottom:1px solid #edf2ee}.step:last-child{border-bottom:0}.number{flex:none;width:34px;height:34px;display:grid;place-items:center;border-radius:9px;background:#e9f5ee;color:var(--green);font-weight:900}.step strong{display:block;font-size:13px;margin-bottom:3px}.step p{margin:0;font-size:12px}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:20px 0 26px}.metric{padding:17px 18px;background:white;border:1px solid var(--border);border-radius:13px}.metric strong{display:block;font-size:24px;margin-top:8px;line-height:1.1}.metric small{color:#698077;font-weight:750;font-size:11px}.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:23px 0 14px}.sectionhead h2{margin:0;font-size:19px}.sectionhead p{font-size:12px;color:var(--muted);margin:2px 0 0}.subnav{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 20px}.tab{background:white;border:1px solid var(--border);border-radius:9px;padding:10px 12px;color:#54756b;font-size:12px;font-weight:800}.tab.active{background:var(--green);border-color:var(--green);color:#fff}.field{margin:10px 0 13px}.field label{display:block;font-size:11px;color:#56726b;font-weight:800;margin:0 0 7px}.field input,.field select{display:block;width:100%;padding:11px 12px;min-height:43px;background:#fff;border:1px solid #d4e2db;border-radius:9px;color:var(--ink);outline:0}.field input:focus{border-color:var(--green)}.field input::placeholder{color:#9aaca6}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:3px 15px}.full{grid-column:1/-1}.hint{font-size:11px!important;color:#728b82!important;line-height:1.5}.pill{display:inline-block;padding:6px 10px;border-radius:50px;background:#edf6f0;color:#287357;font-size:11px;font-weight:800}.pill.muted{background:#f3f5f4;color:#657a72}.button{border:1px solid transparent;padding:10px 15px;border-radius:9px;display:inline-flex;align-items:center;gap:8px;justify-content:center;font-weight:800;font-size:12px}.button.primary{background:var(--green);color:white}.button.primary:hover{background:#08564b}.button.secondary{background:#eaf6ee;color:var(--green)}.button.outline{background:#fff;border-color:#d7e5db;color:var(--green)}.button:disabled{opacity:.45;cursor:not-allowed}.actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:16px}.actions .button{min-height:39px}.divider{height:1px;background:#e8efeb;margin:19px 0}.template{padding:13px;border:1px solid #e0eae4;border-radius:10px;display:flex;align-items:center;gap:10px;margin:10px 0}.template strong{display:block}.template small{display:block;color:var(--muted);font-size:11px}.templateIcon{font-size:23px;flex:none}.code{background:#f1f6f3;padding:10px 12px;border-radius:8px;line-height:1.65;color:#386b5f;font:11px/1.7 ui-monospace,monospace;overflow-wrap:anywhere}.summary{padding:13px 14px;background:#f4f9f5;border:1px solid #e4efe6;border-radius:10px;color:#48675c;font-size:12px;line-height:1.9}.summary b{color:#164c41}.listbox{border:1px solid #e3ebe7;border-radius:12px;overflow:hidden}.course{display:flex;align-items:center;gap:12px;padding:13px 14px;border-bottom:1px solid #e8eeeb}.course:last-child{border:0}.course input{accent-color:var(--green);width:17px;height:17px}.courseName{flex:1;font-size:12px;font-weight:800}.course small{display:block;color:#94a69e;font-weight:500}.asidecallout{background:#eef7f0;border:1px solid #dcece3;border-radius:11px;padding:14px 15px;font-size:12px;color:#416e58}.workflow{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.workflow .card{padding:17px}.workflow .icon{font-size:23px;margin-bottom:8px}.workflow b{font-size:13px;display:block}.workflow p{margin:4px 0 0}.statusbar{display:flex;justify-content:space-between;gap:10px;padding:11px 12px;border:1px solid var(--border);border-radius:10px;font-size:12px;margin-top:12px;background:#fbfdfb}.statusbar b{color:#6f7e78}.foldertree{background:#fbfdfb;border:1px solid #e3eee6;border-radius:10px;padding:15px 17px;font-size:12px;line-height:2.1}.foldertree .pad1{padding-left:20px}.foldertree .pad2{padding-left:42px}.dividerV{border-left:1px solid #e6eee9}.privacy{display:flex;align-items:flex-start;gap:12px;background:#eaf5ed;border:1px solid #d8e8dc;padding:17px 19px;border-radius:13px;font-size:12px;color:#426d59;margin:20px 0}.privacy strong{display:block;color:#135a42;margin-bottom:3px}.privacy span{font-size:22px}.inlinegood{color:#2b7257;font-weight:750}.inlinewarn{color:#9a6a27;font-weight:750}.footer{font-size:11px;color:#8a9e98;margin:30px 0 0;display:flex;justify-content:space-between;gap:15px}.previewpane{background:#fff;border-radius:12px;border:1px solid var(--border);padding:19px;margin:12px 0}.previewpane h3{font-size:15px;margin:0 0 11px}.previewpane .field{margin:5px 0}.previewpane .field label{font-size:12px}.previewpane select{width:100%;min-height:39px;border:1px solid #d5e4dc;border-radius:8px;padding:8px}.alerttext{font-size:12px;color:#825e27;background:#fff8ea;border:1px solid #f3e1b8;padding:11px;border-radius:9px;margin:12px 0}
+@media(max-width:1120px){.side{width:207px}.grid4{grid-template-columns:repeat(2,1fr)}.metrics{grid-template-columns:repeat(2,1fr)}.heroicon{display:none}}
+@media(max-width:760px){.layout{display:block}.side{width:100%;height:auto;position:static;padding:12px;display:block}.brand{padding:0 9px 8px}.asidehead,.asidefoot{display:none}.nav{width:auto;display:inline-flex;padding:8px 9px;font-size:11px;margin:0 4px 5px 0}.nav .symbol{width:auto;font-size:14px}.top{height:58px;padding:0 16px}.container{padding:19px 13px 50px}.hero{padding:22px}.grid2,.formgrid{grid-template-columns:1fr}.full{grid-column:auto}.grid4,.metrics{grid-template-columns:repeat(2,1fr)}.card.pad{padding:17px}.workflow{grid-template-columns:1fr}.footer{display:block}.footer span{display:block}.state{font-size:9px}.sectionhead{align-items:flex-start}}
+@media(max-width:400px){.metrics{gap:8px}.metric{padding:12px}.metric strong{font-size:20px}.hero h1{font-size:27px}.actions .button{flex:1}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="side">
+<div class="brand"><div class="brandmark">P+</div><div><div class="brandname">Portal PRA</div><small>EDICIÓN CENTROS · FORMACIÓN</small></div></div>
+<div class="asidehead">PANEL DE GESTIÓN</div>
+<button class="nav active" data-page="inicio"><span class="symbol">⌂</span>Inicio</button>
+<button class="nav" data-page="gestor"><span class="symbol">▤</span>Gestor PRA</button>
+<button class="nav" data-page="seguimiento"><span class="symbol">☷</span>Seguimiento PRA</button>
+<button class="nav" data-page="guia"><span class="symbol">◈</span>Cómo funciona</button>
+<div class="asidefoot"><b>◈ Separación por centros</b>GitHub presenta la web. Los registros de alumnado y los PDF deben mantenerse en el Google Workspace autorizado de cada centro.</div>
+</aside>
+<main>
+<header class="top"><div class="bread">Centro educativo &nbsp;›&nbsp; <b id="crumb">Inicio</b></div><div class="right"><span class="state">INTERFAZ EN PREPARACIÓN</span><div class="user">CEP</div></div></header>
+<div class="container">
+<section class="page active" id="inicio">
+<div class="hero"><div><div class="kicker">DOS HERRAMIENTAS · UNA BASE DE DATOS</div><h1>Gestiona los PRAs<br>de principio a fin.</h1><p>Comunicaciones para las familias y seguimiento docente, en un único espacio. Configura una hoja de Séneca y dos carpetas independientes de Google Drive.</p><div class="actions"><button class="button" style="background:#fff;color:#0d6b5e" data-page="gestor">Configurar Gestor PRA →</button><button class="button" style="border:1px solid #ffffff55;background:#ffffff18;color:white" data-page="seguimiento">Configurar Seguimiento PRA</button></div></div><div class="heroicon">▤</div></div>
+<div class="notice"><strong>Preparación del portal:</strong> puedes introducir y revisar los enlaces y las opciones de las dos herramientas. Todavía no se guardan en Google Drive ni se generan PDFs desde GitHub; falta vincular un servicio de Google autorizado. No pegues aquí datos personales del alumnado.</div>
+<div class="metrics">
+<div class="metric"><small>HERRAMIENTAS</small><strong>2</strong></div>
+<div class="metric"><small>HOJA DE DATOS</small><strong>1</strong></div>
+<div class="metric"><small>DESTINOS EN DRIVE</small><strong>2</strong></div>
+<div class="metric"><small>EDITOR DE APPS SCRIPT</small><strong>0 para docentes</strong></div>
+</div>
+<div class="sectionhead"><div><h2>Elige qué quieres hacer</h2><p>Los dos procesos utilizan el alumnado con PRA abierto de la misma hoja.</p></div></div>
+<div class="grid2">
+<div class="card pad pickcard"><div class="boxrow"><div class="largeicon">▤</div><div><div class="minihead">APLICACIÓN 01</div><h2>Gestor PRA</h2></div></div><p>Configura el centro, prepara la plantilla de comunicación a las familias, comprueba los registros de Séneca y genera documentos por nivel y grupo.</p><div class="actions"><button class="button primary go" data-page="gestor">Entrar en Gestor PRA →</button></div></div>
+<div class="card pad pickcard"><div class="boxrow"><div class="largeicon blue">☷</div><div><div class="minihead">APLICACIÓN 02</div><h2>Seguimiento PRA</h2></div></div><p>Selecciona la carpeta independiente para los informes del profesorado, genera un acceso al formulario y acumula varias materias en un único PDF por alumno.</p><div class="actions"><button class="button outline go" data-page="seguimiento">Entrar en Seguimiento PRA →</button></div></div>
+</div>
+<div class="sectionhead"><div><h2>Proceso del curso</h2><p>Sin copiar scripts, sin duplicar datos del alumnado y con permisos propios de cada centro.</p></div></div>
+<div class="workflow">
+<div class="card"><div class="icon">①</div><b>Copia y completa la hoja de Séneca</b><p>Una pestaña por curso o nivel, incluida Educación Infantil.</p></div>
+<div class="card"><div class="icon">②</div><b>Indica tus carpetas y plantillas</b><p>Una carpeta para comunicaciones y otra para seguimiento.</p></div>
+<div class="card"><div class="icon">③</div><b>Genera y comparte con seguridad</b><p>El servicio Google, una vez conectado, creará los PDF y el enlace de seguimiento del centro.</p></div>
+</div>
+</section>
+<section class="page" id="gestor">
+<h1 class="heading">Gestor PRA</h1><p class="lead">El panel grande, organizado en cuatro apartados: configuración, plantilla, comprobación de datos y generación de comunicaciones.</p>
+<div class="subnav"><button class="tab active" data-scroll="gestor-config">1 · Configuración</button><button class="tab" data-scroll="gestor-template">2 · Plantilla</button><button class="tab" data-scroll="gestor-data">3 · Datos y comprobar</button><button class="tab" data-scroll="gestor-pdf">4 · Generación PDF</button></div>
+<div class="grid2">
+<div class="card pad" id="gestor-config"><div class="minihead">01 · DATOS DEL CENTRO</div><h2>Configuración del centro</h2><p>Los enlaces se comprueban en el navegador; la conexión con Google sigue pendiente.</p>
+<div class="formgrid">
+<div class="field"><label for="centro">Nombre del centro</label><input id="centro" type="text" placeholder="IES / CEIP ..."></div>
+<div class="field"><label for="curso">Curso escolar</label><input id="curso" type="text" value="2026-2027" placeholder="2026-2027"></div>
+<div class="field full"><label for="hoja">Enlace a la hoja de cálculo de Séneca</label><input id="hoja" type="url" placeholder="https://docs.google.com/spreadsheets/d/..."></div>
+<div class="field full"><label for="carpetaGestor">Carpeta de Drive para las comunicaciones</label><input id="carpetaGestor" type="url" placeholder="https://drive.google.com/drive/folders/..."></div>
+</div>
+<div class="actions"><button class="button primary" id="validarGestor">Comprobar enlaces</button><button class="button outline" id="abrirHoja" disabled>Abrir hoja</button></div>
+<p id="msgGestor" class="hint" role="status">Los campos no se guardan en GitHub ni se envían a ningún servidor.</p>
+</div>
+<div class="card pad" id="gestor-template"><div class="minihead">02 · DOCUMENTO ORIGINAL</div><h2>Plantilla de comunicación</h2><p>Se conservarán las tablas, el logotipo y el diseño original. Cada centro deberá trabajar sobre su propia copia.</p>
+<div class="template"><div class="templateIcon">📄</div><div><strong>Comunicación a familias · PRA</strong><small>Google Docs · Plantilla con cuatro tablas</small></div><span class="pill">Editable</span></div>
+<div class="code">{{ALUMNO}} &nbsp; {{GRUPO}}<br>{{TIPO_PROGRAMA}} &nbsp; {{MATERIAS}}<br>{{CURSO_ACADEMICO}}</div>
+<div class="actions"><a class="button secondary" target="_blank" rel="noopener" href="https://docs.google.com/document/d/1C44fN_f6DQssGx9ejTKIoOcx1Q9IVbz1y2TQTf_zods/copy">Hacer copia de la plantilla ↗</a><a class="button outline" target="_blank" rel="noopener" href="https://docs.google.com/document/d/1C44fN_f6DQssGx9ejTKIoOcx1Q9IVbz1y2TQTf_zods/edit">Ver original ↗</a></div>
+<p class="hint">La creación automática de la copia dentro de la carpeta requiere la conexión con Google Workspace.</p>
+</div>
+</div>
+<div class="grid2" style="margin-top:17px">
+<div class="card pad" id="gestor-data"><div class="minihead">03 · REGISTROS DE SÉNECA</div><h2>Datos y comprobar antes de generar</h2><p>Selecciona las pestañas que quieres procesar. Las cantidades reales se leerán de la hoja al conectar el servicio.</p>
+<div class="statusbar"><span>Pestañas seleccionadas</span><b id="selectedCount">0</b></div>
+<div class="actions"><button class="button secondary" id="seleccionarTodas">Seleccionar todas</button><button class="button outline" id="desmarcarTodas">Desmarcar</button></div>
+<div class="listbox" id="courseList"></div>
+<div class="actions"><button class="button outline" id="verSeleccion">Resumen de la selección</button></div>
+</div>
+<div class="card pad" id="gestor-pdf"><div class="minihead">04 · CREACIÓN DE PDF</div><h2>Generación de comunicaciones</h2><p>Los documentos quedarán organizados en la carpeta del centro, por nivel y grupo, como en el Gestor PRA original.</p>
+<div class="summary" id="gestorSummary">Selecciona tus pestañas y completa los enlaces para preparar el trabajo.</div>
+<div class="foldertree" style="margin-top:15px"><strong>📁 Comunicaciones PRA</strong><div class="pad1">📁 1º ESO</div><div class="pad2">📁 1º ESO A · PDF individuales</div><div class="pad1">📁 2º ESO</div><div class="pad2">📁 2º ESO B · PDF individuales</div><div class="pad1">📁 Infantil</div><div class="pad2">📁 Infantil 4 años A · PDF individuales</div></div>
+<div class="actions"><button class="button primary" disabled title="Falta conectar Google Workspace">Generar PDF</button></div>
+<p class="hint">El botón se habilitará cuando el portal esté conectado de forma segura al motor de Apps Script. No se simula una generación que no se ha realizado.</p>
+</div>
+</div>
+</section>
+<section class="page" id="seguimiento">
+<h1 class="heading">Seguimiento PRA</h1><p class="lead">Un formulario del profesorado por centro, con curso → grupo → alumno → situación → materia, y cinco apartados de seguimiento.</p>
+<div class="grid2">
+<div class="card pad"><div class="minihead">01 · CONFIGURACIÓN INDEPENDIENTE</div><h2>Carpeta de seguimiento</h2><p>La misma hoja de Séneca, pero una carpeta diferente de la utilizada para las comunicaciones.</p>
+<div class="field"><label for="seguimientoHoja">Hoja de Séneca compartida con el Gestor PRA</label><input id="seguimientoHoja" type="url" placeholder="Se completa con el enlace del Gestor" readonly></div>
+<div class="field"><label for="carpetaSeguimiento">Carpeta de Google Drive para los seguimientos</label><input id="carpetaSeguimiento" type="url" placeholder="https://drive.google.com/drive/folders/..."></div>
+<div class="actions"><button class="button primary" id="validarSeguimiento">Comprobar enlaces</button></div>
+<p id="msgSeguimiento" class="hint" role="status">Los datos del profesorado y el alumnado permanecerán en el entorno autorizado del centro.</p>
+<div class="divider"></div><h2>Plantilla de seguimiento</h2>
+<div class="template"><div class="templateIcon">📄</div><div><strong>Seguimiento de la medida específica</strong><small>Google Docs · Plantilla con dos tablas</small></div></div>
+<div class="actions"><a class="button secondary" href="https://docs.google.com/document/d/1RXzOJq_qqScAG2Qebw9NAbQstwwCFtV4rvmUky7r1tE/copy" target="_blank" rel="noopener">Hacer copia de la plantilla ↗</a><a class="button outline" href="https://docs.google.com/document/d/1RXzOJq_qqScAG2Qebw9NAbQstwwCFtV4rvmUky7r1tE/edit" target="_blank" rel="noopener">Ver original ↗</a></div>
+</div>
+<div class="card pad"><div class="minihead">02 · FORMULARIO DEL PROFESORADO</div><h2>Enlace del formulario de seguimiento</h2><p>El motor Google generará un enlace propio del centro; los docentes lo abrirán directamente, sin entrar en Apps Script.</p>
+<div class="statusbar"><span>Estado del formulario</span><span class="inlinewarn">Pendiente de conexión</span></div>
+<div class="field"><label for="formLink">Enlace para compartir con el profesorado</label><input id="formLink" readonly placeholder="Se mostrará automáticamente al conectar Google Workspace"></div>
+<div class="actions"><button class="button primary" disabled title="Falta conectar Google Workspace">Crear formulario y obtener enlace</button><button class="button outline" disabled>Copiar enlace</button></div>
+<div class="divider"></div>
+<div class="asidecallout"><strong>Acceso del profesorado</strong><p style="margin:6px 0 0">Correo de Google verificado automáticamente; alumnado y materias filtrados según los PRAs abiertos. Las autorizaciones se validarán en el servidor, no en GitHub.</p></div>
+<div class="divider"></div><h2>Cómo quedará el PDF acumulativo</h2>
+<div class="foldertree"><strong>📁 Seguimiento de PRAs</strong><div class="pad1">📁 1º ESO</div><div class="pad2">📁 1º ESO A</div><div style="padding-left:60px">📄 Alumno/a.pdf</div><div class="pad1">📁 Infantil 4 años</div><div class="pad2">📁 Infantil 4 años A</div><div style="padding-left:60px">📄 Alumno/a.pdf</div></div>
+<div class="summary" style="margin-top:14px"><b>Un PDF por alumno</b><br>Matemáticas + Lengua + Inglés aparecerán consecutivamente dentro del mismo documento, conservando los informes de materias anteriores.</div>
+</div>
+</div>
+<div class="sectionhead"><div><h2>Las cinco preguntas del seguimiento</h2><p>Se mantienen los tipos de respuesta de la aplicación creada.</p></div></div>
+<div class="grid4">
+<div class="card pad"><div class="minihead">1 · PROGRESO</div><h2>Casillas</h2><p>Selección múltiple de avances, participación, actitudes y comportamiento.</p></div>
+<div class="card pad"><div class="minihead">2 · DIFICULTADES</div><h2>Casillas + texto</h2><p>Hábitos, comprensión, atención, conducta, apoyo familiar y observaciones.</p></div>
+<div class="card pad"><div class="minihead">3 · EFICACIA</div><h2>Opción única</h2><p>Valoración de la eficacia de la medida y los resultados.</p></div>
+<div class="card pad"><div class="minihead">4 Y 5 · PROPUESTAS / CONTINUIDAD</div><h2>Casillas y Sí/No</h2><p>Modificaciones propuestas, observaciones y continuidad del refuerzo.</p></div>
+</div>
+</section>
+<section class="page" id="guia">
+<h1 class="heading">Cómo funcionará para los centros</h1><p class="lead">La formación utilizará la misma hoja y el mismo portal, pero los documentos pertenecerán a cada centro.</p>
+<div class="grid2">
+<div class="card pad"><div class="minihead">PROCESO DEL PARTICIPANTE</div><h2>Sin abrir el editor de Apps Script</h2>
+<div class="step"><div class="number">1</div><div><strong>Entrar con la cuenta institucional</strong><p>La conexión Google debe verificar la identidad y los permisos.</p></div></div>
+<div class="step"><div class="number">2</div><div><strong>Indicar la hoja de Séneca y la carpeta del Gestor</strong><p>Configurar la plantilla de comunicación y revisar los registros.</p></div></div>
+<div class="step"><div class="number">3</div><div><strong>Indicar otra carpeta para Seguimiento PRA</strong><p>Preparar la plantilla y obtener un enlace propio de formulario.</p></div></div>
+<div class="step"><div class="number">4</div><div><strong>Compartir solo con el profesorado autorizado</strong><p>El formulario registra el correo, filtra los PRAs y actualiza los PDF.</p></div></div>
+</div>
+<div class="card pad"><div class="minihead">PRIVACIDAD Y DESPLIEGUE</div><h2>Separación de responsabilidades</h2>
+<p><strong>GitHub Pages</strong> publicará solamente los archivos de la interfaz: HTML, CSS y JavaScript. No se usarán bases de datos públicas con información de menores.</p>
+<p><strong>Google Workspace</strong> deberá procesar los datos de Séneca, guardar las configuraciones de cada centro y generar los documentos mediante permisos autorizados.</p>
+<p><strong>Instalación centralizada:</strong> los docentes no necesitarán copiar el código ni la URL de una implementación. El administrador de la plataforma sí tendrá que conectar y publicar el servicio seguro una vez.</p>
+<div class="notice" style="margin-bottom:0"><strong>Este sitio es la interfaz preparada, no la instalación final.</strong> No se enviarán formularios ni se generarán PDF hasta integrar el servicio de Google y superar las pruebas de permisos con datos ficticios.</div>
+</div>
+</div>
+<div class="privacy"><span>◈</span><div><strong>Compromiso de privacidad</strong>Esta página pública no recopila nombres, NIE ni respuestas de estudiantes. Los enlaces introducidos solo existen en la memoria de esta pestaña del navegador; no se envían a GitHub ni se guardan como almacenamiento permanente.</div></div>
+</section>
+<div class="privacy"><span>◈</span><div><strong>Una web pública no debe mostrar datos personales del alumnado</strong>La consulta de Séneca y la generación de PDF se realizarán exclusivamente en una aplicación Google autorizada y aislada por centro. En este borrador no se consultan ni se copian datos reales.</div></div>
+<div class="footer"><span>Portal PRA · Formación del profesorado · Gestor y Seguimiento</span><span>Interfaz pública · Conexión a Google Workspace pendiente</span></div>
+</div>
+</main>
+</div>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const state={page:"inicio",selected:new Set(["Infantil","1º ESO","2º ESO","3º ESO","4º ESO","1º BACH","2º BACH"])};
+const levels=["Infantil","1º ESO","2º ESO","3º ESO","4º ESO","1º BACH","2º BACH"];
+const pages={inicio:"Inicio",gestor:"Gestor PRA",seguimiento:"Seguimiento PRA",guia:"Cómo funciona"};
+function navigate(to){
+ state.page=to;
+ document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===to));
+ document.querySelectorAll(".nav").forEach(n=>n.classList.toggle("active",n.dataset.page===to));
+ $("crumb").textContent=pages[to]||"Inicio";
+ update();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("[data-page]").forEach(x=>x.addEventListener("click",()=>navigate(x.dataset.page)));
+document.querySelectorAll("[data-scroll]").forEach(b=>b.addEventListener("click",()=>{
+ navigate("gestor");
+ const el=$(b.dataset.scroll);if(el)el.scrollIntoView({behavior:"smooth",block:"start"});
+}));
+function validateGoogleUrl(v,type){
+ const s=String(v||"").trim();
+ if(!s)return false;
+ try{
+  const u=new URL(s);
+  if(u.protocol!=="https:")return false;
+  if(type==="sheet")return u.hostname==="docs.google.com"&&/^\/spreadsheets\/d\/[a-zA-Z0-9_-]+/.test(u.pathname);
+  return u.hostname==="drive.google.com"&&/\/drive\/folders\/[a-zA-Z0-9_-]{10,}/.test(u.pathname);
+ }catch(e){return false}
+}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function update(){
+ const sheet=$("hoja").value.trim();
+ $("seguimientoHoja").value=sheet;
+ const count=state.selected.size;
+ $("selectedCount").textContent=String(count);
+ const parts=[];
+ if($("centro").value.trim())parts.push("<b>Centro:</b> "+esc($("centro").value.trim()));
+ if($("curso").value.trim())parts.push("<b>Curso:</b> "+esc($("curso").value.trim()));
+ parts.push("<b>Pestañas seleccionadas:</b> "+count);
+ parts.push("<b>Hoja de datos:</b> "+(validateGoogleUrl(sheet,"sheet")?"enlace con formato válido (acceso sin comprobar)":"sin configurar"));
+ parts.push("<b>Carpeta de comunicaciones:</b> "+(validateGoogleUrl($("carpetaGestor").value,"folder")?"enlace con formato válido (acceso sin comprobar)":"sin configurar"));
+ $("gestorSummary").innerHTML=parts.join("<br>");
+ $("abrirHoja").disabled=!validateGoogleUrl(sheet,"sheet");
+}
+function notify(id,ok,msg){const node=$(id);node.textContent=msg;node.className=ok?"hint inlinegood":"hint inlinewarn"}
+function validateGestor(){
+ const centro=$("centro").value.trim(),year=$("curso").value.trim(),sheet=$("hoja").value.trim(),folder=$("carpetaGestor").value.trim();
+ const msgs=[];
+ if(!centro)msgs.push("introduce el nombre del centro");
+ if(!/^20\d{2}[-/]20\d{2}$/.test(year))msgs.push("usa el formato 2026-2027");
+ if(!validateGoogleUrl(sheet,"sheet"))msgs.push("revisa el enlace de Google Sheets");
+ if(!validateGoogleUrl(folder,"folder"))msgs.push("revisa la carpeta de Drive");
+ if(msgs.length)notify("msgGestor",false,"Revisión: "+msgs.join("; ")+".");
+ else notify("msgGestor",true,"✓ Los enlaces tienen un formato correcto. Todavía no se han comprobado los permisos ni se ha guardado nada en Google.");
+ update();
+}
+function validateSeg(){
+ const sheet=$("hoja").value.trim(),a=$("carpetaGestor").value.trim(),b=$("carpetaSeguimiento").value.trim();
+ if(!validateGoogleUrl(sheet,"sheet"))notify("msgSeguimiento",false,"Configura primero la hoja de Séneca en el apartado Gestor PRA.");
+ else if(!validateGoogleUrl(b,"folder"))notify("msgSeguimiento",false,"Introduce una carpeta válida para el seguimiento.");
+ else if(a===b && a)notify("msgSeguimiento",false,"Utiliza una carpeta de destino diferente a la de comunicaciones.");
+ else notify("msgSeguimiento",true,"✓ Enlace con formato correcto. Para crear las subcarpetas y el formulario hay que conectar Google Workspace.");
+}
+const courseList=$("courseList");
+levels.forEach(name=>{
+ const label=document.createElement("label");label.className="course";
+ const input=document.createElement("input");input.type="checkbox";input.checked=true;input.value=name;
+ input.addEventListener("change",()=>{input.checked?state.selected.add(name):state.selected.delete(name);update()});
+ const span=document.createElement("span");span.className="courseName";span.textContent=name;
+ const small=document.createElement("small");small.textContent="Se comprobará al conectar con la hoja de Séneca";span.appendChild(small);
+ label.append(input,span);courseList.appendChild(label);
+});
+$("seleccionarTodas").addEventListener("click",()=>{state.selected=new Set(levels);courseList.querySelectorAll("input").forEach(i=>i.checked=true);update()});
+$("desmarcarTodas").addEventListener("click",()=>{state.selected.clear();courseList.querySelectorAll("input").forEach(i=>i.checked=false);update()});
+$("verSeleccion").addEventListener("click",()=>{const names=levels.filter(x=>state.selected.has(x));$("gestorSummary").innerHTML="<b>Selección preparada (no analizada):</b><br>"+(names.length?names.map(esc).join(" · "):"Ninguna pestaña seleccionada")+"<br><b>Nota:</b> se necesita conexión con Google para obtener los grupos y registros reales.";});
+$("validarGestor").addEventListener("click",validateGestor);
+$("validarSeguimiento").addEventListener("click",validateSeg);
+$("abrirHoja").addEventListener("click",()=>{const url=$("hoja").value.trim();if(validateGoogleUrl(url,"sheet"))window.open(url,"_blank","noopener,noreferrer")});
+["centro","curso","hoja","carpetaGestor","carpetaSeguimiento"].forEach(id=>$(id).addEventListener("input",update));
+update();
+</script>
+</body>
+</html>
