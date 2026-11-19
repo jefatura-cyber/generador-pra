@@ -62,8 +62,8 @@ h1.heading{font-size:27px;letter-spacing:-.6px;margin:0 0 5px}p.lead{color:var(-
 <div class="field full"><label>Tu hoja de cálculo · se crea desde la plantilla maestra</label><div class="template"><span class="templateIcon">📊</span><div><strong>Plantilla maestra PRA limpia</strong><small>Hoja base con pestañas y encabezados · sin información de alumnado</small></div><span class="pill">Tu copia</span></div><div class="actions"><a class="button primary" id="crearHoja" href="https://docs.google.com/spreadsheets/d/1wUa9HEmeSHkxUtBF8wnpMHk9pWg7BYAB3lsvTmj9Yfk/copy" target="_blank" rel="noopener">Crear mi copia de la hoja maestra ↗</a></div><p class="hint">1. Pulsa el botón. 2. Guarda la copia en tu Google Drive. 3. En cada pestaña, importa la exportación completa de Séneca desde A1. Esa misma copia será la fuente del Gestor y del Seguimiento. Para utilizar el enlace con otros centros, el organizador debe compartir la plantilla limpia como «Cualquier persona con el enlace: Lector».</p></div>
 <div class="field full"><label for="carpetaGestor">Carpeta de Drive para las comunicaciones</label><input id="carpetaGestor" type="url" placeholder="https://drive.google.com/drive/folders/..."></div>
 </div>
-<div class="actions"><button class="button primary" id="validarGestor">Comprobar configuración</button></div>
-<p id="msgGestor" class="hint" role="status">Los campos no se guardan en GitHub ni se envían a ningún servidor.</p>
+<div class="actions"><button class="button primary" id="validarGestor">Validar formato del enlace</button></div>
+<p id="msgGestor" class="hint" role="status">Esta comprobación solo valida el formato del enlace; no guarda la carpeta ni verifica permisos. La configuración se conectará a Google Workspace en la siguiente fase.</p>
 </div>
 <div class="card pad" id="gestor-template"><div class="minihead">02 · DOCUMENTO ORIGINAL</div><h2>Plantilla de comunicación</h2><p>Se conservarán las tablas, el logotipo y el diseño original. Cada centro deberá trabajar sobre su propia copia.</p>
 <div class="template"><div class="templateIcon">📄</div><div><strong>Comunicación a familias · PRA</strong><small>Google Docs · Plantilla con cuatro tablas</small></div><span class="pill">Editable</span></div>
@@ -81,9 +81,9 @@ h1.heading{font-size:27px;letter-spacing:-.6px;margin:0 0 5px}p.lead{color:var(-
 </div>
 <div class="card pad" id="gestor-pdf"><div class="minihead">04 · CREACIÓN DE PDF</div><h2>Generación de comunicaciones</h2><p>Los documentos quedarán organizados en la carpeta del centro, por nivel y grupo, como en el Gestor PRA original.</p>
 <div class="summary" id="gestorSummary">Selecciona tus pestañas y completa los enlaces para preparar el trabajo.</div>
-<div class="foldertree" style="margin-top:15px"><strong>📁 Comunicaciones PRA</strong><div class="pad1">📁 1º ESO</div><div class="pad2">📁 1º ESO A · PDF individuales</div><div class="pad1">📁 2º ESO</div><div class="pad2">📁 2º ESO B · PDF individuales</div><div class="pad1">📁 Infantil</div><div class="pad2">📁 Infantil 4 años A · PDF individuales</div></div>
-<div class="actions"><button class="button primary" disabled title="Falta conectar Google Workspace">Generar PDF</button></div>
-<p class="hint">El botón se habilitará cuando el portal esté conectado de forma segura al motor de Apps Script. No se simula una generación que no se ha realizado.</p>
+<div class="foldertree" id="pdfFolders" style="margin-top:15px" aria-live="polite" hidden></div>
+<div class="actions"><button class="button primary" disabled title="Pendiente de conectar el servicio de Google autorizado">Generar PDF</button><span class="pill muted">Pendiente de conexión a Google</span></div>
+<p class="hint">El apartado permanecerá vacío hasta que se hayan creado carpetas reales. Seleccionar 1.º ESO y comprobar el enlace de Drive todavía no guarda la configuración ni inicia ninguna generación: falta conectar el portal con el servicio de Google Workspace del centro.</p>
 </div>
 </div>
 </section>
@@ -211,6 +211,48 @@ levels.forEach(name=>{
 $("seleccionarTodas").addEventListener("click",()=>{state.selected=new Set(levels);courseList.querySelectorAll("input").forEach(i=>i.checked=true);update()});
 $("desmarcarTodas").addEventListener("click",()=>{state.selected.clear();courseList.querySelectorAll("input").forEach(i=>i.checked=false);update()});
 $("verSeleccion").addEventListener("click",()=>{const names=levels.filter(x=>state.selected.has(x));$("gestorSummary").innerHTML="<b>Selección preparada (no analizada):</b><br>"+(names.length?names.map(esc).join(" · "):"Ninguna pestaña seleccionada")+"<br><b>Nota:</b> se necesita conexión con Google para obtener los grupos y registros reales.";});
+/**
+ * Solo muestra carpetas verificadas devueltas por el futuro servicio
+ * autenticado de Google. Nunca se precarga una estructura de ejemplo.
+ * nodes: [{ name, url?, children?: [{name,url?,children?:[]}]}]
+ */
+function renderGeneratedFolders(nodes) {
+ const box=$("pdfFolders");
+ box.replaceChildren();
+ const valid=Array.isArray(nodes)?nodes:[];
+ function createFolder(item,depth){
+  if(!item||typeof item.name!=="string"||!item.name.trim())return null;
+  const line=document.createElement("div");
+  line.style.paddingLeft=(Math.min(depth,5)*18)+"px";
+  line.style.paddingTop="2px";
+  line.style.paddingBottom="2px";
+  const text="📁 "+item.name;
+  let url=null;
+  if(typeof item.url==="string"){
+   try{
+    const u=new URL(item.url);
+    if(u.protocol==="https:" && u.hostname==="drive.google.com")url=u.href;
+   }catch(_){}
+  }
+  if(url){
+   const a=document.createElement("a");a.href=url;a.target="_blank";a.rel="noopener noreferrer";a.textContent=text;
+   a.style.color="#11695b";a.style.textDecoration="underline";line.appendChild(a);
+  }else{
+   line.textContent=text;
+  }
+  return line;
+ }
+ function append(items,depth){
+  for(const item of items){
+   const line=createFolder(item,depth);
+   if(line)box.appendChild(line);
+   if(Array.isArray(item.children))append(item.children,depth+1);
+  }
+ }
+ append(valid,0);
+ box.hidden=box.childElementCount===0;
+}
+window.renderGeneratedFolders=renderGeneratedFolders;
 $("validarGestor").addEventListener("click",validateGestor);
 $("validarSeguimiento").addEventListener("click",validateSeg);
 ["centro","curso","carpetaGestor","carpetaSeguimiento"].forEach(id=>$(id).addEventListener("input",update));
