@@ -218,6 +218,39 @@ async function googleDocReplace(docId,fields){
  if(changed<5)throw Error("La plantilla no contiene suficientes campos automáticos. Revisa que utilizas la plantilla del curso.");
  return r;
 }
+/**
+ * Restores ordinary (not bold) text to the answers written into
+ * the original teacher-report Google Doc template. Labels remain styled.
+ */
+async function setDocResponsesPlain(docId,fields){
+ const keys=["PROGRESO","DIFICULTADES","OTRAS_DIFICULTADES","EFICACIA","MODIFICACIONES","OBSERVACIONES","CONTINUIDAD"];
+ const answers=unique(keys.map(k=>String(fields[k]??"")).filter(x=>x.trim()));
+ if(!answers.length)return;
+ const doc=await api(DOCS+"/"+encodeURIComponent(docId));
+ const ranges=[];
+ function walk(elements){
+  for(const el of elements||[]){
+   if(el.paragraph){
+    for(const piece of el.paragraph.elements||[]){
+     const text=piece.textRun?.content||"";
+     if(!text||!Number.isInteger(piece.startIndex))continue;
+     for(const answer of answers){
+      let from=0;
+      while((from=text.indexOf(answer,from))>=0){
+       ranges.push({startIndex:piece.startIndex+from,endIndex:piece.startIndex+from+answer.length});
+       from+=answer.length;
+      }
+     }
+    }
+   }
+   if(el.table)for(const row of el.table.tableRows||[])for(const cell of row.tableCells||[])walk(cell.content);
+  }
+ }
+ walk(doc.body?.content);
+ if(!ranges.length)return;
+ await api(DOCS+"/"+encodeURIComponent(docId)+":batchUpdate",{method:"POST",body:{requests:ranges.map(range=>({updateTextStyle:{range,textStyle:{bold:false},fields:"bold"}}))}});
+}
+
 async function exportPdf(docId){
  const url=DRIVE+"/files/"+encodeURIComponent(docId)+"/export?mimeType="+encodeURIComponent("application/pdf");
  return api(url,{raw:true});
@@ -429,7 +462,9 @@ async function createFollowPdf(p,folder,hash){
  if(!templateId)throw Error("Configura la plantilla de seguimiento.");
  const tmp=await copyFile(templateId,"_TEMP_SEGUIMIENTO_"+hash+"_"+Date.now(),folder);
  try{
-  await googleDocReplace(tmp.id,followFields(records[0]));
+  const firstFields=followFields(records[0]);
+  await googleDocReplace(tmp.id,firstFields);
+  await setDocResponsesPlain(tmp.id,firstFields);
   for(const r of records.slice(1)){
    await api(DOCS+"/"+encodeURIComponent(tmp.id)+":batchUpdate",{method:"POST",body:{requests:[
     {insertPageBreak:{endOfSegmentLocation:{}}},
