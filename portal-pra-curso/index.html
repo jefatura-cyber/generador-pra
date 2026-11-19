@@ -46,7 +46,7 @@ h1.heading{font-size:27px;letter-spacing:-.6px;margin:0 0 5px}p.lead{color:var(-
 </div>
 <div class="sectionhead"><div><h2>Proceso del curso</h2><p>Sin copiar scripts, sin duplicar datos del alumnado y con permisos propios de cada centro.</p></div></div>
 <div class="workflow">
-<div class="card"><div class="icon">①</div><b>Copia y completa la hoja de Séneca</b><p>Una pestaña por curso o nivel, incluida Educación Infantil.</p></div>
+<div class="card"><div class="icon">①</div><b>Copia y completa la hoja de Séneca</b><p>La plantilla incluye pestañas por nivel. Si tu centro necesita Infantil, puedes incorporar esa pestaña antes de importar.</p></div>
 <div class="card"><div class="icon">②</div><b>Indica tus carpetas y plantillas</b><p>Una carpeta para comunicaciones y otra para seguimiento.</p></div>
 <div class="card"><div class="icon">③</div><b>Genera y comparte con seguridad</b><p>El servicio Google, una vez conectado, creará los PDF y el enlace de seguimiento del centro.</p></div>
 </div>
@@ -55,14 +55,14 @@ h1.heading{font-size:27px;letter-spacing:-.6px;margin:0 0 5px}p.lead{color:var(-
 <h1 class="heading">Gestor PRA</h1><p class="lead">El panel grande, organizado en cuatro apartados: configuración, plantilla, comprobación de datos y generación de comunicaciones.</p>
 <div class="subnav"><button class="tab active" data-scroll="gestor-config">1 · Configuración</button><button class="tab" data-scroll="gestor-template">2 · Plantilla</button><button class="tab" data-scroll="gestor-data">3 · Datos y comprobar</button><button class="tab" data-scroll="gestor-pdf">4 · Generación PDF</button></div>
 <div class="grid2">
-<div class="card pad" id="gestor-config"><div class="minihead">01 · DATOS DEL CENTRO</div><h2>Configuración del centro</h2><p>Los enlaces se comprueban en el navegador; la conexión con Google sigue pendiente.</p>
+<div class="card pad" id="gestor-config"><div class="minihead">01 · DATOS DEL CENTRO</div><h2>Configuración del centro</h2><p>No necesitas buscar ni escribir la URL de una hoja. Comienza creando tu propia copia de la plantilla maestra.</p>
 <div class="formgrid">
 <div class="field"><label for="centro">Nombre del centro</label><input id="centro" type="text" placeholder="IES / CEIP ..."></div>
 <div class="field"><label for="curso">Curso escolar</label><input id="curso" type="text" value="2026-2027" placeholder="2026-2027"></div>
-<div class="field full"><label for="hoja">Enlace a la hoja de cálculo de Séneca</label><input id="hoja" type="url" placeholder="https://docs.google.com/spreadsheets/d/..."></div>
+<div class="field full"><label>Tu hoja de cálculo · se crea desde la plantilla maestra</label><div class="template"><span class="templateIcon">📊</span><div><strong>Plantilla maestra PRA limpia</strong><small>Hoja base con pestañas y encabezados · sin información de alumnado</small></div><span class="pill">Tu copia</span></div><div class="actions"><a class="button primary" id="crearHoja" href="https://docs.google.com/spreadsheets/d/1wUa9HEmeSHkxUtBF8wnpMHk9pWg7BYAB3lsvTmj9Yfk/copy" target="_blank" rel="noopener">Crear mi copia de la hoja maestra ↗</a></div><p class="hint">1. Pulsa el botón. 2. Guarda la copia en tu Google Drive. 3. En cada pestaña, importa la exportación completa de Séneca desde A1. Esa misma copia será la fuente del Gestor y del Seguimiento. Para utilizar el enlace con otros centros, el organizador debe compartir la plantilla limpia como «Cualquier persona con el enlace: Lector».</p></div>
 <div class="field full"><label for="carpetaGestor">Carpeta de Drive para las comunicaciones</label><input id="carpetaGestor" type="url" placeholder="https://drive.google.com/drive/folders/..."></div>
 </div>
-<div class="actions"><button class="button primary" id="validarGestor">Comprobar enlaces</button><button class="button outline" id="abrirHoja" disabled>Abrir hoja</button></div>
+<div class="actions"><button class="button primary" id="validarGestor">Comprobar configuración</button></div>
 <p id="msgGestor" class="hint" role="status">Los campos no se guardan en GitHub ni se envían a ningún servidor.</p>
 </div>
 <div class="card pad" id="gestor-template"><div class="minihead">02 · DOCUMENTO ORIGINAL</div><h2>Plantilla de comunicación</h2><p>Se conservarán las tablas, el logotipo y el diseño original. Cada centro deberá trabajar sobre su propia copia.</p>
@@ -91,7 +91,7 @@ h1.heading{font-size:27px;letter-spacing:-.6px;margin:0 0 5px}p.lead{color:var(-
 <h1 class="heading">Seguimiento PRA</h1><p class="lead">Un formulario del profesorado por centro, con curso → grupo → alumno → situación → materia, y cinco apartados de seguimiento.</p>
 <div class="grid2">
 <div class="card pad"><div class="minihead">01 · CONFIGURACIÓN INDEPENDIENTE</div><h2>Carpeta de seguimiento</h2><p>La misma hoja de Séneca, pero una carpeta diferente de la utilizada para las comunicaciones.</p>
-<div class="field"><label for="seguimientoHoja">Hoja de Séneca compartida con el Gestor PRA</label><input id="seguimientoHoja" type="url" placeholder="Se completa con el enlace del Gestor" readonly></div>
+<div class="asidecallout"><strong>📊 Una sola hoja de Séneca</strong><p style="margin:6px 0 0">El Seguimiento PRA utilizará la misma copia que hayas creado en Gestor PRA. No necesitas introducir su URL por segunda vez. La identificación automática de tu copia requiere conectar el portal a Google Workspace.</p></div>
 <div class="field"><label for="carpetaSeguimiento">Carpeta de Google Drive para los seguimientos</label><input id="carpetaSeguimiento" type="url" placeholder="https://drive.google.com/drive/folders/..."></div>
 <div class="actions"><button class="button primary" id="validarSeguimiento">Comprobar enlaces</button></div>
 <p id="msgSeguimiento" class="hint" role="status">Los datos del profesorado y el alumnado permanecerán en el entorno autorizado del centro.</p>
@@ -123,7 +123,7 @@ h1.heading{font-size:27px;letter-spacing:-.6px;margin:0 0 5px}p.lead{color:var(-
 <div class="grid2">
 <div class="card pad"><div class="minihead">PROCESO DEL PARTICIPANTE</div><h2>Sin abrir el editor de Apps Script</h2>
 <div class="step"><div class="number">1</div><div><strong>Entrar con la cuenta institucional</strong><p>La conexión Google debe verificar la identidad y los permisos.</p></div></div>
-<div class="step"><div class="number">2</div><div><strong>Indicar la hoja de Séneca y la carpeta del Gestor</strong><p>Configurar la plantilla de comunicación y revisar los registros.</p></div></div>
+<div class="step"><div class="number">2</div><div><strong>Crear la copia de la plantilla maestra y pegar Séneca</strong><p>Después configura la carpeta del Gestor, la comunicación a familias y la revisión de los registros.</p></div></div>
 <div class="step"><div class="number">3</div><div><strong>Indicar otra carpeta para Seguimiento PRA</strong><p>Preparar la plantilla y obtener un enlace propio de formulario.</p></div></div>
 <div class="step"><div class="number">4</div><div><strong>Compartir solo con el profesorado autorizado</strong><p>El formulario registra el correo, filtra los PRAs y actualiza los PDF.</p></div></div>
 </div>
@@ -172,35 +172,30 @@ function validateGoogleUrl(v,type){
 }
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
 function update(){
- const sheet=$("hoja").value.trim();
- $("seguimientoHoja").value=sheet;
  const count=state.selected.size;
  $("selectedCount").textContent=String(count);
  const parts=[];
  if($("centro").value.trim())parts.push("<b>Centro:</b> "+esc($("centro").value.trim()));
  if($("curso").value.trim())parts.push("<b>Curso:</b> "+esc($("curso").value.trim()));
  parts.push("<b>Pestañas seleccionadas:</b> "+count);
- parts.push("<b>Hoja de datos:</b> "+(validateGoogleUrl(sheet,"sheet")?"enlace con formato válido (acceso sin comprobar)":"sin configurar"));
+ parts.push("<b>Hoja de datos:</b> plantilla maestra limpia para copiar e importar Séneca");
  parts.push("<b>Carpeta de comunicaciones:</b> "+(validateGoogleUrl($("carpetaGestor").value,"folder")?"enlace con formato válido (acceso sin comprobar)":"sin configurar"));
  $("gestorSummary").innerHTML=parts.join("<br>");
- $("abrirHoja").disabled=!validateGoogleUrl(sheet,"sheet");
 }
 function notify(id,ok,msg){const node=$(id);node.textContent=msg;node.className=ok?"hint inlinegood":"hint inlinewarn"}
 function validateGestor(){
- const centro=$("centro").value.trim(),year=$("curso").value.trim(),sheet=$("hoja").value.trim(),folder=$("carpetaGestor").value.trim();
+ const centro=$("centro").value.trim(),year=$("curso").value.trim(),folder=$("carpetaGestor").value.trim();
  const msgs=[];
  if(!centro)msgs.push("introduce el nombre del centro");
  if(!/^20\d{2}[-/]20\d{2}$/.test(year))msgs.push("usa el formato 2026-2027");
- if(!validateGoogleUrl(sheet,"sheet"))msgs.push("revisa el enlace de Google Sheets");
  if(!validateGoogleUrl(folder,"folder"))msgs.push("revisa la carpeta de Drive");
  if(msgs.length)notify("msgGestor",false,"Revisión: "+msgs.join("; ")+".");
  else notify("msgGestor",true,"✓ Los enlaces tienen un formato correcto. Todavía no se han comprobado los permisos ni se ha guardado nada en Google.");
  update();
 }
 function validateSeg(){
- const sheet=$("hoja").value.trim(),a=$("carpetaGestor").value.trim(),b=$("carpetaSeguimiento").value.trim();
- if(!validateGoogleUrl(sheet,"sheet"))notify("msgSeguimiento",false,"Configura primero la hoja de Séneca en el apartado Gestor PRA.");
- else if(!validateGoogleUrl(b,"folder"))notify("msgSeguimiento",false,"Introduce una carpeta válida para el seguimiento.");
+ const a=$("carpetaGestor").value.trim(),b=$("carpetaSeguimiento").value.trim();
+ if(!validateGoogleUrl(b,"folder"))notify("msgSeguimiento",false,"Introduce una carpeta válida para el seguimiento.");
  else if(a===b && a)notify("msgSeguimiento",false,"Utiliza una carpeta de destino diferente a la de comunicaciones.");
  else notify("msgSeguimiento",true,"✓ Enlace con formato correcto. Para crear las subcarpetas y el formulario hay que conectar Google Workspace.");
 }
@@ -218,8 +213,7 @@ $("desmarcarTodas").addEventListener("click",()=>{state.selected.clear();courseL
 $("verSeleccion").addEventListener("click",()=>{const names=levels.filter(x=>state.selected.has(x));$("gestorSummary").innerHTML="<b>Selección preparada (no analizada):</b><br>"+(names.length?names.map(esc).join(" · "):"Ninguna pestaña seleccionada")+"<br><b>Nota:</b> se necesita conexión con Google para obtener los grupos y registros reales.";});
 $("validarGestor").addEventListener("click",validateGestor);
 $("validarSeguimiento").addEventListener("click",validateSeg);
-$("abrirHoja").addEventListener("click",()=>{const url=$("hoja").value.trim();if(validateGoogleUrl(url,"sheet"))window.open(url,"_blank","noopener,noreferrer")});
-["centro","curso","hoja","carpetaGestor","carpetaSeguimiento"].forEach(id=>$(id).addEventListener("input",update));
+["centro","curso","carpetaGestor","carpetaSeguimiento"].forEach(id=>$(id).addEventListener("input",update));
 update();
 </script>
 </body>
