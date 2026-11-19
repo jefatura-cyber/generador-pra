@@ -31,8 +31,8 @@ h1.heading{font-size:27px;letter-spacing:-.6px;margin:0 0 5px}p.lead{color:var(-
 <header class="top"><div class="bread">Centro educativo &nbsp;›&nbsp; <b id="crumb">Inicio</b></div><div class="right"><span class="state">INTERFAZ EN PREPARACIÓN</span><div class="user">CEP</div></div></header>
 <div class="container">
 <section class="page active" id="inicio">
-<div class="hero"><div><div class="kicker">DOS HERRAMIENTAS · UNA BASE DE DATOS</div><h1>Gestiona los PRAs<br>de principio a fin.</h1><p>Comunicaciones para las familias y seguimiento docente, en un único espacio. Configura una hoja de Séneca y dos carpetas independientes de Google Drive.</p><div class="actions"><button class="button" style="background:#fff;color:#0d6b5e" data-page="gestor">Configurar Gestor PRA →</button><button class="button" style="border:1px solid #ffffff55;background:#ffffff18;color:white" data-page="seguimiento">Configurar Seguimiento PRA</button></div></div><div class="heroicon">▤</div></div>
-<div class="notice"><strong>Preparación del portal:</strong> puedes introducir y revisar los enlaces y las opciones de las dos herramientas. Todavía no se guardan en Google Drive ni se generan PDFs desde GitHub; falta vincular un servicio de Google autorizado. No pegues aquí datos personales del alumnado.</div>
+<div class="hero"><div><div class="kicker">DOS HERRAMIENTAS · UNA BASE DE DATOS</div><h1>Gestiona los PRAs<br>de principio a fin.</h1><p>Comunicaciones para las familias y seguimiento docente, en un único espacio. Configura una hoja de Séneca y dos carpetas independientes de Google Drive.</p><div class="actions"><a class="button" style="background:#fff;color:#0d6b5e" href="operativo/">Abrir versión conectada a Google →</a><button class="button" style="border:1px solid #ffffff55;background:#ffffff18;color:white" data-page="gestor">Ver diseño del Gestor PRA</button></div></div><div class="heroicon">▤</div></div>
+<div class="notice"><strong>Ya disponible una versión conectable a Google Workspace.</strong> Puede crear una copia de la hoja, leer los registros de Séneca, guardar carpetas y producir documentos usando la cuenta que autorice el acceso. <strong>Para usarla hay que configurar una vez el ID OAuth de Google del organizador.</strong> <a href="operativo/" style="font-weight:800;text-decoration:underline;color:#0c6152">Abrir Gestor y Seguimiento PRA conectados →</a></div>
 <div class="metrics">
 <div class="metric"><small>HERRAMIENTAS</small><strong>2</strong></div>
 <div class="metric"><small>HOJA DE DATOS</small><strong>1</strong></div>
@@ -82,7 +82,7 @@ h1.heading{font-size:27px;letter-spacing:-.6px;margin:0 0 5px}p.lead{color:var(-
 <div class="card pad" id="gestor-pdf"><div class="minihead">04 · CREACIÓN DE PDF</div><h2>Generación de comunicaciones</h2><p>Los documentos quedarán organizados en la carpeta del centro, por nivel y grupo, como en el Gestor PRA original.</p>
 <div class="summary" id="gestorSummary">Selecciona tus pestañas y completa los enlaces para preparar el trabajo.</div>
 <div class="foldertree" id="pdfFolders" style="margin-top:15px" aria-live="polite" hidden></div>
-<div class="actions"><button class="button primary" disabled title="Pendiente de conectar el servicio de Google autorizado">Generar PDF</button><span class="pill muted">Pendiente de conexión a Google</span></div>
+<div class="actions"><a class="button primary" href="operativo/">Abrir generación PDF en Google Workspace ↗</a><span class="pill muted">Requiere autorización Google</span></div>
 <p class="hint">El apartado permanecerá vacío hasta que se hayan creado carpetas reales. Seleccionar 1.º ESO y comprobar el enlace de Drive todavía no guarda la configuración ni inicia ninguna generación: falta conectar el portal con el servicio de Google Workspace del centro.</p>
 </div>
 </div>
@@ -102,7 +102,7 @@ h1.heading{font-size:27px;letter-spacing:-.6px;margin:0 0 5px}p.lead{color:var(-
 <div class="card pad"><div class="minihead">02 · FORMULARIO DEL PROFESORADO</div><h2>Enlace del formulario de seguimiento</h2><p>El motor Google generará un enlace propio del centro; los docentes lo abrirán directamente, sin entrar en Apps Script.</p>
 <div class="statusbar"><span>Estado del formulario</span><span class="inlinewarn">Pendiente de conexión</span></div>
 <div class="field"><label for="formLink">Enlace para compartir con el profesorado</label><input id="formLink" readonly placeholder="Se mostrará automáticamente al conectar Google Workspace"></div>
-<div class="actions"><button class="button primary" disabled title="Falta conectar Google Workspace">Crear formulario y obtener enlace</button><button class="button outline" disabled>Copiar enlace</button></div>
+<div class="actions"><a class="button primary" href="operativo/?view=seguimiento">Abrir Seguimiento PRA conectado ↗</a></div>
 <div class="divider"></div>
 <div class="asidecallout"><strong>Acceso del profesorado</strong><p style="margin:6px 0 0">Correo de Google verificado automáticamente; alumnado y materias filtrados según los PRAs abiertos. Las autorizaciones se validarán en el servidor, no en GitHub.</p></div>
 <div class="divider"></div><h2>Cómo quedará el PDF acumulativo</h2>
