@@ -21,7 +21,7 @@ label{font-weight:750;font-size:12px;display:block;margin:10px 0 6px}.wrap{max-w
 <body>
 <header><div class="badge">Google Workspace · Portal PRA</div><h1>Gestor y Seguimiento PRA</h1><p>Una sola hoja por centro, comunicaciones a familias y seguimiento del profesorado</p></header>
 <div class="wrap">
-<div class="callout" id="security"><strong>Privacidad:</strong> los datos personales se consultan mediante Google y solo se mantienen en la memoria de esta pestaña. No se envían a GitHub. Los archivos se crean en el Google Drive de la cuenta autorizada. El acceso a Drive requiere consentimiento de Google.</div>
+<div class="callout" id="security"><strong>Prueba de integración — no utilizar con datos reales hasta verificar los permisos.</strong> Los archivos se consultan y crean mediante las API de Google con autorización OAuth, sin almacenar fichas de alumnado en GitHub. La cuenta autoriza el acceso a Drive, Sheets y Docs. Para centros de otras organizaciones hay que configurar y, cuando proceda, verificar la aplicación OAuth de Google antes del uso en producción.</div>
 <section class="card">
 <div class="row" style="justify-content:space-between"><div><h2>Acceso a Google Workspace</h2><p id="sessionInfo">Sin conexión a Google</p></div><div class="row"><span id="connState" class="state">Sin conectar</span><button id="btnLogin" class="btn">Conectar Google</button><button id="btnLogout" class="btn alt" disabled>Desconectar</button></div></div>
 <div id="oauthSetup">
