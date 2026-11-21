@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#133e3b">
+<meta name="description" content="Portal del IES Ciudad de Coín para el Gestor y Seguimiento de Programas de Refuerzo del Aprendizaje.">
+<title>Portal PRA · IES Ciudad de Coín</title>
+<style>
+:root{--dark:#153b39;--dark2:#214d48;--green:#08745f;--green2:#075b4e;--light:#eaf6ee;--light2:#f4faf6;--text:#173d37;--muted:#6a8178;--line:#e2ebe6;--bg:#f5f8f6;--amber:#946a19;--amber-bg:#fff8e6;--white:#fff;--shadow:0 4px 18px rgba(18,64,53,.04)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:14px/1.5 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--text)}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #98d3b2;outline-offset:2px}a{color:var(--green)}
+.app{display:flex;min-height:100vh}.sidebar{width:248px;flex:none;background:var(--dark);color:#e8f4ef;position:sticky;top:0;height:100vh;padding:23px 13px;display:flex;flex-direction:column}
+.logo{display:flex;gap:10px;align-items:center;padding:5px 10px 30px}.logo-mark{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:#dcf1e4;color:#145946;font-weight:900;font-size:17px}.logo strong{display:block;font-size:19px;letter-spacing:-.5px}.logo small{display:block;font-size:10px;letter-spacing:.06em;color:#a1c6b7}.navtitle{padding:0 12px 12px;color:#92bcb0;text-transform:uppercase;font-size:10px;letter-spacing:.13em;font-weight:850}.navbtn{display:flex;align-items:center;gap:10px;border:0;border-radius:10px;padding:13px 12px;background:none;color:#c9e0d5;width:100%;font-weight:700;text-align:left;margin-bottom:4px}.navbtn:hover,.navbtn.active{background:#285b53;color:white}.navbtn.active{box-shadow:inset 3px 0 #b7e4d0}.navicon{font-size:18px;width:24px;text-align:center}.foot{margin-top:auto;border-top:1px solid #3b645c;padding:17px 12px 5px;font-size:11px;line-height:1.6;color:#aecfc0}.foot b{color:#e5f4ec;display:block}
+main{flex:1;min-width:0}.top{height:73px;display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid var(--line);padding:0 4%;gap:12px}.bread{font-size:12px;color:#839991;font-weight:750}.bread strong{color:var(--text)}.right{display:flex;align-items:center;gap:10px}.tag{border-radius:30px;font-weight:800;font-size:10px;padding:6px 10px;background:#e5f5ea;color:#247353}.round{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;background:#e8f2e9;color:#296a58;font-size:11px;font-weight:900}
+.container{max-width:1450px;margin:0 auto;padding:30px 4% 70px}.view{display:none}.view.active{display:block}.hero{background:linear-gradient(112deg,#0b7765,#0c6358 64%,#153f48);border-radius:18px;padding:32px;color:white;display:flex;gap:18px;justify-content:space-between;align-items:center}.eyebrow{font-size:10px;font-weight:850;color:#bce5d5;letter-spacing:.14em}.hero h1{margin:7px 0 10px;font-size:clamp(28px,3.3vw,43px);line-height:1.11;letter-spacing:-1px}.hero p{font-size:13px;color:#d2eae0;max-width:670px;margin:0}.hero-mark{width:102px;height:102px;border:1px solid #78ac9e;border-radius:22px;display:grid;place-items:center;font-size:50px;background:#ffffff15;flex:none}
+.card{background:white;border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow)}.pad{padding:22px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0 28px}.metric{padding:17px;background:white;border:1px solid var(--line);border-radius:12px}.metric small{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#6b8379;font-weight:800}.metric strong{display:block;font-size:23px;margin-top:5px}.title{font-size:26px;letter-spacing:-.6px;margin:0 0 7px}.lead{font-size:13px;color:var(--muted);margin:0 0 22px}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:26px 0 14px}.section-head h2{margin:0;font-size:19px}.section-head p{font-size:12px;color:var(--muted);margin:3px 0 0}.mini{font-weight:900;font-size:10px;color:#6f8c7e;letter-spacing:.11em;text-transform:uppercase}.card h2{font-size:19px;letter-spacing:-.3px;margin:7px 0}.card p{font-size:12px;color:var(--muted);margin:7px 0 14px}.program-card{min-height:226px;display:flex;flex-direction:column}.program-top{display:flex;gap:12px;align-items:center}.square{height:49px;width:49px;display:grid;place-items:center;background:#e8f5eb;border-radius:13px;font-size:23px;color:var(--green)}.square.blue{background:#eaf2f9;color:#3e658f}.program-card .actions{margin-top:auto}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:9px;padding:10px 14px;font-size:12px;font-weight:850;text-decoration:none;line-height:1.35}.btn.primary{color:white;background:var(--green)}.btn.primary:hover{background:var(--green2)}.btn.light{background:var(--light);color:var(--green)}.btn.outline{background:white;border-color:#d2e2d7;color:#236b55}.btn:disabled{opacity:.43;cursor:not-allowed}.btn:focus-visible{outline:3px solid #9bdbbd;outline-offset:2px}.divider{height:1px;background:var(--line);margin:19px 0}.notice{border:1px solid #ecdab3;background:var(--amber-bg);padding:13px 16px;border-radius:11px;font-size:12px;color:#7e622a;margin:17px 0;line-height:1.65}.notice.good{background:#edf7ef;border-color:#d5e9dc;color:#43745a}.notice strong{color:inherit}.field{margin:13px 0}.field label{display:block;font-size:12px;font-weight:800;color:#4e6f61;margin-bottom:7px}.field input{width:100%;background:#fff;min-height:44px;padding:10px 12px;border:1px solid #d0e0d6;border-radius:9px;color:var(--text)}.field input[readonly]{background:#f2f7f3}.field input::placeholder{color:#92a69b}.help{font-size:11px!important;color:#788d81!important;line-height:1.5!important}.fieldpair{display:grid;grid-template-columns:1fr 1fr;gap:0 15px}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.step{border:1px solid var(--line);background:#fff;padding:16px;border-radius:12px}.stepnum{height:31px;width:31px;border-radius:9px;display:grid;place-items:center;color:var(--green);background:var(--light);font-weight:900;margin-bottom:8px}.step b{font-size:12px}.step p{font-size:11px;color:var(--muted);margin:4px 0}.pill{border-radius:25px;padding:6px 10px;background:#e9f5ed;color:#257753;font-size:10px;font-weight:850;white-space:nowrap}.pill.orange{background:#fff1d7;color:#96681d}.listline{display:flex;gap:10px;align-items:start;padding:14px 0;border-bottom:1px solid var(--line)}.listline:last-child{border-bottom:0}.listline span{font-size:22px}.listline strong{font-size:13px}.listline p{margin:4px 0}.statusrow{display:flex;align-items:center;gap:9px;justify-content:space-between;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:12px;background:#fbfdfb;margin-bottom:9px}.statusrow b{color:#427460}.empty{border:1px dashed #d8e8dc;border-radius:10px;padding:17px;color:#81998b;font-size:12px;background:#fbfdfb;min-height:65px}.empty[hidden]{display:none}.folderlink{display:block;padding:12px 14px;border:1px solid #d7e8dc;border-radius:10px;background:#f8fcf9;margin:10px 0;font-size:12px;font-weight:800;text-decoration:none}.folderlink[hidden]{display:none}.folderlink:hover{background:#ebf8ef}.helper-bar{margin-top:15px;background:#edf7ef;border:1px solid #d7e9db;border-radius:11px;padding:15px;font-size:12px;color:#50755f}.helper-bar b{display:block;color:#226145;margin-bottom:5px}.tiny{font-size:11px;color:#708b7d}.badge-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.divider-v{border-left:1px solid var(--line);padding-left:18px}
+@media(max-width:1100px){.sidebar{width:208px}.metrics{grid-template-columns:repeat(2,1fr)}.hero-mark{display:none}}
+@media(max-width:760px){.app{display:block}.sidebar{width:100%;height:auto;position:static;padding:12px;display:block}.logo{padding:1px 8px 11px}.navtitle,.foot{display:none}.navbtn{display:inline-flex;width:auto;padding:8px 10px;font-size:11px;margin:0 3px 4px 0}.navicon{width:auto}.top{height:58px;padding:0 15px}.container{padding:20px 14px 50px}.hero{padding:23px}.grid2,.steps,.fieldpair{grid-template-columns:1fr}.metric strong{font-size:20px}.pad{padding:18px}.divider-v{border:0;padding:0}}
+@media(max-width:400px){.metrics{gap:7px}.metric{padding:12px}.tag{font-size:9px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="logo"><div class="logo-mark">IES</div><div><strong>Portal PRA</strong><small>IES CIUDAD DE COÍN</small></div></div>
+  <div class="navtitle">Gestión del centro</div>
+  <button class="navbtn active" data-nav="inicio"><span class="navicon">⌂</span>Inicio</button>
+  <button class="navbtn" data-nav="gestor"><span class="navicon">▤</span>Gestor PRA</button>
+  <button class="navbtn" data-nav="seguimiento"><span class="navicon">☷</span>Seguimiento PRA</button>
+  <button class="navbtn" data-nav="ajustes"><span class="navicon">⚙</span>Configuración de accesos</button>
+  <div class="foot"><b>Herramientas del IES Ciudad de Coín</b>Los datos del alumnado permanecen en Google Workspace. GitHub solo publica esta interfaz de acceso.</div>
+</aside>
+<main>
+  <header class="top">
+    <div class="bread">Centro educativo &nbsp;›&nbsp; <strong id="breadcrumb">Inicio</strong></div>
+    <div class="right"><span class="tag">CENTRO · USO INTERNO</span><span class="round">CC</span></div>
+  </header>
+  <div class="container">
+    <section class="view active" id="inicio">
+      <div class="hero">
+        <div><div class="eyebrow">GESTIÓN DE PROGRAMAS DE REFUERZO DEL APRENDIZAJE</div><h1>Un mismo espacio.<br>Dos herramientas.</h1><p>Accede al Gestor PRA y al Seguimiento PRA de nuestro centro. Toda la información y los informes se mantienen en Google Workspace.</p>
+          <div class="actions"><button class="btn" style="background:#fff;color:#076250" data-open="sheet">Abrir Gestor PRA ↗</button><button class="btn" style="border:1px solid #ffffff60;background:#ffffff18;color:white" data-nav="seguimiento">Seguimiento PRA →</button></div>
+        </div><div class="hero-mark">▤</div>
+      </div>
+      <div class="notice"><strong>Esta es la versión exclusiva del centro.</strong> No hay que crear copias para un curso de formación. Para generar documentos o enviar seguimientos se abre la aplicación de Google Workspace correspondiente. GitHub no recibe respuestas ni archivos del alumnado.</div>
+      <div class="metrics">
+        <div class="metric"><small>Aplicaciones</small><strong>2</strong></div>
+        <div class="metric"><small>Centro</small><strong>1</strong></div>
+        <div class="metric"><small>Hoja de Séneca</small><strong>1</strong></div>
+        <div class="metric"><small>Datos en GitHub</small><strong>0</strong></div>
+      </div>
+      <div class="section-head"><div><h2>Selecciona la herramienta</h2><p>Los dos procesos comparten los datos de Séneca y conservan carpetas independientes.</p></div></div>
+      <div class="grid2">
+        <div class="card pad program-card">
+          <div class="program-top"><div class="square">▤</div><div><div class="mini">01 · COMUNICACIONES</div><h2>Gestor PRA</h2></div></div>
+          <p>Comprueba los programas de refuerzo abiertos, configura la plantilla y genera las comunicaciones a las familias por nivel y grupo.</p>
+          <div class="actions"><button class="btn primary" data-open="sheet">Entrar en Gestor PRA ↗</button><button class="btn outline" data-nav="gestor">Ver accesos</button></div>
+        </div>
+        <div class="card pad program-card">
+          <div class="program-top"><div class="square blue">☷</div><div><div class="mini">02 · SEGUIMIENTO DOCENTE</div><h2>Seguimiento PRA</h2></div></div>
+          <p>Comparte el formulario con el profesorado y accede a los PDF de seguimiento acumulativo por alumno y materia.</p>
+          <div class="actions"><button class="btn primary" data-open="form">Abrir formulario ↗</button><button class="btn outline" data-nav="seguimiento">Ver accesos</button></div>
+        </div>
+      </div>
+      <div class="section-head"><div><h2>Acceso rápido</h2><p>Enlaces a las herramientas del centro.</p></div></div>
+      <div class="grid2">
+        <div class="card pad">
+          <div class="listline"><span>📊</span><div><strong>Hoja del Gestor PRA</strong><p>Se abre con la cuenta institucional. Dentro de la hoja, selecciona el menú GESTOR PRA o PRA · CENTRO, según la versión instalada.</p></div></div>
+          <div class="actions"><button class="btn light" data-open="sheet">Abrir hoja ↗</button></div>
+        </div>
+        <div class="card pad">
+          <div class="listline"><span>📋</span><div><strong>Formulario del profesorado</strong><p>Utiliza la implementación web de Apps Script. Si la URL anterior ha cambiado, puedes actualizarla en Configuración.</p></div></div>
+          <div class="actions"><button class="btn light" data-open="form">Abrir formulario ↗</button><button class="btn outline" data-copy="form">Copiar enlace</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="gestor">
+      <h1 class="title">Gestor PRA</h1><p class="lead">Las funciones reales de comprobación de Séneca y generación de PDF se ejecutan desde la hoja institucional.</p>
+      <div class="grid2">
+        <div class="card pad">
+          <div class="mini">01 · CONFIGURACIÓN DEL CENTRO</div><h2>Datos y carpeta de comunicaciones</h2>
+          <div class="fieldpair"><div class="field"><label>Centro</label><input value="IES Ciudad de Coín" readonly></div><div class="field"><label>Curso escolar</label><input value="2026-2027" readonly></div></div>
+          <div class="statusrow"><span>Hoja de datos del centro</span><span class="pill">Enlace disponible</span></div>
+          <p>Utiliza la hoja institucional existente. No necesitas copiar la plantilla maestra ni importar otra vez los datos si ya están allí.</p>
+          <div class="actions"><button class="btn primary" data-open="sheet">Abrir Gestor PRA ↗</button><button class="btn outline" data-copy="sheet">Copiar enlace</button></div>
+          <div class="divider"></div>
+          <div class="mini">CARPETA DE COMUNICACIONES</div>
+          <div id="gestorFolderEmpty" class="empty">Todavía no has indicado una carpeta definitiva en este navegador.</div>
+          <a id="gestorFolderLink" class="folderlink" href="#" target="_blank" rel="noopener noreferrer" hidden>📁 Abrir carpeta de comunicaciones ↗</a>
+          <div class="actions"><button class="btn light" data-nav="ajustes">Configurar carpeta</button></div>
+        </div>
+        <div class="card pad">
+          <div class="mini">02 · DOCUMENTO ORIGINAL</div><h2>Plantilla de comunicación</h2>
+          <p>Acceso al documento de Google Docs utilizado para preparar las comunicaciones. Se mantiene el formato original de tablas y logotipo.</p>
+          <div class="actions"><button class="btn light" data-open="templateG">Abrir plantilla ↗</button></div>
+          <div class="divider"></div>
+          <div class="mini">03 · COMPROBAR DATOS</div><h2>Programas de Séneca</h2>
+          <p>Los filtros por curso, grupo y programa abierto se aplican dentro del Gestor PRA, no en esta página pública.</p>
+          <div class="actions"><button class="btn light" data-open="sheet">Comprobar datos en la hoja ↗</button></div>
+          <div class="divider"></div>
+          <div class="mini">04 · GENERACIÓN DE PDF</div><h2>Comunicaciones individuales</h2>
+          <p>Abre el panel del Gestor en Google Sheets para generar los documentos y organizar los resultados por curso y grupo.</p>
+          <div class="actions"><button class="btn primary" data-open="sheet">Ir al panel de generación ↗</button></div>
+          <p class="help">Esta web no simula la generación de PDF. Solo aparecen documentos o carpetas que realmente existen en Google Drive.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="seguimiento">
+      <h1 class="title">Seguimiento PRA</h1><p class="lead">Formulario de Apps Script, enlace para el claustro e informes del centro. No utilizamos Google Forms.</p>
+      <div class="grid2">
+        <div class="card pad">
+          <div class="mini">01 · CARPETA DE DESTINO</div><h2>Informes de seguimiento</h2>
+          <p>El formulario guarda los seguimientos en la carpeta configurada dentro del programa de Google. Puedes mantener aquí un acceso directo a esa misma carpeta.</p>
+          <div id="seguimientoFolderEmpty" class="empty">Aún no se ha configurado una carpeta definitiva para los informes.</div>
+          <a id="seguimientoFolderLink" class="folderlink" href="#" target="_blank" rel="noopener noreferrer" hidden>📁 Abrir carpeta de informes ↗</a>
+          <div class="actions"><button class="btn light" data-nav="ajustes">Configurar acceso a la carpeta</button></div>
+          <div class="divider"></div>
+          <div class="mini">02 · ENLACE PARA EL CLAUSTRO</div><h2>Formulario del profesorado</h2>
+          <p>Formulario web de Apps Script con curso, grupo, alumno, situación y materia, además de las cinco preguntas de seguimiento.</p>
+          <div class="actions"><button class="btn primary" data-open="form">Abrir formulario ↗</button><button class="btn outline" data-copy="form">Copiar enlace</button></div>
+          <div class="notice" style="margin-bottom:0"><strong>Enlace anterior pendiente de comprobación.</strong> He recuperado la URL de Apps Script que me compartiste, pero no puedo verificar desde aquí que esa implementación siga abierta. Si falla, sustituye la URL en Configuración.</div>
+        </div>
+        <div class="card pad">
+          <div class="mini">03 · DOCUMENTOS E INFORMES</div><h2>Informes por alumno</h2>
+          <p>Los informes se generan mediante el script del centro, agrupando las materias de cada alumno en su PDF acumulativo. Las respuestas deben mantenerse sin negrita.</p>
+          <div class="statusrow"><span>Carpeta de informes</span><span id="folderSState" class="pill orange">Por configurar</span></div>
+          <div id="followDocEmpty" class="empty">Este visor permanecerá vacío hasta que indiques la carpeta de Google Drive.</div>
+          <a id="followDocLink" class="folderlink" href="#" target="_blank" rel="noopener noreferrer" hidden>📁 Consultar carpetas e informes reales ↗</a>
+          <div class="actions"><button class="btn light" data-open="folderS">Abrir informes en Drive ↗</button><button class="btn outline" data-open="sheet">Abrir panel de Jefatura ↗</button></div>
+          <div class="divider"></div>
+          <div class="mini">PLANTILLA DE SEGUIMIENTO</div><p>Documento original con sus tablas y el logotipo institucional.</p>
+          <div class="actions"><button class="btn light" data-open="templateS">Ver plantilla ↗</button></div>
+          <div class="helper-bar"><b>El claustro utiliza Google, no GitHub, para enviar los seguimientos.</b>Desde esta página únicamente accedemos al formulario y a la carpeta. Los datos y los PDF no se copian ni publican aquí.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="ajustes">
+      <h1 class="title">Configuración de accesos</h1><p class="lead">Solo necesitas configurar los enlaces de tu centro. Se guardan en este navegador, no en GitHub.</p>
+      <div class="notice"><strong>Importante:</strong> cambiar estos enlaces aquí no modifica ninguna configuración dentro de Apps Script ni de Google Drive. Son accesos rápidos. La creación real de carpetas, la lectura de Séneca y los PDF siguen dependiendo del programa del centro.</div>
+      <div class="grid2">
+        <div class="card pad">
+          <div class="mini">GESTOR PRA</div><h2>Herramientas del Gestor</h2>
+          <div class="field"><label for="cfgSheet">Hoja de cálculo del centro</label><input id="cfgSheet" type="url" autocomplete="off" spellcheck="false"></div>
+          <div class="field"><label for="cfgTemplateG">Plantilla de comunicaciones de Google Docs</label><input id="cfgTemplateG" type="url" autocomplete="off" spellcheck="false"></div>
+          <div class="field"><label for="cfgFolderG">Carpeta de comunicaciones</label><input id="cfgFolderG" type="url" placeholder="https://drive.google.com/drive/folders/..." autocomplete="off" spellcheck="false"></div>
+        </div>
+        <div class="card pad">
+          <div class="mini">SEGUIMIENTO PRA</div><h2>Herramientas del Seguimiento</h2>
+          <div class="field"><label for="cfgForm">URL de la aplicación web de Apps Script (/exec)</label><input id="cfgForm" type="url" autocomplete="off" spellcheck="false"></div>
+          <div class="field"><label for="cfgTemplateS">Plantilla de seguimiento de Google Docs</label><input id="cfgTemplateS" type="url" autocomplete="off" spellcheck="false"></div>
+          <div class="field"><label for="cfgFolderS">Carpeta de informes de seguimiento</label><input id="cfgFolderS" type="url" placeholder="https://drive.google.com/drive/folders/..." autocomplete="off" spellcheck="false"></div>
+        </div>
+      </div>
+      <div class="actions"><button class="btn primary" id="save">Guardar accesos en este navegador</button><button class="btn outline" id="restore">Restaurar enlaces iniciales</button></div>
+      <p id="saveMessage" class="help" role="status">No se guardan alumnos, materias, NIE ni respuestas de seguimiento.</p>
+      <div class="helper-bar"><b>Uso recomendado</b>Abre este portal desde tu cuenta institucional y haz clic en Gestor o Seguimiento. Google solicitará la identificación correspondiente y aplicará los permisos de cada documento. Para que el acceso sea igual en todos los dispositivos, tendremos que actualizar los enlaces definitivos en esta página de GitHub.</div>
+    </section>
+    <div class="section-head"><div><h2>Entorno de trabajo</h2><p>Gestión de documentos y datos exclusivamente en Google Workspace.</p></div></div>
+    <div class="badge-row"><span class="pill">IES Ciudad de Coín</span><span class="pill">PRAs 2026/2027</span><span class="pill">GitHub Pages · solo interfaz</span></div>
+  </div>
+</main>
+</div>
+<script>
+"use strict";
+const BASE={
+ sheet:"https://docs.google.com/spreadsheets/d/12Uu3HbBSkXOVwuVFc0itKQeydxIKwsM57GMsHf-5Tbs/edit",
+ templateG:"https://docs.google.com/document/d/1N6nL35IEi72J-i0f5NhYnLubTs-Ny9LNuWAdP447m3g/edit",
+ templateS:"https://docs.google.com/document/d/1RXzOJq_qqScAG2Qebw9NAbQstwwCFtV4rvmUky7r1tE/edit",
+ form:"https://script.google.com/a/macros/iesciudaddecoin.es/s/AKfycbx2ZfoEy1i94t957to1qqrE7diFYaNCpoIzrYHIGYRwQd00xyl9ZO-Te39_CqrMqtaSrA/exec",
+ folderG:"",
+ folderS:""
+};
+const STORAGE="pra-centro-ies-ciudad-de-coin-access-v1";
+const LABELS={inicio:"Inicio",gestor:"Gestor PRA",seguimiento:"Seguimiento PRA",ajustes:"Configuración de accesos"};
+const FIELDS={sheet:"cfgSheet",templateG:"cfgTemplateG",folderG:"cfgFolderG",templateS:"cfgTemplateS",folderS:"cfgFolderS",form:"cfgForm"};
+const state={...BASE};
+const $=id=>document.getElementById(id);
+function loadConfig(){
+ try{
+  const saved=JSON.parse(localStorage.getItem(STORAGE)||"{}");
+  for(const k of Object.keys(BASE))if(typeof saved[k]==="string"&&saved[k].length<4000)state[k]=saved[k];
+ }catch(e){}
+ for(const k in FIELDS)$(FIELDS[k]).value=state[k]||"";
+ renderFolders();
+}
+function validLink(key,v){
+ if(!v||typeof v!=="string")return false;
+ let u;
+ try{u=new URL(v);}catch(e){return false;}
+ if(u.protocol!=="https:"||u.username||u.password)return false;
+ const h=u.hostname;
+ if(key==="sheet")return h==="docs.google.com"&&/^\/spreadsheets\/d\/[A-Za-z0-9_-]+/.test(u.pathname);
+ if(key==="templateG"||key==="templateS")return h==="docs.google.com"&&/^\/document\/d\/[A-Za-z0-9_-]+/.test(u.pathname);
+ if(key==="form")return h==="script.google.com"&&/\/exec\/?$/.test(u.pathname);
+ if(key==="folderG"||key==="folderS")return h==="drive.google.com"&&/\/drive\/folders\/[A-Za-z0-9_-]+/.test(u.pathname);
+ return false;
+}
+function navigate(section){
+ document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===section));
+ document.querySelectorAll(".navbtn").forEach(b=>b.classList.toggle("active",b.dataset.nav===section));
+ $("breadcrumb").textContent=LABELS[section]||LABELS.inicio;
+ const hash="#"+section;
+ if(location.hash!==hash)history.replaceState(null,"",hash);
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function openLink(key){
+ const value=state[key];
+ if(!validLink(key,value)){navigate("ajustes");$("saveMessage").textContent="Falta configurar un enlace válido para "+key+".";$(FIELDS[key]).focus();return;}
+ const newTab=window.open(value,"_blank","noopener,noreferrer");
+ if(!newTab){const a=document.createElement("a");a.href=value;a.target="_blank";a.rel="noopener noreferrer";a.click();}
+}
+async function copyLink(key){
+ const value=state[key];
+ if(!validLink(key,value)){navigate("ajustes");$("saveMessage").textContent="Falta configurar un enlace válido para "+key+".";return;}
+ try{await navigator.clipboard.writeText(value);showToast("Enlace copiado al portapapeles.");}
+ catch(e){const field=$(FIELDS[key]);navigate("ajustes");field.focus();field.select();showToast("Selecciona el enlace y pulsa Ctrl+C.");}
+}
+function showToast(msg){
+ let el=$("toast");if(!el){el=document.createElement("div");el.id="toast";el.style.cssText="position:fixed;bottom:18px;right:18px;max-width:360px;z-index:10;padding:13px 17px;background:#174d40;color:white;box-shadow:0 5px 24px #0d332e22;border-radius:10px;font-size:12px;font-weight:750";document.body.append(el);}
+ el.textContent=msg;
+}
+function saveConfig(){
+ const next={};
+ for(const key in FIELDS){
+  const value=$(FIELDS[key]).value.trim();
+  if(value&&!validLink(key,value)){$("saveMessage").textContent="Revisa el enlace de "+key+". Solo se admiten enlaces a Google Docs, Sheets, Drive o Apps Script según el campo.";$(FIELDS[key]).focus();return;}
+  next[key]=value;
+ }
+ if(!next.sheet||!next.form){$("saveMessage").textContent="Debes conservar una URL de la hoja de cálculo y otra del formulario de Apps Script.";return;}
+ Object.assign(state,next);
+ try{localStorage.setItem(STORAGE,JSON.stringify(next));$("saveMessage").textContent="Accesos guardados en este navegador. No se ha enviado información a GitHub ni se ha cambiado la configuración de Google.";}
+ catch(e){$("saveMessage").textContent="No se ha podido guardar en este navegador. Los cambios funcionan hasta cerrar la página.";}
+ renderFolders();showToast("Accesos actualizados.");
+}
+function resetConfig(){
+ if(!confirm("¿Restaurar los enlaces de la hoja y del formulario a sus valores iniciales? Las carpetas configuradas aquí quedarán en blanco."))return;
+ try{localStorage.removeItem(STORAGE);}catch(e){}
+ Object.assign(state,BASE);
+ for(const k in FIELDS)$(FIELDS[k]).value=state[k]||"";
+ renderFolders();$("saveMessage").textContent="Se han restaurado los accesos iniciales.";
+}
+function renderFolders(){
+ const pairs=[
+  {key:"folderG",empty:"gestorFolderEmpty",link:"gestorFolderLink"},
+  {key:"folderS",empty:"seguimientoFolderEmpty",link:"seguimientoFolderLink"},
+  {key:"folderS",empty:"followDocEmpty",link:"followDocLink"}
+ ];
+ for(const p of pairs){
+  const has=validLink(p.key,state[p.key]);$(p.empty).hidden=has;$(p.link).hidden=!has;
+  if(has)$(p.link).href=state[p.key];else $(p.link).removeAttribute("href");
+ }
+ $("folderSState").textContent=validLink("folderS",state.folderS)?"Enlace configurado":"Por configurar";
+ $("folderSState").classList.toggle("orange",!validLink("folderS",state.folderS));
+}
+document.querySelectorAll("[data-nav]").forEach(b=>b.addEventListener("click",()=>navigate(b.dataset.nav)));
+document.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>openLink(b.dataset.open)));
+document.querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",()=>copyLink(b.dataset.copy)));
+$("save").addEventListener("click",saveConfig);
+$("restore").addEventListener("click",resetConfig);
+loadConfig();
+const first=location.hash.slice(1);
+if(Object.prototype.hasOwnProperty.call(LABELS,first))navigate(first);
+</script>
+</body>
+</html>
