@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#133e3b">
+<meta name="theme-color" content="#007f96">
 <meta name="description" content="Portal del IES Ciudad de Coín para el Gestor y Seguimiento de Programas de Refuerzo del Aprendizaje.">
 <title>Portal PRA · IES Ciudad de Coín</title>
 <style>
@@ -31,12 +31,39 @@ main{flex:1;min-width:0}.top{height:73px;display:flex;align-items:center;justify
 .year-strip-control label{font-size:11px;font-weight:850;color:#426b59;display:block;margin-bottom:7px}
 .year-strip-control select{display:block;width:100%;min-height:43px;padding:10px 12px;border:1px solid #b6d9c5;border-radius:9px;background:white;color:#195848;font-size:14px;font-weight:850}
 @media(max-width:760px){.year-strip{align-items:stretch;flex-direction:column;padding:16px}.year-strip-control{min-width:0}}
+
+/* Identidad institucional: turquesa del IES, amarillo del sol, verde del entorno */
+:root{--dark:#006c82;--dark2:#007f96;--green:#0089a0;--green2:#006b7f;--light:#e6f7fa;--light2:#f2fafb;--text:#164355;--muted:#627c86;--line:#d9e7ec;--bg:#f3f9fa;--amber:#99610f;--amber-bg:#fff8df;--white:#fff;--shadow:0 4px 18px rgba(0,91,117,.05)}
+.sidebar{background:linear-gradient(180deg,#007e95 0%,#00687f 100%)}
+.logo-mark{width:52px;height:52px;border-radius:13px;background:#fff;overflow:hidden;padding:3px}
+.logo-mark img{width:100%;height:100%;object-fit:contain}
+.logo small,.navtitle{color:#bce8ee}
+.navbtn:hover,.navbtn.active{background:#009cb5;color:#fff}
+.navbtn.active{box-shadow:inset 4px 0 #ffe500}
+.hero{background:linear-gradient(115deg,#007e95,#14b6d1 76%,#50b849);border-bottom:5px solid #ffe500}
+.hero .eyebrow{color:#fff6a8}
+.hero p{color:#eefcff}
+.hero-mark{background:#fff;border:2px solid #dff6f9;width:116px;height:116px;padding:8px}
+.hero-mark img{width:100%;height:100%;object-fit:contain}
+.btn.primary{background:#008ca5}.btn.primary:hover{background:#006d85}
+.btn.light{background:#e5f6f8;color:#006e85}
+.stepnum,.pill{background:#e9f6e4;color:#278343}
+.year-strip{background:#eaf8fa;border-color:#cfe9ee}
+.year-strip-control select{border-color:#aad9e4;color:#006e83}
+.select-levels label{gap:10px;flex-wrap:wrap}
+.level-amount{font-size:11px;margin-left:auto;color:#557b86;border:1px solid #d8e7ed;border-radius:18px;padding:3px 9px;font-weight:800;white-space:nowrap}
+.section-group-5{margin-top:17px}
+.backend-setup{background:#f0fbfd;border:1px solid #c4e5ec;border-radius:12px;padding:16px;margin:16px 0}
+.backend-setup label{display:block;font-weight:800;font-size:12px;margin-bottom:7px}
+.backend-setup input{width:100%;min-height:43px;padding:10px;border:1px solid #bddae4;border-radius:8px}
+.backend-setup .help{margin-bottom:0}
+@media(max-width:760px){.hero-mark{display:none}}
 </style>
 </head>
 <body>
 <div class="app">
 <aside class="sidebar">
-  <div class="logo"><div class="logo-mark">IES</div><div><strong>Portal PRA</strong><small>IES CIUDAD DE COÍN</small></div></div>
+  <div class="logo"><div class="logo-mark"><img src="./logo-ies.svg" alt="Logotipo del IES Ciudad de Coín"></div><div><strong>Portal PRA</strong><small>IES CIUDAD DE COÍN</small></div></div>
   <div class="navtitle">Gestión del centro</div>
   <button class="navbtn active" data-nav="inicio"><span class="navicon">⌂</span>Inicio</button>
   <button class="navbtn" data-nav="gestor"><span class="navicon">▤</span>Gestor PRA</button>
@@ -54,7 +81,7 @@ main{flex:1;min-width:0}.top{height:73px;display:flex;align-items:center;justify
       <div class="hero">
         <div><div class="eyebrow">GESTIÓN DE PROGRAMAS DE REFUERZO DEL APRENDIZAJE</div><h1>Un mismo espacio.<br>Dos herramientas.</h1><p>Accede al Gestor PRA y al Seguimiento PRA de nuestro centro. Toda la información y los informes se mantienen en Google Workspace.</p>
           <div class="actions"><button class="btn" style="background:#fff;color:#076250" data-nav="gestor">Abrir Gestor PRA</button><button class="btn" style="border:1px solid #ffffff60;background:#ffffff18;color:white" data-nav="seguimiento">Seguimiento PRA →</button></div>
-        </div><div class="hero-mark">▤</div>
+        </div><div class="hero-mark"><img src="./logo-ies.svg" alt="" aria-hidden="true"></div>
       </div>
       <div class="notice"><strong>Esta es la versión exclusiva del centro.</strong> No hay que crear copias para un curso de formación. Para generar documentos o enviar seguimientos se abre la aplicación de Google Workspace correspondiente. GitHub no recibe respuestas ni archivos del alumnado.</div>
       <div class="metrics">
@@ -125,13 +152,13 @@ main{flex:1;min-width:0}.top{height:73px;display:flex;align-items:center;justify
       <p>Se procesarán únicamente las pestañas que selecciones y los registros abiertos del curso académico elegido.</p>
       <div class="select-levels" id="gestorLevels"></div>
       <div class="actions"><button class="btn light" id="selectAllLevels">Seleccionar todos</button><button class="btn outline" id="selectNoLevels">Desmarcar</button></div>
-      <div class="statusrow" style="margin-top:14px"><span>Pestañas seleccionadas</span><b id="levelCount">0</b></div>
+      <div class="statusrow" style="margin-top:14px"><span>Niveles seleccionados</span><b id="levelCount">0</b></div><div class="actions"><button class="btn outline" id="gSeeCounts">Consultar número real de informes ↗</button></div><p class="help">Los contadores exactos, junto a cada nivel, se muestran al abrir el Gestor autenticado, porque se calculan de la hoja privada de Séneca y no de GitHub.</p>
     </div>
     <div class="card pad">
       <div class="mini">05 · GENERACIÓN DE COMUNICACIONES</div><h2>Crear los PDF</h2>
-      <p>Al pulsar «Generar PDF», se abrirá el panel del Gestor PRA en Google Workspace con la hoja, carpeta, niveles y curso preparados, para confirmar la generación real.</p>
+      <p>Este botón abre exclusivamente el Gestor PRA autenticado de Apps Script. Allí podrás consultar los informes por nivel y pulsar «Generar PDF» para crear los documentos reales.</p>
       <div class="statusrow"><span>Curso de trabajo</span><b id="gestorYear">2026-2027</b></div>
-      <div class="actions"><button class="btn outline" id="gSave">Guardar configuración</button><button class="btn primary" id="gGenerate">Generar PDF ↗</button></div>
+      <div class="actions"><button class="btn outline" id="gSave">Guardar configuración</button><button class="btn primary" id="gGenerate">Abrir generador PDF ↗</button></div>
       <div id="gestorStatus" class="statusnote" role="status">Indica carpeta y hoja, selecciona los niveles y pulsa Generar PDF.</div>
       <p class="help">GitHub no crea ni muestra PDF por sí solo. Los documentos se producen desde el proyecto de Apps Script autorizado, sin APIs de pago.</p>
     </div>
@@ -166,17 +193,32 @@ main{flex:1;min-width:0}.top{height:73px;display:flex;align-items:center;justify
       <div class="mini">03 · DATOS PARA EL FORMULARIO</div><h2>Actualizar y verificar Séneca</h2>
       <p>El seguimiento utiliza automáticamente la hoja del Gestor PRA del curso <strong id="sYear">2026-2027</strong>. No hay que introducir otro enlace.</p>
       <div class="statusrow"><span>Hoja de datos</span><b id="sSheetStatus">Pendiente</b></div>
-      <div class="actions"><button class="btn light" id="sOpenSheet">Abrir hoja ↗</button><button class="btn primary" id="sUpdate">Actualizar y verificar datos ↗</button></div>
-      <div id="sUpdateStatus" class="statusnote" role="status">Primero sube los datos de Séneca a la hoja y después pulsa «Actualizar y verificar». La comprobación real se ejecuta dentro de Google Workspace.</div>
+      <div class="actions"><button class="btn light" id="sOpenSheet">Abrir hoja ↗</button><button class="btn primary" id="sUpdate">Actualizar y verificar datos en Google ↗</button></div>
+      <div id="sUpdateStatus" class="statusnote" role="status">Primero actualiza la hoja de Séneca. Después pulsa este botón para ejecutar la comprobación REAL en Apps Script. El formulario solo se podrá abrir desde la página de verificación después de confirmar el resultado.</div>
       <div class="divider"></div>
       <div class="mini">04 · FORMULARIO DEL CLAUSTRO</div><h2>Abrir formulario web</h2>
       <p>Cuando Google confirme que existen PRAs abiertos del curso seleccionado, abre el formulario. Sus desplegables se construirán con los registros actualizados.</p>
       <div class="actions"><button class="btn primary" id="sOpenForm" disabled>Abrir formulario ↗</button><button class="btn outline" id="sCopyForm" disabled>Copiar enlace</button></div>
-      <p class="help">La validación requiere que Apps Script tenga instalada la versión con «Actualizar y verificar». El formulario también comprobará los datos al abrirse.</p>
+      <p class="help">El formulario solo se abrirá tras la verificación en Google Workspace. La web pública no puede saber si otra pestaña ha terminado la comprobación. Por eso, el enlace seguro se ofrece en la propia página de verificación.</p>
     </div>
   </div>
+<div class="card pad section-group-5">
+    <div class="mini">05 · CARPETAS POR CURSOS Y GRUPOS</div>
+    <h2>Informes del Seguimiento PRA en Drive</h2>
+    <p>Consulta las carpetas del curso académico seleccionado, organizadas por nivel y grupo. El visor real, con el número de PDF de cada carpeta, está disponible dentro de Apps Script.</p>
+    <div class="statusrow"><span>Curso seleccionado</span><b id="folderYear">2026-2027</b></div>
+    <div class="actions">
+      <button class="btn primary" id="sSeeFolders">Ver carpetas y PDF reales ↗</button>
+      <button class="btn outline" id="sOpenFolder">Abrir carpeta de Drive ↗</button>
+    </div>
+    <div class="statusnote" id="sFoldersStatus" role="status">El listado se consultará en Google Workspace; no se publican nombres ni documentos del alumnado en GitHub.</div>
+  </div>
 </section>
-
+<div class="backend-setup">
+  <label for="backendUrl">Conexión privada con Apps Script · URL de la implementación del centro</label>
+  <div class="inline-actions"><input id="backendUrl" type="url" placeholder="https://script.google.com/a/macros/…/s/…/exec" aria-label="URL del Apps Script que contiene el Gestor y el Seguimiento" /><button class="btn outline" id="saveBackend">Guardar conexión</button></div>
+  <p class="help">Es imprescindible usar la implementación del proyecto completo. Esta dirección se guarda solamente en este navegador y se utiliza para abrir /exec?view=gestor o /exec?view=validar. Si solo contiene el formulario, actualiza primero Apps Script con el paquete adjunto.</p>
+</div>
 <div class="section-head"><div><h2>Entorno de trabajo</h2><p>Gestión de documentos y datos exclusivamente en Google Workspace.</p></div></div>
     <div class="badge-row"><span class="pill">IES Ciudad de Coín</span><span class="pill">PRAs <span id="yearTag">2026-2027</span></span><span class="pill">GitHub Pages · solo interfaz</span></div>
   </div>
@@ -184,12 +226,12 @@ main{flex:1;min-width:0}.top{height:73px;display:flex;align-items:center;justify
 </div>
 <script>
 "use strict";
-const DEFAULT_FORM="https://script.google.com/a/macros/iesciudaddecoin.es/s/AKfycbx2ZfoEy1i94t957to1qqrE7diFYaNCpoIzrYHIGYRwQd00xyl9ZO-Te39_CqrMqtaSrA/exec";
+const DEFAULT_FORM="https://script.google.com/a/macros/iesciudaddecoin.es/s/AKfycbx2ZfoEy1i94t957to1qqrE7diFYaNCpoIzrYHIGYRwQd00xyl9ZO-Te39_CqrMqtaSrA/exec"; // Solo referencia histórica; no utilizar para generar ni verificar.
 const DEFAULT_SHEET="https://docs.google.com/spreadsheets/d/12Uu3HbBSkXOVwuVFc0itKQeydxIKwsM57GMsHf-5Tbs/edit";
 const TEMPLATE_G="https://docs.google.com/document/d/1N6nL35IEi72J-i0f5NhYnLubTs-Ny9LNuWAdP447m3g/edit";
 const TEMPLATE_S="https://docs.google.com/document/d/1RXzOJq_qqScAG2Qebw9NAbQstwwCFtV4rvmUky7r1tE/edit";
 const LEVELS=["Infantil","1º ESO","2º ESO","3º ESO","4º ESO","1º BACH","2º BACH"];
-const KEY="pra-centro-ies-ciudad-de-coin-access-v3",OLD_KEY="pra-centro-ies-ciudad-de-coin-access-v2",OLDER_KEY="pra-centro-ies-ciudad-de-coin-access-v1";
+const KEY="pra-centro-ies-ciudad-de-coin-access-v4",PRIOR_KEY="pra-centro-ies-ciudad-de-coin-access-v3",OLD_KEY="pra-centro-ies-ciudad-de-coin-access-v2",OLDER_KEY="pra-centro-ies-ciudad-de-coin-access-v1";
 const VIEWS={inicio:"Inicio",gestor:"Gestor PRA",seguimiento:"Seguimiento PRA"};
 const state={year:"2026-2027",books:{"2026-2027":{sheet:DEFAULT_SHEET,folderG:"",folderS:"",levels:LEVELS.slice()}},
  templateG:TEMPLATE_G,templateS:TEMPLATE_S,form:DEFAULT_FORM,gestorWeb:"",checkStarted:false};
@@ -214,6 +256,9 @@ function load(){
  let saved={};
  try{saved=JSON.parse(localStorage.getItem(KEY)||"{}")||{};}catch(e){}
  if(!saved.books){
+  try{const v3=JSON.parse(localStorage.getItem(PRIOR_KEY)||"{}")||{}; if(v3.books)saved=v3;}catch(e){}
+ }
+ if(!saved.books){
   try{const old=JSON.parse(localStorage.getItem(OLD_KEY)||"{}")||{};
    if(old.books){
     saved={year:old.year||"2026-2027",books:old.books,templateG:old.templateG,templateS:old.templateS,form:old.form,gestorWeb:old.gestorWeb,folderS:old.folderS};
@@ -236,7 +281,7 @@ function load(){
  for(let y=2024;y<2040;y++){const year=y+"-"+(y+1);$("courseSelect").add(new Option(y+"/"+(y+1),year));}
  if(![...$("courseSelect").options].some(o=>o.value===state.year))$("courseSelect").add(new Option(state.year.replace("-","/"),state.year));
  populateCourseSelectors();
- $("courseSelect").value=state.year;render();persist();
+ $("courseSelect").value=state.year;$("backendUrl").value=state.gestorWeb||"";render();persist();
 }
 function populateCourseSelectors(){
  const main=$("courseSelect");
@@ -262,7 +307,7 @@ function renderLevels(){
   const label=document.createElement("label"),input=document.createElement("input"),text=document.createElement("span");
   input.type="checkbox";input.value=level;input.checked=book().levels.includes(level);text.textContent=level;
   input.addEventListener("change",()=>{const sel=new Set(book().levels);input.checked?sel.add(level):sel.delete(level);book().levels=LEVELS.filter(x=>sel.has(x));state.checkStarted=false;refreshButtons();persist();});
-  label.append(input,text);e.append(label);
+  const amount=document.createElement("span");amount.className="level-amount";amount.textContent="Informes: consultar";label.append(input,text,amount);e.append(label);
  }
  $("levelCount").textContent=book().levels.length+" niveles";
 }
@@ -274,7 +319,7 @@ function displayFolder(key,emptyId,linkId){
 function render(){
  const b=book();
  $("courseSelect").value=state.year;$("gCourseSelect").value=state.year;$("sCourseSelect").value=state.year;
- $("gestorYear").textContent=state.year;$("sYear").textContent=state.year;$("yearTag").textContent=state.year;
+ $("gestorYear").textContent=state.year;$("sYear").textContent=state.year;$("yearTag").textContent=state.year;$("folderYear").textContent=state.year;
  $("gFolder").value=b.folderG||"";$("gSheet").value=b.sheet||"";$("sFolder").value=b.folderS||"";
  displayFolder("folderG","gestorFolderEmpty","gestorFolderLink");
  displayFolder("folderS","seguimientoFolderEmpty","seguimientoFolderLink");
@@ -285,7 +330,7 @@ function render(){
 }
 function refreshButtons(){
  const b=book(),hasSource=validUrl("sheet",b.sheet),hasFollow=validUrl("folder",b.folderS);
- const canOpen=hasFollow&&hasSource&&state.checkStarted&&validUrl("app",state.form);
+ const canOpen=false; // Sin confirmación del servidor, GitHub nunca habilita acceso por su cuenta.
  $("sOpenForm").disabled=!canOpen;$("sCopyForm").disabled=!canOpen;
  $("levelCount").textContent=book().levels.length+" nivel"+(book().levels.length===1?"":"es");
 }
@@ -301,7 +346,7 @@ function validationIssues(type){
  if(type==="gestor"&&!validUrl("folder",b.folderG))missing.push("Introduce la carpeta de comunicaciones PDF.");
  if(type==="seguimiento"&&!validUrl("folder",b.folderS))missing.push("Introduce la carpeta de seguimiento.");
  if(type==="gestor"&&!b.levels.length)missing.push("Selecciona al menos un nivel.");
- if(!validUrl("app",state.gestorWeb||state.form))missing.push("El enlace del proyecto de Apps Script no está correctamente configurado.");
+ if(!validUrl("app",state.gestorWeb))missing.push("Configura debajo la conexión con el Apps Script completo. El enlace del formulario antiguo no sirve para generar PDF ni verificar datos.");
  return missing;
 }
 function saveGestor(){
@@ -317,7 +362,7 @@ function saveSeguimiento(){
 function launchGoogleApp(view){
  const b=book();const errors=validationIssues(view==="gestor"?"gestor":"seguimiento");
  if(errors.length){status(view==="gestor"?"gestorStatus":"sUpdateStatus",errors.join(" "),true);return;}
- const url=new URL(state.gestorWeb||state.form);
+ const url=new URL(state.gestorWeb);
  if(view==="gestor"){
   url.searchParams.set("view","gestor");url.searchParams.set("curso",state.year);
   url.searchParams.set("hoja",b.sheet);url.searchParams.set("carpeta",b.folderG);
@@ -370,18 +415,22 @@ $("gOpenFolder").addEventListener("click",()=>{capture();openValue(book().folder
 $("gOpenSheet").addEventListener("click",()=>{capture();openValue(book().sheet,"sheet","gestorStatus");});
 $("gEditTemplate").addEventListener("click",()=>openValue(state.templateG,"template","gestorStatus"));
 $("gSave").addEventListener("click",saveGestor);
-$("gGenerate").addEventListener("click",()=>{capture();if(!saveGestor())return;launchGoogleApp("gestor");status("gestorStatus","Se ha abierto el Gestor en Google Workspace. Confirma allí la generación para crear los PDF reales.");});
+$("gGenerate").addEventListener("click",()=>{capture();if(!saveGestor())return;launchGoogleApp("gestor");status("gestorStatus","Se ha abierto exclusivamente el panel Gestor PRA de Google Workspace. Desde ese panel se generarán los PDF reales.");});
+$("gSeeCounts").addEventListener("click",()=>{capture();if(!saveGestor())return;launchGoogleApp("gestor");status("gestorStatus","Consulta allí los informes reales por nivel, calculados desde la hoja de Séneca.");});
 $("selectAllLevels").addEventListener("click",()=>{book().levels=LEVELS.slice();renderLevels();persist();});
 $("selectNoLevels").addEventListener("click",()=>{book().levels=[];renderLevels();persist();});
 $("sEditTemplate").addEventListener("click",()=>openValue(state.templateS,"template","sUpdateStatus"));
 $("sOpenSheet").addEventListener("click",()=>{capture();openValue(book().sheet,"sheet","sUpdateStatus");});
 $("sUpdate").addEventListener("click",()=>{
  capture();if(!saveSeguimiento())return;
- state.checkStarted=true;refreshButtons();
+ state.checkStarted=false;refreshButtons();
  launchGoogleApp("validar");
- status("sUpdateStatus","Se ha abierto el verificador de Google Workspace. Pulsa «Actualizar y verificar» allí. Solo si Google confirma registros abiertos, utiliza «Abrir formulario»; este comprobará los datos de nuevo al abrir.");
+ status("sUpdateStatus","Se abre la página de verificación de Apps Script, NO el formulario. Allí pulsa «Actualizar y verificar datos». Solo tras la respuesta correcta de Google se mostrará el botón para abrir el formulario actualizado.");
 });
-$("sOpenForm").addEventListener("click",openForm);
+$("sOpenForm").addEventListener("click",()=>status("sUpdateStatus","Primero hay que verificar los datos dentro de Apps Script. El formulario se abre directamente desde el resultado validado.",true));
+$("sSeeFolders").addEventListener("click",()=>{capture();if(!validUrl("app",state.gestorWeb)){status("sFoldersStatus","Configura la conexión con el Apps Script completo, al final de esta página.",true);return;}const url=new URL(state.gestorWeb);url.searchParams.set("view","gestor");window.open(url.href,"_blank","noopener,noreferrer");status("sFoldersStatus","Dentro de la aplicación de Google, abre Seguimiento PRA y pulsa «Actualizar carpetas e informes».");});
+$("sOpenFolder").addEventListener("click",()=>{capture();openValue(book().folderS,"folder","sFoldersStatus");});
+$("saveBackend").addEventListener("click",()=>{const v=$("backendUrl").value.trim();if(!validUrl("app",v)){status("gestorStatus","Introduce la URL /exec válida del proyecto completo de Apps Script.",true);navigate("gestor");return;}state.gestorWeb=v;state.checkStarted=false;persist();refreshButtons();$("backendUrl").value=v;status("sFoldersStatus","Conexión guardada en este navegador. Los accesos del Gestor y la verificación ya no utilizan el formulario antiguo.");});
 $("sCopyForm").addEventListener("click",()=>{if(!$("sCopyForm").disabled)tryCopy(state.form,"sUpdateStatus");});
 load();
 const first=location.hash.slice(1);if(Object.prototype.hasOwnProperty.call(VIEWS,first))navigate(first);
