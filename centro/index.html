@@ -411,7 +411,7 @@ $("gOpenSheet").addEventListener("click",()=>{capture();openValue(book().sheet,"
 $("gEditTemplate").addEventListener("click",()=>openValue(state.templateG,"template","gestorStatus"));
 $("gSave").addEventListener("click",saveGestor);
 $("gGenerate").addEventListener("click",()=>{capture();if(!saveGestor())return;openValue(book().sheet,"sheet","gestorStatus");status("gestorStatus","Hoja del Gestor PRA abierta. En Google Sheets utiliza «GESTOR PRA → Abrir panel lateral» y pulsa «Generar PDF». La web pública no puede ejecutarlo automáticamente sin un servidor de Apps Script publicado.");});
-$("gSeeCounts").addEventListener("click",()=>{capture();if(!saveGestor())return;openValue(book().sheet,"sheet","gestorStatus");status("gestorStatus","Abre «GESTOR PRA → Abrir panel lateral» en la hoja para consultar los recuentos reales de los niveles.");});
+$("gSeeCounts").addEventListener("click",()=>{capture();if(!validUrl("sheet",book().sheet)){status("gestorStatus","Primero indica una hoja de Séneca válida.",true);return;}persist();openValue(book().sheet,"sheet","gestorStatus");status("gestorStatus","Abre «GESTOR PRA → Abrir panel lateral» en la hoja para consultar los recuentos reales por nivel.");});
 $("selectAllLevels").addEventListener("click",()=>{book().levels=LEVELS.slice();renderLevels();persist();});
 $("selectNoLevels").addEventListener("click",()=>{book().levels=[];renderLevels();persist();});
 $("sEditTemplate").addEventListener("click",()=>openValue(state.templateS,"template","sUpdateStatus"));
