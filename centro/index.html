@@ -228,11 +228,13 @@ const TEMPLATE_S="https://docs.google.com/document/d/1RXzOJq_qqScAG2Qebw9NAbQstw
 const LEVELS=["Infantil","1º ESO","2º ESO","3º ESO","4º ESO","1º BACH","2º BACH"];
 const KEY="pra-centro-ies-ciudad-de-coin-access-v4",PRIOR_KEY="pra-centro-ies-ciudad-de-coin-access-v3",OLD_KEY="pra-centro-ies-ciudad-de-coin-access-v2",OLDER_KEY="pra-centro-ies-ciudad-de-coin-access-v1";
 const VIEWS={inicio:"Inicio",gestor:"Gestor PRA",seguimiento:"Seguimiento PRA"};
+const FOLLOW_YEAR="2026-2027";
 const state={year:"2026-2027",books:{"2026-2027":{sheet:DEFAULT_SHEET,folderG:"",folderS:"",levels:LEVELS.slice()}},
- templateG:TEMPLATE_G,templateS:TEMPLATE_S,form:DEFAULT_FORM,gestorWeb:"",checkStarted:false};
+ templateG:TEMPLATE_G,templateS:TEMPLATE_S,form:DEFAULT_FORM,gestorWeb:"",checkStarted:false,followVerified:false,pendingNonce:""};
 const $=id=>document.getElementById(id);
 function copyInitial(){return {year:"2026-2027",books:{"2026-2027":{sheet:DEFAULT_SHEET,folderG:"",folderS:"",levels:LEVELS.slice()}},templateG:TEMPLATE_G,templateS:TEMPLATE_S,form:DEFAULT_FORM,gestorWeb:"",checkStarted:false};}
 function book(){if(!state.books[state.year])state.books[state.year]={sheet:"",folderG:"",folderS:"",levels:LEVELS.slice()};return state.books[state.year];}
+function followBook(){if(!state.books[FOLLOW_YEAR])state.books[FOLLOW_YEAR]={sheet:DEFAULT_SHEET,folderG:"",folderS:"",levels:LEVELS.slice()};return state.books[FOLLOW_YEAR];}
 function validUrl(kind,value){
  if(typeof value!=="string"||!value.trim())return false;
  let u;try{u=new URL(value);}catch(e){return false;}
@@ -280,7 +282,7 @@ function load(){
 }
 function populateCourseSelectors(){
  const main=$("courseSelect");
- for(const id of ["gCourseSelect","sCourseSelect"]){
+ for(const id of ["gCourseSelect"]){
   const control=$(id);control.replaceChildren();
   for(const option of main.options)control.add(new Option(option.text,option.value));
   control.value=state.year;
@@ -293,7 +295,7 @@ function selectAcademicYear(next){
  state.checkStarted=false;
  render();persist();
  status("gestorStatus","Curso académico seleccionado: "+next+". Revisa la hoja y la carpeta de este curso antes de generar los PDF.");
- status("sUpdateStatus","Curso académico seleccionado: "+next+". Actualiza los datos de Séneca para este año antes de utilizar el formulario.");
+
 }
 function status(id,message,isError=false){const node=$(id);if(!node)return;node.textContent=message;node.classList.toggle("error",isError);}
 function renderLevels(){
@@ -306,37 +308,37 @@ function renderLevels(){
  }
  $("levelCount").textContent=book().levels.length+" niveles";
 }
-function displayFolder(key,emptyId,linkId){
- const value=book()[key];const valid=validUrl("folder",value);
+function displayFolder(key,emptyId,linkId,source=book()){
+ const value=source[key];const valid=validUrl("folder",value);
  $(emptyId).hidden=valid;$(linkId).hidden=!valid;
  if(valid)$(linkId).href=value;else $(linkId).removeAttribute("href");
 }
 function render(){
  const b=book();
- $("courseSelect").value=state.year;$("gCourseSelect").value=state.year;$("sCourseSelect").value=state.year;
- $("gestorYear").textContent=state.year;$("sYear").textContent=state.year;$("yearTag").textContent=state.year;$("folderYear").textContent=state.year;
- $("gFolder").value=b.folderG||"";$("gSheet").value=b.sheet||"";$("sFolder").value=b.folderS||"";
+ $("courseSelect").value=state.year;$("gCourseSelect").value=state.year;
+ $("gestorYear").textContent=state.year;$("sYear").textContent=FOLLOW_YEAR;$("yearTag").textContent=state.year;$("folderYear").textContent=FOLLOW_YEAR;
+ $("gFolder").value=b.folderG||"";$("gSheet").value=b.sheet||"";$("sFolder").value=followBook().folderS||"";
  displayFolder("folderG","gestorFolderEmpty","gestorFolderLink");
- displayFolder("folderS","seguimientoFolderEmpty","seguimientoFolderLink");
- displayFolder("folderS","followDocEmpty","followDocLink");
- $("folderSState").textContent=validUrl("folder",b.folderS)?"Enlace configurado":"Pendiente";
- $("sSheetStatus").textContent=validUrl("sheet",b.sheet)?"Configurada":"Pendiente";
+ displayFolder("folderS","seguimientoFolderEmpty","seguimientoFolderLink",followBook());
+ displayFolder("folderS","followDocEmpty","followDocLink",followBook());
+ $("folderSState").textContent=validUrl("folder",followBook().folderS)?"Enlace configurado":"Pendiente";
+ $("sSheetStatus").textContent=validUrl("sheet",followBook().sheet)?"Configurada · 26/27":"Pendiente";
  renderLevels();refreshButtons();
 }
 function refreshButtons(){
- const b=book(),hasSource=validUrl("sheet",b.sheet),hasFollow=validUrl("folder",b.folderS);
- const canOpen=false; // Sin confirmación del servidor, GitHub nunca habilita acceso por su cuenta.
- $("sOpenForm").disabled=!canOpen;$("sCopyForm").disabled=!canOpen;
+ const b=followBook(),hasSource=validUrl("sheet",b.sheet),hasFollow=validUrl("folder",b.folderS);
+ const canOpen=hasFollow&&hasSource&&state.followVerified&&validUrl("app",DEFAULT_FORM);
+ $("sOpenForm").disabled=!canOpen;
  $("levelCount").textContent=book().levels.length+" nivel"+(book().levels.length===1?"":"es");
 }
 function capture(){
- const b=book();
+ const b=book(),f=followBook();
  const newG=$("gFolder").value.trim(),newSheet=$("gSheet").value.trim(),newS=$("sFolder").value.trim();
- if(b.sheet!==newSheet||b.folderS!==newS)state.checkStarted=false;
- b.sheet=newSheet;b.folderG=newG;b.folderS=newS;
+ if((state.year===FOLLOW_YEAR&&b.sheet!==newSheet)||f.folderS!==newS)state.followVerified=false;
+ b.sheet=newSheet;b.folderG=newG;f.folderS=newS;
 }
 function validationIssues(type){
- const b=book(),missing=[];
+ const b=type==="seguimiento"?followBook():book(),missing=[];
  if(!validUrl("sheet",b.sheet))missing.push("Introduce una hoja de cálculo de Google Sheets válida.");
  if(type==="gestor"&&!validUrl("folder",b.folderG))missing.push("Introduce la carpeta de comunicaciones PDF.");
  if(type==="seguimiento"&&!validUrl("folder",b.folderS))missing.push("Introduce la carpeta de seguimiento.");
@@ -400,7 +402,7 @@ document.querySelectorAll("[data-copy]").forEach(el=>el.addEventListener("click"
  if(el.dataset.copy==="form"){navigate("seguimiento");return;}
  if(el.dataset.copy==="sheet"){navigate("gestor");return;}
 }));
-for(const id of ["courseSelect","gCourseSelect","sCourseSelect"]){
+for(const id of ["courseSelect","gCourseSelect"]){
  $(id).addEventListener("change",e=>selectAcademicYear(e.target.value));
 }
 $("gFolder").addEventListener("change",()=>{capture();render();persist();});
@@ -415,7 +417,7 @@ $("gSeeCounts").addEventListener("click",()=>{capture();if(!validUrl("sheet",boo
 $("selectAllLevels").addEventListener("click",()=>{book().levels=LEVELS.slice();renderLevels();persist();});
 $("selectNoLevels").addEventListener("click",()=>{book().levels=[];renderLevels();persist();});
 $("sEditTemplate").addEventListener("click",()=>openValue(state.templateS,"template","sUpdateStatus"));
-$("sOpenSheet").addEventListener("click",()=>{capture();openValue(book().sheet,"sheet","sUpdateStatus");});
+$("sOpenSheet").addEventListener("click",()=>{capture();openValue(followBook().sheet,"sheet","sUpdateStatus");});
 $("sUpdate").addEventListener("click",()=>{
  capture();if(!saveSeguimiento())return;
  state.checkStarted=false;refreshButtons();
@@ -424,7 +426,7 @@ $("sUpdate").addEventListener("click",()=>{
 });
 $("sOpenForm").addEventListener("click",()=>status("sUpdateStatus","Primero hay que verificar los datos dentro de Apps Script. El formulario se abre directamente desde el resultado validado.",true));
 $("sSeeFolders").addEventListener("click",()=>{capture();if(!validUrl("app",DEFAULT_FORM)){status("sFoldersStatus","La aplicación de Google Workspace del centro no está disponible.",true);return;}const url=new URL(DEFAULT_FORM);url.searchParams.set("view","gestor");window.open(url.href,"_blank","noopener,noreferrer");status("sFoldersStatus","Dentro de la aplicación de Google, abre Seguimiento PRA y pulsa «Actualizar carpetas e informes».");});
-$("sOpenFolder").addEventListener("click",()=>{capture();openValue(book().folderS,"folder","sFoldersStatus");});
+$("sOpenFolder").addEventListener("click",()=>{capture();openValue(followBook().folderS,"folder","sFoldersStatus");});
 
 $("sCopyForm").addEventListener("click",()=>{if(!$("sCopyForm").disabled)tryCopy(state.form,"sUpdateStatus");});
 load();
