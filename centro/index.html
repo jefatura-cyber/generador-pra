@@ -156,9 +156,9 @@ main{flex:1;min-width:0}.top{height:73px;display:flex;align-items:center;justify
     </div>
     <div class="card pad">
       <div class="mini">05 · GENERACIÓN DE COMUNICACIONES</div><h2>Crear los PDF</h2>
-      <p>Este botón abre exclusivamente el Gestor PRA autenticado de Apps Script. Allí podrás consultar los informes por nivel y pulsar «Generar PDF» para crear los documentos reales.</p>
+      <p>Al pulsar «Generar PDF», el sistema ejecutará en Apps Script los niveles seleccionados y guardará los documentos en la carpeta indicada.</p>
       <div class="statusrow"><span>Curso de trabajo</span><b id="gestorYear">2026-2027</b></div>
-      <div class="actions"><button class="btn outline" id="gSave">Guardar configuración</button><button class="btn primary" id="gGenerate">Abrir generador PDF ↗</button></div>
+      <div class="actions"><button class="btn outline" id="gSave">Guardar configuración</button><button class="btn primary" id="gGenerate">Generar PDF</button></div>
       <div id="gestorStatus" class="statusnote" role="status">Indica carpeta y hoja, selecciona los niveles y pulsa Generar PDF.</div>
       <p class="help">GitHub no crea ni muestra PDF por sí solo. Los documentos se producen desde el proyecto de Apps Script autorizado, sin APIs de pago.</p>
     </div>
@@ -214,11 +214,6 @@ main{flex:1;min-width:0}.top{height:73px;display:flex;align-items:center;justify
     <div class="statusnote" id="sFoldersStatus" role="status">El listado se consultará en Google Workspace; no se publican nombres ni documentos del alumnado en GitHub.</div>
   </div>
 </section>
-<div class="backend-setup">
-  <label for="backendUrl">Conexión privada con Apps Script · URL de la implementación del centro</label>
-  <div class="inline-actions"><input id="backendUrl" type="url" placeholder="https://script.google.com/a/macros/…/s/…/exec" aria-label="URL del Apps Script que contiene el Gestor y el Seguimiento" /><button class="btn outline" id="saveBackend">Guardar conexión</button></div>
-  <p class="help">Es imprescindible usar la implementación del proyecto completo. Esta dirección se guarda solamente en este navegador y se utiliza para abrir /exec?view=gestor o /exec?view=validar. Si solo contiene el formulario, actualiza primero Apps Script con el paquete adjunto.</p>
-</div>
 <div class="section-head"><div><h2>Entorno de trabajo</h2><p>Gestión de documentos y datos exclusivamente en Google Workspace.</p></div></div>
     <div class="badge-row"><span class="pill">IES Ciudad de Coín</span><span class="pill">PRAs <span id="yearTag">2026-2027</span></span><span class="pill">GitHub Pages · solo interfaz</span></div>
   </div>
@@ -281,7 +276,7 @@ function load(){
  for(let y=2024;y<2040;y++){const year=y+"-"+(y+1);$("courseSelect").add(new Option(y+"/"+(y+1),year));}
  if(![...$("courseSelect").options].some(o=>o.value===state.year))$("courseSelect").add(new Option(state.year.replace("-","/"),state.year));
  populateCourseSelectors();
- $("courseSelect").value=state.year;$("backendUrl").value=state.gestorWeb||"";render();persist();
+ $("courseSelect").value=state.year;render();persist();
 }
 function populateCourseSelectors(){
  const main=$("courseSelect");
@@ -346,7 +341,7 @@ function validationIssues(type){
  if(type==="gestor"&&!validUrl("folder",b.folderG))missing.push("Introduce la carpeta de comunicaciones PDF.");
  if(type==="seguimiento"&&!validUrl("folder",b.folderS))missing.push("Introduce la carpeta de seguimiento.");
  if(type==="gestor"&&!b.levels.length)missing.push("Selecciona al menos un nivel.");
- if(!validUrl("app",state.gestorWeb))missing.push("Configura debajo la conexión con el Apps Script completo. El enlace del formulario antiguo no sirve para generar PDF ni verificar datos.");
+ if(!validUrl("app",DEFAULT_FORM))missing.push("La aplicación de Google Workspace del centro no está disponible.");
  return missing;
 }
 function saveGestor(){
@@ -359,14 +354,14 @@ function saveSeguimiento(){
  if(errors.length){status("sUpdateStatus",errors.join(" "),true);return false;}
  persist();render();return true;
 }
-function launchGoogleApp(view){
+function launchGoogleApp(view,autoGenerate=false){
  const b=book();const errors=validationIssues(view==="gestor"?"gestor":"seguimiento");
  if(errors.length){status(view==="gestor"?"gestorStatus":"sUpdateStatus",errors.join(" "),true);return;}
- const url=new URL(state.gestorWeb);
+ const url=new URL(DEFAULT_FORM);
  if(view==="gestor"){
   url.searchParams.set("view","gestor");url.searchParams.set("curso",state.year);
   url.searchParams.set("hoja",b.sheet);url.searchParams.set("carpeta",b.folderG);
-  url.searchParams.set("niveles",b.levels.join("|"));url.searchParams.set("accion","generar");
+  url.searchParams.set("niveles",b.levels.join("|"));url.searchParams.set("accion",autoGenerate?"generar":"revisar");
  }else{
   url.searchParams.set("view","validar");url.searchParams.set("curso",state.year);
   url.searchParams.set("hoja",b.sheet);url.searchParams.set("carpetaG",b.folderG);
@@ -415,8 +410,8 @@ $("gOpenFolder").addEventListener("click",()=>{capture();openValue(book().folder
 $("gOpenSheet").addEventListener("click",()=>{capture();openValue(book().sheet,"sheet","gestorStatus");});
 $("gEditTemplate").addEventListener("click",()=>openValue(state.templateG,"template","gestorStatus"));
 $("gSave").addEventListener("click",saveGestor);
-$("gGenerate").addEventListener("click",()=>{capture();if(!saveGestor())return;launchGoogleApp("gestor");status("gestorStatus","Se ha abierto exclusivamente el panel Gestor PRA de Google Workspace. Desde ese panel se generarán los PDF reales.");});
-$("gSeeCounts").addEventListener("click",()=>{capture();if(!saveGestor())return;launchGoogleApp("gestor");status("gestorStatus","Consulta allí los informes reales por nivel, calculados desde la hoja de Séneca.");});
+$("gGenerate").addEventListener("click",()=>{capture();if(!saveGestor())return;launchGoogleApp("gestor",true);status("gestorStatus","Generación iniciada en Apps Script. Comprueba el resultado y los documentos en la ventana de Google Workspace.");});
+$("gSeeCounts").addEventListener("click",()=>{capture();if(!saveGestor())return;launchGoogleApp("gestor",false);status("gestorStatus","Consulta allí los informes reales por nivel, calculados desde la hoja de Séneca.");});
 $("selectAllLevels").addEventListener("click",()=>{book().levels=LEVELS.slice();renderLevels();persist();});
 $("selectNoLevels").addEventListener("click",()=>{book().levels=[];renderLevels();persist();});
 $("sEditTemplate").addEventListener("click",()=>openValue(state.templateS,"template","sUpdateStatus"));
@@ -428,9 +423,9 @@ $("sUpdate").addEventListener("click",()=>{
  status("sUpdateStatus","Se abre la página de verificación de Apps Script, NO el formulario. Allí pulsa «Actualizar y verificar datos». Solo tras la respuesta correcta de Google se mostrará el botón para abrir el formulario actualizado.");
 });
 $("sOpenForm").addEventListener("click",()=>status("sUpdateStatus","Primero hay que verificar los datos dentro de Apps Script. El formulario se abre directamente desde el resultado validado.",true));
-$("sSeeFolders").addEventListener("click",()=>{capture();if(!validUrl("app",state.gestorWeb)){status("sFoldersStatus","Configura la conexión con el Apps Script completo, al final de esta página.",true);return;}const url=new URL(state.gestorWeb);url.searchParams.set("view","gestor");window.open(url.href,"_blank","noopener,noreferrer");status("sFoldersStatus","Dentro de la aplicación de Google, abre Seguimiento PRA y pulsa «Actualizar carpetas e informes».");});
+$("sSeeFolders").addEventListener("click",()=>{capture();if(!validUrl("app",DEFAULT_FORM)){status("sFoldersStatus","La aplicación de Google Workspace del centro no está disponible.",true);return;}const url=new URL(DEFAULT_FORM);url.searchParams.set("view","gestor");window.open(url.href,"_blank","noopener,noreferrer");status("sFoldersStatus","Dentro de la aplicación de Google, abre Seguimiento PRA y pulsa «Actualizar carpetas e informes».");});
 $("sOpenFolder").addEventListener("click",()=>{capture();openValue(book().folderS,"folder","sFoldersStatus");});
-$("saveBackend").addEventListener("click",()=>{const v=$("backendUrl").value.trim();if(!validUrl("app",v)){status("gestorStatus","Introduce la URL /exec válida del proyecto completo de Apps Script.",true);navigate("gestor");return;}state.gestorWeb=v;state.checkStarted=false;persist();refreshButtons();$("backendUrl").value=v;status("sFoldersStatus","Conexión guardada en este navegador. Los accesos del Gestor y la verificación ya no utilizan el formulario antiguo.");});
+
 $("sCopyForm").addEventListener("click",()=>{if(!$("sCopyForm").disabled)tryCopy(state.form,"sUpdateStatus");});
 load();
 const first=location.hash.slice(1);if(Object.prototype.hasOwnProperty.call(VIEWS,first))navigate(first);
