@@ -24,6 +24,13 @@ main{flex:1;min-width:0}.top{height:73px;display:flex;align-items:center;justify
 .inline-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.disabled-note{font-size:11px;color:var(--muted)}.statusnote{background:#f1f8f2;border:1px solid #dcece0;border-radius:11px;padding:13px;color:#355f4b;font-size:12px;line-height:1.55;margin-top:12px}.statusnote.error{background:#fff1ec;border-color:#efccbf;color:#96412c}.coursehint{font-size:11px;color:#72877d}
 @media(max-width:760px){.topcourse label{display:none}.topcourse select{font-size:10px;max-width:125px}.right .round{display:none}}
 
+.year-strip{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:0 0 18px;padding:18px 22px;border:1px solid #d6e9db;border-radius:14px;background:#eef7f0}
+.year-strip h2{font-size:17px;letter-spacing:-.2px;margin:4px 0}
+.year-strip p{font-size:12px;color:#567766;margin:0;max-width:650px}
+.year-strip-control{min-width:210px}
+.year-strip-control label{font-size:11px;font-weight:850;color:#426b59;display:block;margin-bottom:7px}
+.year-strip-control select{display:block;width:100%;min-height:43px;padding:10px 12px;border:1px solid #b6d9c5;border-radius:9px;background:white;color:#195848;font-size:14px;font-weight:850}
+@media(max-width:760px){.year-strip{align-items:stretch;flex-direction:column;padding:16px}.year-strip-control{min-width:0}}
 </style>
 </head>
 <body>
@@ -85,6 +92,10 @@ main{flex:1;min-width:0}.top{height:73px;display:flex;align-items:center;justify
     <section class="view" id="gestor">
   <h1 class="title">Gestor PRA</h1>
   <p class="lead">Configura los datos y genera las comunicaciones a familias. El año seleccionado se aplicará al filtrar los PRAs abiertos.</p>
+  <div class="year-strip">
+    <div><div class="mini">ANTES DE EMPEZAR</div><h2>Curso académico del Gestor PRA</h2><p>Selecciona el año cuyos PRAs abiertos vas a gestionar. La hoja de Séneca y las carpetas se actualizan al cambiarlo.</p></div>
+    <div class="year-strip-control"><label for="gCourseSelect">Curso académico</label><select id="gCourseSelect" aria-label="Curso académico del Gestor PRA"></select></div>
+  </div>
   <div class="grid2">
     <div class="card pad">
       <div class="mini">01 · DESTINO DE DOCUMENTOS</div><h2>Carpeta para guardar los PDF</h2>
@@ -130,6 +141,10 @@ main{flex:1;min-width:0}.top{height:73px;display:flex;align-items:center;justify
 <section class="view" id="seguimiento">
   <h1 class="title">Seguimiento PRA</h1>
   <p class="lead">Configura la carpeta del seguimiento, actualiza los datos de Séneca y abre el formulario web del profesorado. No se utiliza Google Forms.</p>
+  <div class="year-strip">
+    <div><div class="mini">ANTES DE EMPEZAR</div><h2>Curso académico del Seguimiento PRA</h2><p>Elige el año cuyos datos utilizará el formulario. Se comparte la hoja del Gestor del mismo curso académico.</p></div>
+    <div class="year-strip-control"><label for="sCourseSelect">Curso académico</label><select id="sCourseSelect" aria-label="Curso académico del Seguimiento PRA"></select></div>
+  </div>
   <div class="grid2">
     <div class="card pad">
       <div class="mini">01 · DESTINO DE LOS INFORMES</div><h2>Carpeta de Seguimiento PRA</h2>
@@ -220,7 +235,25 @@ function load(){
  for(const key of ["templateG","templateS","form","gestorWeb"])if(typeof saved[key]==="string"&&saved[key].length<2000)state[key]=saved[key];
  for(let y=2024;y<2040;y++){const year=y+"-"+(y+1);$("courseSelect").add(new Option(y+"/"+(y+1),year));}
  if(![...$("courseSelect").options].some(o=>o.value===state.year))$("courseSelect").add(new Option(state.year.replace("-","/"),state.year));
+ populateCourseSelectors();
  $("courseSelect").value=state.year;render();persist();
+}
+function populateCourseSelectors(){
+ const main=$("courseSelect");
+ for(const id of ["gCourseSelect","sCourseSelect"]){
+  const control=$(id);control.replaceChildren();
+  for(const option of main.options)control.add(new Option(option.text,option.value));
+  control.value=state.year;
+ }
+}
+function selectAcademicYear(next){
+ if(!/^20\d\d-20\d\d$/.test(next)||state.year===next)return;
+ capture();
+ state.year=next;
+ state.checkStarted=false;
+ render();persist();
+ status("gestorStatus","Curso académico seleccionado: "+next+". Revisa la hoja y la carpeta de este curso antes de generar los PDF.");
+ status("sUpdateStatus","Curso académico seleccionado: "+next+". Actualiza los datos de Séneca para este año antes de utilizar el formulario.");
 }
 function status(id,message,isError=false){const node=$(id);if(!node)return;node.textContent=message;node.classList.toggle("error",isError);}
 function renderLevels(){
@@ -240,7 +273,8 @@ function displayFolder(key,emptyId,linkId){
 }
 function render(){
  const b=book();
- $("courseSelect").value=state.year;$("gestorYear").textContent=state.year;$("sYear").textContent=state.year;$("yearTag").textContent=state.year;
+ $("courseSelect").value=state.year;$("gCourseSelect").value=state.year;$("sCourseSelect").value=state.year;
+ $("gestorYear").textContent=state.year;$("sYear").textContent=state.year;$("yearTag").textContent=state.year;
  $("gFolder").value=b.folderG||"";$("gSheet").value=b.sheet||"";$("sFolder").value=b.folderS||"";
  displayFolder("folderG","gestorFolderEmpty","gestorFolderLink");
  displayFolder("folderS","seguimientoFolderEmpty","seguimientoFolderLink");
@@ -326,7 +360,9 @@ document.querySelectorAll("[data-copy]").forEach(el=>el.addEventListener("click"
  if(el.dataset.copy==="form"){navigate("seguimiento");return;}
  if(el.dataset.copy==="sheet"){navigate("gestor");return;}
 }));
-$("courseSelect").addEventListener("change",e=>{capture();state.year=e.target.value;state.checkStarted=false;render();persist();});
+for(const id of ["courseSelect","gCourseSelect","sCourseSelect"]){
+ $(id).addEventListener("change",e=>selectAcademicYear(e.target.value));
+}
 $("gFolder").addEventListener("change",()=>{capture();render();persist();});
 $("gSheet").addEventListener("change",()=>{capture();render();persist();});
 $("sFolder").addEventListener("change",()=>{capture();render();persist();});
