@@ -18,6 +18,12 @@ main{flex:1;min-width:0}.top{height:73px;display:flex;align-items:center;justify
 @media(max-width:1100px){.sidebar{width:208px}.metrics{grid-template-columns:repeat(2,1fr)}.hero-mark{display:none}}
 @media(max-width:760px){.app{display:block}.sidebar{width:100%;height:auto;position:static;padding:12px;display:block}.logo{padding:1px 8px 11px}.navtitle,.foot{display:none}.navbtn{display:inline-flex;width:auto;padding:8px 10px;font-size:11px;margin:0 3px 4px 0}.navicon{width:auto}.top{height:58px;padding:0 15px}.container{padding:20px 14px 50px}.hero{padding:23px}.grid2,.steps,.fieldpair{grid-template-columns:1fr}.metric strong{font-size:20px}.pad{padding:18px}.divider-v{border:0;padding:0}}
 @media(max-width:400px){.metrics{gap:7px}.metric{padding:12px}.tag{font-size:9px}}
+
+.topcourse{display:flex;align-items:center;gap:9px}.topcourse label{font-size:10px;font-weight:850;color:#647e72;white-space:nowrap}.topcourse select{padding:8px 10px;font-size:12px;font-weight:800;background:#f4faf6;border:1px solid #d3e5d8;border-radius:9px;min-height:36px;color:#0a6555}
+.select-levels{border:1px solid var(--line);border-radius:10px;margin:12px 0;overflow:hidden}.select-levels label{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid #e6f0e9;font-size:12px;font-weight:750;cursor:pointer}.select-levels label:last-child{border:0}.select-levels label:hover{background:#f2f9f4}.select-levels input{width:18px;height:18px;accent-color:var(--green)}
+.inline-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.disabled-note{font-size:11px;color:var(--muted)}.statusnote{background:#f1f8f2;border:1px solid #dcece0;border-radius:11px;padding:13px;color:#355f4b;font-size:12px;line-height:1.55;margin-top:12px}.statusnote.error{background:#fff1ec;border-color:#efccbf;color:#96412c}.coursehint{font-size:11px;color:#72877d}
+@media(max-width:760px){.topcourse label{display:none}.topcourse select{font-size:10px;max-width:125px}.right .round{display:none}}
+
 </style>
 </head>
 <body>
@@ -28,13 +34,13 @@ main{flex:1;min-width:0}.top{height:73px;display:flex;align-items:center;justify
   <button class="navbtn active" data-nav="inicio"><span class="navicon">⌂</span>Inicio</button>
   <button class="navbtn" data-nav="gestor"><span class="navicon">▤</span>Gestor PRA</button>
   <button class="navbtn" data-nav="seguimiento"><span class="navicon">☷</span>Seguimiento PRA</button>
-  <button class="navbtn" data-nav="ajustes"><span class="navicon">⚙</span>Ajustes · Curso académico</button>
+  
   <div class="foot"><b>Herramientas del IES Ciudad de Coín</b>Los datos del alumnado permanecen en Google Workspace. GitHub solo publica esta interfaz de acceso.</div>
 </aside>
 <main>
   <header class="top">
     <div class="bread">Centro educativo &nbsp;›&nbsp; <strong id="breadcrumb">Inicio</strong></div>
-    <div class="right"><span class="tag">CENTRO · USO INTERNO</span><span class="round">CC</span></div>
+    <div class="right"><div class="topcourse"><label for="courseSelect">Curso académico</label><select id="courseSelect" aria-label="Curso académico de trabajo"></select></div><span class="tag">CENTRO · USO INTERNO</span><span class="round">CC</span></div>
   </header>
   <div class="container">
     <section class="view active" id="inicio">
@@ -77,327 +83,272 @@ main{flex:1;min-width:0}.top{height:73px;display:flex;align-items:center;justify
     </section>
 
     <section class="view" id="gestor">
-      <h1 class="title">Gestor PRA</h1><p class="lead">Configura la hoja y la carpeta de tu centro, selecciona los niveles y genera las comunicaciones en Google Workspace.</p>
-      <div class="notice"><strong>Modo seguro:</strong> los datos del alumnado nunca se descargan en GitHub. El botón de generación abrirá el panel autenticado de Apps Script para confirmar la operación. Necesita la implementación web del Gestor configurada una vez en Ajustes.</div>
-      <div class="grid2">
-        <div class="card pad">
-          <div class="mini">01 · DATOS DE SÉNECA</div><h2>Hoja de cálculo de origen</h2>
-          <div class="statusrow"><span>Curso académico seleccionado</span><b id="gYearLabel">2026-2027</b></div>
-          <div class="field"><label for="sheetG">Enlace a la hoja de Séneca para este curso</label>
-            <input id="sheetG" type="url" placeholder="https://docs.google.com/spreadsheets/d/.../edit" autocomplete="off" spellcheck="false"></div>
-          <p class="help">Puedes utilizar la hoja actual o una nueva cada curso. Se filtran exclusivamente las filas con «Año académico de creación» igual al curso seleccionado y «Estado» = «Abierto».</p>
-          <div class="actions"><button class="btn outline" id="openSource">Abrir hoja de datos ↗</button><button class="btn light" data-nav="ajustes">Cambiar curso académico</button></div>
-        </div>
-        <div class="card pad">
-          <div class="mini">02 · CARPETA DE DESTINO</div><h2>Carpeta de comunicaciones PDF</h2>
-          <div class="field"><label for="folderInputG">Enlace a la carpeta de Google Drive</label><input id="folderInputG" type="url" placeholder="https://drive.google.com/drive/folders/..." autocomplete="off" spellcheck="false"></div>
-          <p class="help">Los PDF se guardarán por nivel y grupo. A partir de 2027/2028 se crea además una carpeta del curso para conservar los informes anteriores.</p>
-          <div class="actions"><button class="btn light" id="saveGestor">Guardar hoja y carpeta</button><button class="btn outline" data-open="folderG">Abrir carpeta ↗</button></div>
-          <div class="empty" id="gestorFolderEmpty">El visor de carpetas permanecerá vacío hasta que existan carpetas generadas realmente en Drive.</div>
-          <a id="gestorFolderLink" class="folderlink" href="#" target="_blank" rel="noopener noreferrer" hidden>📁 Abrir carpeta de comunicaciones ↗</a>
-        </div>
-      </div>
-      <div class="grid2" style="margin-top:16px">
-        <div class="card pad">
-          <div class="mini">03 · SELECCIÓN DE NIVELES</div><h2>¿Qué cursos quieres procesar?</h2>
-          <p>Selecciona las pestañas de Séneca que quieres revisar. Los números reales de PRAs se comprobarán dentro de Google Workspace antes de generar nada.</p>
-          <div id="gestorLevels" class="level-list"></div>
-          <div class="actions"><button class="btn light" id="selectAllLevels">Seleccionar todos</button><button class="btn outline" id="selectNoLevels">Desmarcar</button></div>
-          <div class="statusrow"><span>Selección preparada</span><b id="levelCount">0 niveles</b></div>
-        </div>
-        <div class="card pad">
-          <div class="mini">04 · COMPROBAR Y GENERAR PDF</div><h2>Comunicaciones a las familias</h2>
-          <p>Recuperamos el proceso del Gestor PRA original: comprobar los PRAs abiertos, revisar el alumnado y generar un PDF individual en su carpeta de nivel y grupo.</p>
-          <div class="actions"><button class="btn outline" id="checkGestor">Comprobar datos en Google ↗</button><button class="btn primary" id="runGestor">Continuar y generar PDF ↗</button></div>
-          <div id="statusGestor" class="notice good" role="status">Configura tu hoja y carpeta y selecciona los niveles. Para ejecutar la generación real deberás abrir el panel de Google Workspace autorizado.</div>
-          <div class="divider"></div>
-          <div class="mini">PLANTILLA ORIGINAL</div><p>Se conserva la plantilla de comunicación a familias con sus cuatro tablas y logotipo.</p>
-          <div class="actions"><button class="btn light" data-open="templateG">Abrir plantilla ↗</button></div>
-          <p class="help">Aquí no se inventan recuentos de alumnos ni se muestran carpetas ficticias. El resultado real aparecerá en el panel de Google y en la carpeta de Drive.</p>
-        </div>
-      </div>
-    </section>
+  <h1 class="title">Gestor PRA</h1>
+  <p class="lead">Configura los datos y genera las comunicaciones a familias. El año seleccionado se aplicará al filtrar los PRAs abiertos.</p>
+  <div class="grid2">
+    <div class="card pad">
+      <div class="mini">01 · DESTINO DE DOCUMENTOS</div><h2>Carpeta para guardar los PDF</h2>
+      <div class="field"><label for="gFolder">Enlace de la carpeta de Google Drive</label><input id="gFolder" type="url" placeholder="https://drive.google.com/drive/folders/..." autocomplete="off"></div>
+      <p class="help">Los PDF se organizarán por nivel y grupo dentro de la carpeta elegida, como en el Gestor PRA anterior.</p>
+      <div class="actions"><button class="btn outline" id="gOpenFolder">Abrir carpeta ↗</button></div>
+      <div class="divider"></div>
+      <div class="mini">VISOR DE CARPETAS</div>
+      <div id="gestorFolderEmpty" class="empty">Aún no se ha configurado una carpeta. Se mostrarán las carpetas reales en Google Drive.</div>
+      <a id="gestorFolderLink" class="folderlink" href="#" target="_blank" rel="noopener noreferrer" hidden>📁 Ver carpetas generadas en Drive ↗</a>
+    </div>
+    <div class="card pad">
+      <div class="mini">02 · ORIGEN DE LA INFORMACIÓN</div><h2>Hoja de cálculo de Séneca</h2>
+      <div class="field"><label for="gSheet">Enlace de la hoja de cálculo</label><input id="gSheet" type="url" placeholder="https://docs.google.com/spreadsheets/d/.../edit" autocomplete="off"></div>
+      <p class="help">Se puede usar la hoja actual o una distinta cada curso. La misma hoja servirá para el Seguimiento PRA.</p>
+      <div class="actions"><button class="btn light" id="gOpenSheet">Abrir hoja de cálculo ↗</button></div>
+      <div class="divider"></div>
+      <div class="mini">03 · DOCUMENTO DE COMUNICACIÓN</div><h2>Plantilla de las familias</h2>
+      <p>Conserva las tablas y el logotipo de la plantilla original. Se modifica directamente en Google Docs.</p>
+      <div class="actions"><button class="btn outline" id="gEditTemplate">Modificar plantilla ↗</button></div>
+      <p class="help">Si el Gestor ha generado una copia personalizada de la plantilla, utiliza la URL de esa copia.</p>
+    </div>
+  </div>
+  <div class="grid2" style="margin-top:16px">
+    <div class="card pad">
+      <div class="mini">04 · SELECCIÓN DE NIVELES</div><h2>Selecciona los cursos</h2>
+      <p>Se procesarán únicamente las pestañas que selecciones y los registros abiertos del curso académico elegido.</p>
+      <div class="select-levels" id="gestorLevels"></div>
+      <div class="actions"><button class="btn light" id="selectAllLevels">Seleccionar todos</button><button class="btn outline" id="selectNoLevels">Desmarcar</button></div>
+      <div class="statusrow" style="margin-top:14px"><span>Pestañas seleccionadas</span><b id="levelCount">0</b></div>
+    </div>
+    <div class="card pad">
+      <div class="mini">05 · GENERACIÓN DE COMUNICACIONES</div><h2>Crear los PDF</h2>
+      <p>Al pulsar «Generar PDF», se abrirá el panel del Gestor PRA en Google Workspace con la hoja, carpeta, niveles y curso preparados, para confirmar la generación real.</p>
+      <div class="statusrow"><span>Curso de trabajo</span><b id="gestorYear">2026-2027</b></div>
+      <div class="actions"><button class="btn outline" id="gSave">Guardar configuración</button><button class="btn primary" id="gGenerate">Generar PDF ↗</button></div>
+      <div id="gestorStatus" class="statusnote" role="status">Indica carpeta y hoja, selecciona los niveles y pulsa Generar PDF.</div>
+      <p class="help">GitHub no crea ni muestra PDF por sí solo. Los documentos se producen desde el proyecto de Apps Script autorizado, sin APIs de pago.</p>
+    </div>
+  </div>
+</section>
 
-    <section class="view" id="seguimiento">
-      <h1 class="title">Seguimiento PRA</h1><p class="lead">Formulario de Apps Script, enlace para el claustro e informes del centro. No utilizamos Google Forms.</p>
-      <div class="grid2">
-        <div class="card pad">
-          <div class="mini">01 · CARPETA DE DESTINO</div><h2>Informes de seguimiento</h2>
-          <p>El formulario guarda los seguimientos en la carpeta configurada dentro del programa de Google. Puedes mantener aquí un acceso directo a esa misma carpeta.</p>
-          <div id="seguimientoFolderEmpty" class="empty">Aún no se ha configurado una carpeta definitiva para los informes.</div>
-          <a id="seguimientoFolderLink" class="folderlink" href="#" target="_blank" rel="noopener noreferrer" hidden>📁 Abrir carpeta de informes ↗</a>
-          <div class="actions"><button class="btn light" data-nav="ajustes">Configurar acceso a la carpeta</button></div>
-          <div class="divider"></div>
-          <div class="mini">02 · ENLACE PARA EL CLAUSTRO</div><h2>Formulario del profesorado</h2>
-          <p>Formulario web de Apps Script con curso, grupo, alumno, situación y materia, además de las cinco preguntas de seguimiento.</p>
-          <div class="actions"><button class="btn primary" data-open="form">Abrir formulario ↗</button><button class="btn outline" data-copy="form">Copiar enlace</button></div>
-          <div class="notice" style="margin-bottom:0"><strong>Enlace anterior pendiente de comprobación.</strong> He recuperado la URL de Apps Script que me compartiste, pero no puedo verificar desde aquí que esa implementación siga abierta. Si falla, sustituye la URL en Configuración.</div>
-        </div>
-        <div class="card pad">
-          <div class="mini">03 · DOCUMENTOS E INFORMES</div><h2>Informes por alumno</h2>
-          <p>Los informes se generan mediante el script del centro, agrupando las materias de cada alumno en su PDF acumulativo. Las respuestas deben mantenerse sin negrita.</p>
-          <div class="statusrow"><span>Carpeta de informes</span><span id="folderSState" class="pill orange">Por configurar</span></div>
-          <div id="followDocEmpty" class="empty">Este visor permanecerá vacío hasta que indiques la carpeta de Google Drive.</div>
-          <a id="followDocLink" class="folderlink" href="#" target="_blank" rel="noopener noreferrer" hidden>📁 Consultar carpetas e informes reales ↗</a>
-          <div class="actions"><button class="btn light" data-open="folderS">Abrir informes en Drive ↗</button><button class="btn outline" data-open="sheet">Abrir panel de Jefatura ↗</button></div>
-          <div class="divider"></div>
-          <div class="mini">PLANTILLA DE SEGUIMIENTO</div><p>Documento original con sus tablas y el logotipo institucional.</p>
-          <div class="actions"><button class="btn light" data-open="templateS">Ver plantilla ↗</button></div>
-          <div class="helper-bar"><b>El claustro utiliza Google, no GitHub, para enviar los seguimientos.</b>Desde esta página únicamente accedemos al formulario y a la carpeta. Los datos y los PDF no se copian ni publican aquí.</div>
-        </div>
-      </div>
-    </section>
+<section class="view" id="seguimiento">
+  <h1 class="title">Seguimiento PRA</h1>
+  <p class="lead">Configura la carpeta del seguimiento, actualiza los datos de Séneca y abre el formulario web del profesorado. No se utiliza Google Forms.</p>
+  <div class="grid2">
+    <div class="card pad">
+      <div class="mini">01 · DESTINO DE LOS INFORMES</div><h2>Carpeta de Seguimiento PRA</h2>
+      <div class="field"><label for="sFolder">Enlace de la carpeta de Google Drive</label><input id="sFolder" type="url" placeholder="https://drive.google.com/drive/folders/..." autocomplete="off"></div>
+      <p>Los informes se guardarán por nivel y grupo, con un único PDF por alumno que agrupa sus materias.</p>
+      <div id="seguimientoFolderEmpty" class="empty">Aún no has seleccionado una carpeta para los informes.</div>
+      <a id="seguimientoFolderLink" class="folderlink" href="#" target="_blank" rel="noopener noreferrer" hidden>📁 Abrir carpeta de informes ↗</a>
+      <div class="divider"></div>
+      <div class="mini">02 · PLANTILLA DE SEGUIMIENTO</div><h2>Documento del profesorado</h2>
+      <p>Se mantiene el documento con las dos tablas, el logotipo, las cinco preguntas y las respuestas sin negrita.</p>
+      <div class="actions"><button class="btn outline" id="sEditTemplate">Modificar plantilla ↗</button></div>
+      <div class="divider"></div>
+      <div class="mini">INFORMES GENERADOS</div>
+      <div id="followDocEmpty" class="empty">El enlace a los informes aparecerá aquí cuando configures la carpeta.</div>
+      <a id="followDocLink" class="folderlink" href="#" target="_blank" rel="noopener noreferrer" hidden>📁 Consultar informes en Google Drive ↗</a>
+      <div class="statusrow"><span>Carpeta</span><b id="folderSState">Pendiente</b></div>
+    </div>
+    <div class="card pad">
+      <div class="mini">03 · DATOS PARA EL FORMULARIO</div><h2>Actualizar y verificar Séneca</h2>
+      <p>El seguimiento utiliza automáticamente la hoja del Gestor PRA del curso <strong id="sYear">2026-2027</strong>. No hay que introducir otro enlace.</p>
+      <div class="statusrow"><span>Hoja de datos</span><b id="sSheetStatus">Pendiente</b></div>
+      <div class="actions"><button class="btn light" id="sOpenSheet">Abrir hoja ↗</button><button class="btn primary" id="sUpdate">Actualizar y verificar datos ↗</button></div>
+      <div id="sUpdateStatus" class="statusnote" role="status">Primero sube los datos de Séneca a la hoja y después pulsa «Actualizar y verificar». La comprobación real se ejecuta dentro de Google Workspace.</div>
+      <div class="divider"></div>
+      <div class="mini">04 · FORMULARIO DEL CLAUSTRO</div><h2>Abrir formulario web</h2>
+      <p>Cuando Google confirme que existen PRAs abiertos del curso seleccionado, abre el formulario. Sus desplegables se construirán con los registros actualizados.</p>
+      <div class="actions"><button class="btn primary" id="sOpenForm" disabled>Abrir formulario ↗</button><button class="btn outline" id="sCopyForm" disabled>Copiar enlace</button></div>
+      <p class="help">La validación requiere que Apps Script tenga instalada la versión con «Actualizar y verificar». El formulario también comprobará los datos al abrirse.</p>
+    </div>
+  </div>
+</section>
 
-    <section class="view" id="ajustes">
-      <h1 class="title">Ajustes del curso académico</h1>
-      <p class="lead">Selecciona primero el curso que quieres gestionar. Cada curso puede tener su propia hoja de Séneca y una carpeta independiente.</p>
-      <div class="card pad" style="margin-bottom:17px">
-        <div class="mini">01 · SELECCIÓN PRINCIPAL</div><h2>Curso académico de trabajo</h2>
-        <div class="field"><label for="cfgYear">Curso académico</label><select id="cfgYear" style="max-width:330px"></select></div>
-        <p class="help">Este ajuste se aplica al Gestor PRA y se transmite al panel de Google para filtrar las filas abiertas del año seleccionado. Se recuerda en este navegador.</p>
-        <div class="statusrow"><span>Curso seleccionado</span><b id="settingsYearText">2026-2027</b></div>
-      </div>
-      <div class="grid2">
-        <div class="card pad">
-          <div class="mini">02 · ARCHIVOS DE ESTE CURSO</div><h2>Origen y destino del Gestor</h2>
-          <div class="field"><label for="cfgSheet">Hoja de cálculo con información de Séneca</label><input id="cfgSheet" type="url" autocomplete="off" spellcheck="false" placeholder="https://docs.google.com/spreadsheets/d/..."></div>
-          <div class="field"><label for="cfgFolderG">Carpeta de comunicaciones PDF</label><input id="cfgFolderG" type="url" placeholder="https://drive.google.com/drive/folders/..." autocomplete="off" spellcheck="false"></div>
-          <div class="field"><label for="cfgTemplateG">Plantilla de comunicaciones</label><input id="cfgTemplateG" type="url" autocomplete="off" spellcheck="false"></div>
-          <p class="help">Recomendación: utiliza una hoja distinta en 2027/2028 y conserva la de 2026/2027 como histórico.</p>
-        </div>
-        <div class="card pad">
-          <div class="mini">03 · CONEXIÓN CON GOOGLE WORKSPACE</div><h2>Aplicaciones de Apps Script</h2>
-          <div class="field"><label for="cfgGestorWeb">URL /exec de Gestor PRA (panel de generación)</label><input id="cfgGestorWeb" type="url" placeholder="https://script.google.com/.../exec" autocomplete="off" spellcheck="false"></div>
-          <p class="help">La implementación web actualizada debe incluir la pantalla <code>?view=gestor</code>. Esta URL se configura una sola vez tras implementar el proyecto en Apps Script.</p>
-          <div class="field"><label for="cfgForm">URL /exec del formulario Seguimiento PRA</label><input id="cfgForm" type="url" autocomplete="off" spellcheck="false"></div>
-          <div class="field"><label for="cfgFolderS">Carpeta de informes de seguimiento</label><input id="cfgFolderS" type="url" placeholder="https://drive.google.com/drive/folders/..." autocomplete="off" spellcheck="false"></div>
-          <div class="field"><label for="cfgTemplateS">Plantilla de seguimiento</label><input id="cfgTemplateS" type="url" autocomplete="off" spellcheck="false"></div>
-        </div>
-      </div>
-      <div class="actions"><button class="btn primary" id="save">Guardar ajustes del curso</button><button class="btn outline" id="restore">Restaurar configuración inicial</button></div>
-      <p id="saveMessage" class="help" role="status">Se guardan enlaces y preferencias en este navegador; no se transmiten datos del alumnado a GitHub.</p>
-      <div class="helper-bar"><b>¿Qué es necesario para generar PDF?</b>GitHub Pages no puede acceder por sí solo al Drive privado del centro. El panel autenticado de Apps Script ejecuta las mismas funciones del Gestor PRA sin APIs de pago; desde aquí se le transmite el curso, la hoja, la carpeta y los niveles seleccionados.</div>
-    </section>
-    <div class="section-head"><div><h2>Entorno de trabajo</h2><p>Gestión de documentos y datos exclusivamente en Google Workspace.</p></div></div>
+<div class="section-head"><div><h2>Entorno de trabajo</h2><p>Gestión de documentos y datos exclusivamente en Google Workspace.</p></div></div>
     <div class="badge-row"><span class="pill">IES Ciudad de Coín</span><span class="pill">PRAs <span id="yearTag">2026-2027</span></span><span class="pill">GitHub Pages · solo interfaz</span></div>
   </div>
 </main>
 </div>
 <script>
 "use strict";
-const MASTER_SHEET="https://docs.google.com/spreadsheets/d/12Uu3HbBSkXOVwuVFc0itKQeydxIKwsM57GMsHf-5Tbs/edit";
+const DEFAULT_FORM="https://script.google.com/a/macros/iesciudaddecoin.es/s/AKfycbx2ZfoEy1i94t957to1qqrE7diFYaNCpoIzrYHIGYRwQd00xyl9ZO-Te39_CqrMqtaSrA/exec";
+const DEFAULT_SHEET="https://docs.google.com/spreadsheets/d/12Uu3HbBSkXOVwuVFc0itKQeydxIKwsM57GMsHf-5Tbs/edit";
+const TEMPLATE_G="https://docs.google.com/document/d/1N6nL35IEi72J-i0f5NhYnLubTs-Ny9LNuWAdP447m3g/edit";
+const TEMPLATE_S="https://docs.google.com/document/d/1RXzOJq_qqScAG2Qebw9NAbQstwwCFtV4rvmUky7r1tE/edit";
 const LEVELS=["Infantil","1º ESO","2º ESO","3º ESO","4º ESO","1º BACH","2º BACH"];
-const STORAGE="pra-centro-ies-ciudad-de-coin-access-v2";
-const OLD_STORAGE="pra-centro-ies-ciudad-de-coin-access-v1";
-const BASE={
- year:"2026-2027",
- books:{"2026-2027":{sheet:MASTER_SHEET,folderG:"",levels:LEVELS.slice()}},
- templateG:"https://docs.google.com/document/d/1N6nL35IEi72J-i0f5NhYnLubTs-Ny9LNuWAdP447m3g/edit",
- templateS:"https://docs.google.com/document/d/1RXzOJq_qqScAG2Qebw9NAbQstwwCFtV4rvmUky7r1tE/edit",
- form:"https://script.google.com/a/macros/iesciudaddecoin.es/s/AKfycbx2ZfoEy1i94t957to1qqrE7diFYaNCpoIzrYHIGYRwQd00xyl9ZO-Te39_CqrMqtaSrA/exec",
- gestorWeb:"",
- folderS:""
-};
-const LABELS={inicio:"Inicio",gestor:"Gestor PRA",seguimiento:"Seguimiento PRA",ajustes:"Ajustes"};
-const state={...BASE,books:JSON.parse(JSON.stringify(BASE.books))};
+const KEY="pra-centro-ies-ciudad-de-coin-access-v3",OLD_KEY="pra-centro-ies-ciudad-de-coin-access-v2",OLDER_KEY="pra-centro-ies-ciudad-de-coin-access-v1";
+const VIEWS={inicio:"Inicio",gestor:"Gestor PRA",seguimiento:"Seguimiento PRA"};
+const state={year:"2026-2027",books:{"2026-2027":{sheet:DEFAULT_SHEET,folderG:"",folderS:"",levels:LEVELS.slice()}},
+ templateG:TEMPLATE_G,templateS:TEMPLATE_S,form:DEFAULT_FORM,gestorWeb:"",checkStarted:false};
 const $=id=>document.getElementById(id);
-function cloneDefault(){return {...BASE,books:JSON.parse(JSON.stringify(BASE.books))};}
-function book(){
- if(!state.books[state.year])state.books[state.year]={sheet:"",folderG:"",levels:LEVELS.slice()};
- return state.books[state.year];
-}
-function validLink(key,value){
- if(!value||typeof value!=="string")return false;
+function copyInitial(){return {year:"2026-2027",books:{"2026-2027":{sheet:DEFAULT_SHEET,folderG:"",folderS:"",levels:LEVELS.slice()}},templateG:TEMPLATE_G,templateS:TEMPLATE_S,form:DEFAULT_FORM,gestorWeb:"",checkStarted:false};}
+function book(){if(!state.books[state.year])state.books[state.year]={sheet:"",folderG:"",folderS:"",levels:LEVELS.slice()};return state.books[state.year];}
+function validUrl(kind,value){
+ if(typeof value!=="string"||!value.trim())return false;
  let u;try{u=new URL(value);}catch(e){return false;}
  if(u.protocol!=="https:"||u.username||u.password)return false;
- const h=u.hostname,p=u.pathname;
- if(key==="sheet")return h==="docs.google.com"&&/^\/spreadsheets\/d\/[A-Za-z0-9_-]{20,}/.test(p);
- if(key==="templateG"||key==="templateS")return h==="docs.google.com"&&/^\/document\/d\/[A-Za-z0-9_-]{20,}/.test(p);
- if(key==="form"||key==="gestorWeb")return h==="script.google.com"&&/\/exec\/?$/.test(p);
- if(key==="folderG"||key==="folderS")return h==="drive.google.com"&&/\/drive\/folders\/[A-Za-z0-9_-]{12,}/.test(p);
+ if(kind==="sheet")return u.hostname==="docs.google.com"&&/^\/spreadsheets\/d\/[A-Za-z0-9_-]{20,}/.test(u.pathname);
+ if(kind==="template")return u.hostname==="docs.google.com"&&/^\/document\/d\/[A-Za-z0-9_-]{20,}/.test(u.pathname);
+ if(kind==="folder")return u.hostname==="drive.google.com"&&/\/drive\/folders\/[A-Za-z0-9_-]{12,}/.test(u.pathname);
+ if(kind==="app")return u.hostname==="script.google.com"&&/\/exec\/?$/.test(u.pathname);
  return false;
 }
-function persist(){
- try{localStorage.setItem(STORAGE,JSON.stringify(state));return true;}
- catch(e){return false;}
-}
-function loadConfig(){
+function persist(){try{
+ const save={year:state.year,books:state.books,templateG:state.templateG,templateS:state.templateS,form:state.form,gestorWeb:state.gestorWeb};
+ localStorage.setItem(KEY,JSON.stringify(save));return true;
+ }catch(e){return false;}}
+function load(){
  let saved={};
- try{saved=JSON.parse(localStorage.getItem(STORAGE)||"{}")||{};}catch(e){}
- if(saved && typeof saved==="object"&&saved.books){
-  for(const k of ["year","templateG","templateS","form","gestorWeb","folderS"]){
-   if(typeof saved[k]==="string"&&saved[k].length<4000)state[k]=saved[k];
-  }
-  for(const [year,v] of Object.entries(saved.books)){
-   if(!/^20\d{2}-20\d{2}$/.test(year)||!v||typeof v!=="object")continue;
-   state.books[year]={sheet:typeof v.sheet==="string"?v.sheet:"",folderG:typeof v.folderG==="string"?v.folderG:"",
-     levels:Array.isArray(v.levels)?v.levels.filter(x=>LEVELS.includes(x)):LEVELS.slice()};
-  }
- }else{
-  try{
-   const old=JSON.parse(localStorage.getItem(OLD_STORAGE)||"{}");
-   if(old && typeof old==="object"){
-    for(const key of ["templateG","templateS","form","folderS"])if(typeof old[key]==="string")state[key]=old[key];
-    if(typeof old.sheet==="string")state.books["2026-2027"].sheet=old.sheet;
-    if(typeof old.folderG==="string")state.books["2026-2027"].folderG=old.folderG;
+ try{saved=JSON.parse(localStorage.getItem(KEY)||"{}")||{};}catch(e){}
+ if(!saved.books){
+  try{const old=JSON.parse(localStorage.getItem(OLD_KEY)||"{}")||{};
+   if(old.books){
+    saved={year:old.year||"2026-2027",books:old.books,templateG:old.templateG,templateS:old.templateS,form:old.form,gestorWeb:old.gestorWeb,folderS:old.folderS};
+   }else{
+    const orig=JSON.parse(localStorage.getItem(OLDER_KEY)||"{}")||{};
+    if(orig.sheet||orig.folderG||orig.folderS) saved={year:"2026-2027",books:{"2026-2027":{sheet:orig.sheet||DEFAULT_SHEET,folderG:orig.folderG||"",folderS:orig.folderS||"",levels:LEVELS.slice()}},form:orig.form,templateG:orig.templateG,templateS:orig.templateS};
    }
   }catch(e){}
  }
- if(!/^20\d{2}-20\d{2}$/.test(state.year))state.year="2026-2027";
- setupYearOptions();render();
-}
-function setupYearOptions(){
- const select=$("cfgYear");select.replaceChildren();
- for(let y=2023;y<=2040;y++)select.add(new Option(y+"-"+(y+1),y+"-"+(y+1)));
- select.value=state.year;
-}
-function renderLevels(){
- const container=$("gestorLevels");container.replaceChildren();
- for(const level of LEVELS){
-  const label=document.createElement("label");label.className="choose-level";
-  const input=document.createElement("input");input.type="checkbox";input.value=level;
-  input.checked=book().levels.includes(level);
-  input.addEventListener("change",()=>{const selected=new Set(book().levels);input.checked?selected.add(level):selected.delete(level);book().levels=LEVELS.filter(x=>selected.has(x));updateCount();persist();});
-  const text=document.createElement("span");text.textContent=level;label.append(input,text);container.append(label);
+ if(typeof saved.year==="string"&&/^20\d\d-20\d\d$/.test(saved.year))state.year=saved.year;
+ if(saved.books&&typeof saved.books==="object"){
+  for(const [year,cfg] of Object.entries(saved.books)){
+   if(!/^20\d\d-20\d\d$/.test(year)||!cfg||typeof cfg!=="object")continue;
+   state.books[year]={sheet:typeof cfg.sheet==="string"?cfg.sheet:"",folderG:typeof cfg.folderG==="string"?cfg.folderG:"",
+    folderS:typeof cfg.folderS==="string"?cfg.folderS:(year===state.year?String(saved.folderS||""):""),
+    levels:Array.isArray(cfg.levels)?LEVELS.filter(x=>cfg.levels.includes(x)):LEVELS.slice()};
+  }
  }
- updateCount();
+ for(const key of ["templateG","templateS","form","gestorWeb"])if(typeof saved[key]==="string"&&saved[key].length<2000)state[key]=saved[key];
+ for(let y=2024;y<2040;y++){const year=y+"-"+(y+1);$("courseSelect").add(new Option(y+"/"+(y+1),year));}
+ if(![...$("courseSelect").options].some(o=>o.value===state.year))$("courseSelect").add(new Option(state.year.replace("-","/"),state.year));
+ $("courseSelect").value=state.year;render();persist();
 }
-function updateCount(){$("levelCount").textContent=book().levels.length+" nivel"+(book().levels.length===1?"":"es");}
+function status(id,message,isError=false){const node=$(id);if(!node)return;node.textContent=message;node.classList.toggle("error",isError);}
+function renderLevels(){
+ const e=$("gestorLevels");e.replaceChildren();
+ for(const level of LEVELS){
+  const label=document.createElement("label"),input=document.createElement("input"),text=document.createElement("span");
+  input.type="checkbox";input.value=level;input.checked=book().levels.includes(level);text.textContent=level;
+  input.addEventListener("change",()=>{const sel=new Set(book().levels);input.checked?sel.add(level):sel.delete(level);book().levels=LEVELS.filter(x=>sel.has(x));state.checkStarted=false;refreshButtons();persist();});
+  label.append(input,text);e.append(label);
+ }
+ $("levelCount").textContent=book().levels.length+" niveles";
+}
+function displayFolder(key,emptyId,linkId){
+ const value=book()[key];const valid=validUrl("folder",value);
+ $(emptyId).hidden=valid;$(linkId).hidden=!valid;
+ if(valid)$(linkId).href=value;else $(linkId).removeAttribute("href");
+}
 function render(){
  const b=book();
- $("cfgYear").value=state.year;$("settingsYearText").textContent=state.year;
- $("gYearLabel").textContent=state.year;$("yearTag").textContent=state.year;
- $("cfgSheet").value=b.sheet||"";$("sheetG").value=b.sheet||"";
- $("cfgFolderG").value=b.folderG||"";$("folderInputG").value=b.folderG||"";
- $("cfgTemplateG").value=state.templateG||"";
- $("cfgTemplateS").value=state.templateS||"";
- $("cfgForm").value=state.form||"";
- $("cfgGestorWeb").value=state.gestorWeb||"";
- $("cfgFolderS").value=state.folderS||"";
- renderLevels();
- renderFolders();
+ $("courseSelect").value=state.year;$("gestorYear").textContent=state.year;$("sYear").textContent=state.year;$("yearTag").textContent=state.year;
+ $("gFolder").value=b.folderG||"";$("gSheet").value=b.sheet||"";$("sFolder").value=b.folderS||"";
+ displayFolder("folderG","gestorFolderEmpty","gestorFolderLink");
+ displayFolder("folderS","seguimientoFolderEmpty","seguimientoFolderLink");
+ displayFolder("folderS","followDocEmpty","followDocLink");
+ $("folderSState").textContent=validUrl("folder",b.folderS)?"Enlace configurado":"Pendiente";
+ $("sSheetStatus").textContent=validUrl("sheet",b.sheet)?"Configurada":"Pendiente";
+ renderLevels();refreshButtons();
 }
-function updateFromInputs(section){
+function refreshButtons(){
+ const b=book(),hasSource=validUrl("sheet",b.sheet),hasFollow=validUrl("folder",b.folderS);
+ const canOpen=hasFollow&&hasSource&&state.checkStarted&&validUrl("app",state.form);
+ $("sOpenForm").disabled=!canOpen;$("sCopyForm").disabled=!canOpen;
+ $("levelCount").textContent=book().levels.length+" nivel"+(book().levels.length===1?"":"es");
+}
+function capture(){
  const b=book();
- b.sheet=$(section==="gestor"?"sheetG":"cfgSheet").value.trim();
- b.folderG=$(section==="gestor"?"folderInputG":"cfgFolderG").value.trim();
- if(section==="ajustes"){
-  for(const key of ["templateG","templateS","form","gestorWeb","folderS"])state[key]=$(key==="gestorWeb"?"cfgGestorWeb":key==="templateG"?"cfgTemplateG":key==="templateS"?"cfgTemplateS":key==="form"?"cfgForm":"cfgFolderS").value.trim();
+ const newG=$("gFolder").value.trim(),newSheet=$("gSheet").value.trim(),newS=$("sFolder").value.trim();
+ if(b.sheet!==newSheet||b.folderS!==newS)state.checkStarted=false;
+ b.sheet=newSheet;b.folderG=newG;b.folderS=newS;
+}
+function validationIssues(type){
+ const b=book(),missing=[];
+ if(!validUrl("sheet",b.sheet))missing.push("Introduce una hoja de cálculo de Google Sheets válida.");
+ if(type==="gestor"&&!validUrl("folder",b.folderG))missing.push("Introduce la carpeta de comunicaciones PDF.");
+ if(type==="seguimiento"&&!validUrl("folder",b.folderS))missing.push("Introduce la carpeta de seguimiento.");
+ if(type==="gestor"&&!b.levels.length)missing.push("Selecciona al menos un nivel.");
+ if(!validUrl("app",state.gestorWeb||state.form))missing.push("El enlace del proyecto de Apps Script no está correctamente configurado.");
+ return missing;
+}
+function saveGestor(){
+ capture();const errors=validationIssues("gestor");
+ if(errors.length){status("gestorStatus",errors.join(" "),true);return false;}
+ persist();render();status("gestorStatus","Configuración guardada en este navegador. La creación real de PDF se confirmará en Google Workspace.");return true;
+}
+function saveSeguimiento(){
+ capture();const errors=validationIssues("seguimiento");
+ if(errors.length){status("sUpdateStatus",errors.join(" "),true);return false;}
+ persist();render();return true;
+}
+function launchGoogleApp(view){
+ const b=book();const errors=validationIssues(view==="gestor"?"gestor":"seguimiento");
+ if(errors.length){status(view==="gestor"?"gestorStatus":"sUpdateStatus",errors.join(" "),true);return;}
+ const url=new URL(state.gestorWeb||state.form);
+ if(view==="gestor"){
+  url.searchParams.set("view","gestor");url.searchParams.set("curso",state.year);
+  url.searchParams.set("hoja",b.sheet);url.searchParams.set("carpeta",b.folderG);
+  url.searchParams.set("niveles",b.levels.join("|"));url.searchParams.set("accion","generar");
+ }else{
+  url.searchParams.set("view","validar");url.searchParams.set("curso",state.year);
+  url.searchParams.set("hoja",b.sheet);url.searchParams.set("carpetaG",b.folderG);
+  url.searchParams.set("carpetaS",b.folderS);
  }
+ window.open(url.href,"_blank","noopener,noreferrer");
 }
-function checkConfig(opts={}){
- const b=book(),issues=[];
- if(!validLink("sheet",b.sheet))issues.push("Introduce una hoja de Google Sheets válida.");
- if(opts.folder && !validLink("folderG",b.folderG))issues.push("Introduce la carpeta de destino de Google Drive.");
- if(opts.levels && !b.levels.length)issues.push("Selecciona al menos un nivel.");
- if(opts.web && !validLink("gestorWeb",state.gestorWeb))issues.push("Configura la implementación web /exec del Gestor PRA en Ajustes.");
- return issues;
+function openForm(){
+ if($("sOpenForm").disabled)return;
+ if(!validUrl("app",state.form)){status("sUpdateStatus","No hay una implementación válida del formulario.",true);return;}
+ window.open(state.form,"_blank","noopener,noreferrer");
 }
-function saveFromGestor(){
- updateFromInputs("gestor");
- const issues=checkConfig();if(issues.length){$("statusGestor").textContent=issues.join(" ");return false;}
- persist();render();
- $("statusGestor").textContent="Hoja y carpeta recordadas para "+state.year+". Para comprobar permisos y ejecutar PDF se abrirá Google Workspace.";
- return true;
-}
-function saveConfig(){
- updateFromInputs("ajustes");
- const errors=checkConfig();
- for(const key of ["templateG","templateS","form","gestorWeb","folderS"]){
-  if(state[key]&&!validLink(key,state[key]))errors.push("El enlace de "+key+" tiene un formato incorrecto.");
- }
- if(book().folderG && !validLink("folderG",book().folderG))errors.push("Revisa la carpeta de comunicaciones.");
- if(errors.length){$("saveMessage").textContent=errors.join(" ");return false;}
- persist();render();$("saveMessage").textContent="Ajustes guardados para "+state.year+". Los demás cursos conservarán sus propias hojas y carpetas.";
- return true;
-}
-function renderFolders(){
- const b=book();
- const pairs=[{key:"folderG",value:b.folderG,empty:"gestorFolderEmpty",link:"gestorFolderLink"},
- {key:"folderS",value:state.folderS,empty:"seguimientoFolderEmpty",link:"seguimientoFolderLink"},
- {key:"folderS",value:state.folderS,empty:"followDocEmpty",link:"followDocLink"}];
- for(const p of pairs){
-  const yes=validLink(p.key,p.value);$(p.empty).hidden=yes;$(p.link).hidden=!yes;
-  if(yes)$(p.link).href=p.value;else $(p.link).removeAttribute("href");
- }
- const yes=validLink("folderS",state.folderS);
- $("folderSState").textContent=yes?"Enlace configurado":"Por configurar";
- $("folderSState").classList.toggle("orange",!yes);
-}
-function navigate(page){
- document.querySelectorAll(".view").forEach(x=>x.classList.toggle("active",x.id===page));
- document.querySelectorAll(".navbtn").forEach(x=>x.classList.toggle("active",x.dataset.nav===page));
- $("breadcrumb").textContent=LABELS[page]||"Inicio";
- const hash="#"+page;
- if(location.hash!==hash)history.replaceState(null,"",hash);
+function navigate(tab){
+ document.querySelectorAll(".view").forEach(el=>el.classList.toggle("active",el.id===tab));
+ document.querySelectorAll(".navbtn").forEach(el=>el.classList.toggle("active",el.dataset.nav===tab));
+ $("breadcrumb").textContent=VIEWS[tab]||"Inicio";
+ if(location.hash!=="#"+tab)history.replaceState(null,"","#"+tab);
  window.scrollTo({top:0,behavior:"smooth"});
 }
-function openExternal(value){
- const w=window.open(value,"_blank","noopener,noreferrer");
- if(!w){const a=document.createElement("a");a.href=value;a.target="_blank";a.rel="noopener noreferrer";document.body.append(a);a.click();a.remove();}
+function openValue(value,kind,errId){
+ if(!validUrl(kind,value)){status(errId,"El enlace no está configurado o no tiene el formato esperado.",true);return;}
+ window.open(value,"_blank","noopener,noreferrer");
 }
-function getLink(key){
- return key==="sheet"?book().sheet:key==="folderG"?book().folderG:state[key];
+function tryCopy(text,successId){
+ navigator.clipboard.writeText(text).then(()=>status(successId,"Enlace copiado para compartir con el claustro."),()=>status(successId,"No se ha podido copiar automáticamente. Abre el formulario y copia el enlace desde el navegador.",true));
 }
-function openLink(key){
- const value=getLink(key);if(!validLink(key,value)){
-  navigate("ajustes");$("saveMessage").textContent="Configura antes el enlace "+key+".";return;
- }
- openExternal(value);
-}
-async function copyLink(key){
- const value=getLink(key);if(!validLink(key,value)){navigate("ajustes");$("saveMessage").textContent="Falta el enlace "+key+".";return;}
- try{await navigator.clipboard.writeText(value);showToast("Enlace copiado.");}
- catch(e){navigate("ajustes");$("saveMessage").textContent="Copia manualmente el enlace desde el campo correspondiente.";}
-}
-function showToast(t){
- let el=$("toast");if(!el){el=document.createElement("div");el.id="toast";el.style.cssText="position:fixed;bottom:20px;right:20px;max-width:350px;background:#155440;color:white;padding:12px 16px;border-radius:10px;z-index:30;box-shadow:0 8px 22px #113e3a33";document.body.append(el);}
- el.textContent=t;
-}
-function launchManager(mode){
- updateFromInputs("gestor");
- const issues=checkConfig({folder:true,levels:true,web:true});
- if(issues.length){
-  $("statusGestor").textContent=issues.join(" ");
-  if(!validLink("gestorWeb",state.gestorWeb))navigate("ajustes");
-  return;
- }
- persist();render();
- const u=new URL(state.gestorWeb);
- u.searchParams.set("view","gestor");u.searchParams.set("curso",state.year);
- u.searchParams.set("hoja",book().sheet);u.searchParams.set("carpeta",book().folderG);
- u.searchParams.set("niveles",book().levels.join("|"));u.searchParams.set("accion",mode);
- openExternal(u.toString());
- $("statusGestor").textContent="Se ha abierto el panel de Google. Guarda allí la configuración, revisa los PRAs y confirma la generación para crear los PDF en Drive.";
-}
-function resetConfig(){
- if(!confirm("¿Restaurar los enlaces y cursos guardados en este navegador?"))return;
- try{localStorage.removeItem(STORAGE);}catch(e){}
- const base=cloneDefault();Object.assign(state,base);
- setupYearOptions();render();
- $("saveMessage").textContent="Configuración inicial restaurada.";
-}
-function switchYear(next){
- updateFromInputs("ajustes");
- state.year=next;
- render();persist();
- $("saveMessage").textContent="Curso seleccionado: "+next+". Elige su hoja de Séneca; la de otros años se mantiene guardada.";
-}
-document.querySelectorAll("[data-nav]").forEach(b=>b.addEventListener("click",()=>navigate(b.dataset.nav)));
-document.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>openLink(b.dataset.open)));
-document.querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",()=>copyLink(b.dataset.copy)));
-$("cfgYear").addEventListener("change",e=>switchYear(e.target.value));
-$("save").addEventListener("click",saveConfig);
-$("restore").addEventListener("click",resetConfig);
-$("saveGestor").addEventListener("click",saveFromGestor);
-$("checkGestor").addEventListener("click",()=>launchManager("comprobar"));
-$("runGestor").addEventListener("click",()=>launchManager("generar"));
-$("openSource").addEventListener("click",()=>{updateFromInputs("gestor");openLink("sheet");});
+document.querySelectorAll("[data-nav]").forEach(el=>el.addEventListener("click",()=>navigate(el.dataset.nav)));
+document.querySelectorAll("[data-open]").forEach(el=>el.addEventListener("click",()=>{
+ if(el.dataset.open==="sheet"){navigate("gestor");return;}
+ if(el.dataset.open==="form"){navigate("seguimiento");return;}
+ if(el.dataset.open==="folderS"){navigate("seguimiento");return;}
+ if(el.dataset.open==="templateG"){openValue(state.templateG,"template","gestorStatus");return;}
+ if(el.dataset.open==="templateS"){openValue(state.templateS,"template","sUpdateStatus");return;}
+}));
+document.querySelectorAll("[data-copy]").forEach(el=>el.addEventListener("click",()=>{
+ if(el.dataset.copy==="form"){navigate("seguimiento");return;}
+ if(el.dataset.copy==="sheet"){navigate("gestor");return;}
+}));
+$("courseSelect").addEventListener("change",e=>{capture();state.year=e.target.value;state.checkStarted=false;render();persist();});
+$("gFolder").addEventListener("change",()=>{capture();render();persist();});
+$("gSheet").addEventListener("change",()=>{capture();render();persist();});
+$("sFolder").addEventListener("change",()=>{capture();render();persist();});
+$("gOpenFolder").addEventListener("click",()=>{capture();openValue(book().folderG,"folder","gestorStatus");});
+$("gOpenSheet").addEventListener("click",()=>{capture();openValue(book().sheet,"sheet","gestorStatus");});
+$("gEditTemplate").addEventListener("click",()=>openValue(state.templateG,"template","gestorStatus"));
+$("gSave").addEventListener("click",saveGestor);
+$("gGenerate").addEventListener("click",()=>{capture();if(!saveGestor())return;launchGoogleApp("gestor");status("gestorStatus","Se ha abierto el Gestor en Google Workspace. Confirma allí la generación para crear los PDF reales.");});
 $("selectAllLevels").addEventListener("click",()=>{book().levels=LEVELS.slice();renderLevels();persist();});
 $("selectNoLevels").addEventListener("click",()=>{book().levels=[];renderLevels();persist();});
-loadConfig();
-const initial=location.hash.slice(1);
-if(Object.prototype.hasOwnProperty.call(LABELS,initial))navigate(initial);
+$("sEditTemplate").addEventListener("click",()=>openValue(state.templateS,"template","sUpdateStatus"));
+$("sOpenSheet").addEventListener("click",()=>{capture();openValue(book().sheet,"sheet","sUpdateStatus");});
+$("sUpdate").addEventListener("click",()=>{
+ capture();if(!saveSeguimiento())return;
+ state.checkStarted=true;refreshButtons();
+ launchGoogleApp("validar");
+ status("sUpdateStatus","Se ha abierto el verificador de Google Workspace. Pulsa «Actualizar y verificar» allí. Solo si Google confirma registros abiertos, utiliza «Abrir formulario»; este comprobará los datos de nuevo al abrir.");
+});
+$("sOpenForm").addEventListener("click",openForm);
+$("sCopyForm").addEventListener("click",()=>{if(!$("sCopyForm").disabled)tryCopy(state.form,"sUpdateStatus");});
+load();
+const first=location.hash.slice(1);if(Object.prototype.hasOwnProperty.call(VIEWS,first))navigate(first);
 </script>
 </body>
 </html>
