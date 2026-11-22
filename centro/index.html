@@ -18,6 +18,7 @@ main{flex:1;min-width:0}.top{height:73px;display:flex;align-items:center;justify
 @media(max-width:1100px){.sidebar{width:208px}.metrics{grid-template-columns:repeat(2,1fr)}.hero-mark{display:none}}
 @media(max-width:760px){.app{display:block}.sidebar{width:100%;height:auto;position:static;padding:12px;display:block}.logo{padding:1px 8px 11px}.navtitle,.foot{display:none}.navbtn{display:inline-flex;width:auto;padding:8px 10px;font-size:11px;margin:0 3px 4px 0}.navicon{width:auto}.top{height:58px;padding:0 15px}.container{padding:20px 14px 50px}.hero{padding:23px}.grid2,.steps,.fieldpair{grid-template-columns:1fr}.metric strong{font-size:20px}.pad{padding:18px}.divider-v{border:0;padding:0}}
 @media(max-width:400px){.metrics{gap:7px}.metric{padding:12px}.tag{font-size:9px}}
+.topcourse[hidden]{display:none!important}
 
 .topcourse{display:flex;align-items:center;gap:9px}.topcourse label{font-size:10px;font-weight:850;color:#647e72;white-space:nowrap}.topcourse select{padding:8px 10px;font-size:12px;font-weight:800;background:#f4faf6;border:1px solid #d3e5d8;border-radius:9px;min-height:36px;color:#0a6555}
 .select-levels{border:1px solid var(--line);border-radius:10px;margin:12px 0;overflow:hidden}.select-levels label{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid #e6f0e9;font-size:12px;font-weight:750;cursor:pointer}.select-levels label:last-child{border:0}.select-levels label:hover{background:#f2f9f4}.select-levels input{width:18px;height:18px;accent-color:var(--green)}
@@ -168,10 +169,7 @@ main{flex:1;min-width:0}.top{height:73px;display:flex;align-items:center;justify
 <section class="view" id="seguimiento">
   <h1 class="title">Seguimiento PRA</h1>
   <p class="lead">Configura la carpeta del seguimiento, actualiza los datos de Séneca y abre el formulario web del profesorado. No se utiliza Google Forms.</p>
-  <div class="year-strip">
-    <div><div class="mini">ANTES DE EMPEZAR</div><h2>Curso académico del Seguimiento PRA</h2><p>Elige el año cuyos datos utilizará el formulario. Se comparte la hoja del Gestor del mismo curso académico.</p></div>
-    <div class="year-strip-control"><label for="sCourseSelect">Curso académico</label><select id="sCourseSelect" aria-label="Curso académico del Seguimiento PRA"></select></div>
-  </div>
+  <div class="year-strip"><div><div class="mini">CURSO FIJO DEL SEGUIMIENTO</div><h2>2026/2027 · Todos los PRAs abiertos</h2><p>Se incluyen todos los PRAs abiertos de 2026/2027 de todas las pestañas. No es necesario seleccionar cursos, niveles ni grupos.</p></div><span class="pill">2026/27</span></div>
   <div class="grid2">
     <div class="card pad">
       <div class="mini">01 · DESTINO DE LOS INFORMES</div><h2>Carpeta de Seguimiento PRA</h2>
@@ -191,22 +189,22 @@ main{flex:1;min-width:0}.top{height:73px;display:flex;align-items:center;justify
     </div>
     <div class="card pad">
       <div class="mini">03 · DATOS PARA EL FORMULARIO</div><h2>Actualizar y verificar Séneca</h2>
-      <p>El seguimiento utiliza automáticamente la hoja del Gestor PRA del curso <strong id="sYear">2026-2027</strong>. No hay que introducir otro enlace.</p>
+      <p>Seguimiento trabaja con los PRAs abiertos de <strong id="sYear">2026-2027</strong>, independientemente del curso seleccionado en Gestor PRA.</p>
       <div class="statusrow"><span>Hoja de datos</span><b id="sSheetStatus">Pendiente</b></div>
       <div class="actions"><button class="btn light" id="sOpenSheet">Abrir hoja ↗</button><button class="btn primary" id="sUpdate">Actualizar y verificar datos en Google ↗</button></div>
-      <div id="sUpdateStatus" class="statusnote" role="status">Primero actualiza la hoja de Séneca. Después pulsa este botón para ejecutar la comprobación REAL en Apps Script. El formulario solo se podrá abrir desde la página de verificación después de confirmar el resultado.</div>
+      <div id="sUpdateStatus" class="statusnote" role="status">Vuelve a leer los registros de la hoja y comprueba si ha habido altas, bajas o modificaciones desde la última verificación. Las respuestas previas se conservan.</div>
       <div class="divider"></div>
-      <div class="mini">04 · FORMULARIO DEL CLAUSTRO</div><h2>Abrir formulario web</h2>
-      <p>Cuando Google confirme que existen PRAs abiertos del curso seleccionado, abre el formulario. Sus desplegables se construirán con los registros actualizados.</p>
-      <div class="actions"><button class="btn primary" id="sOpenForm" disabled>Abrir formulario ↗</button><button class="btn outline" id="sCopyForm" disabled>Copiar enlace</button></div>
-      <p class="help">El formulario solo se abrirá tras la verificación en Google Workspace. La web pública no puede saber si otra pestaña ha terminado la comprobación. Por eso, el enlace seguro se ofrece en la propia página de verificación.</p>
+      <div class="mini">04 · FORMULARIO DEL CLAUSTRO</div><h2>Crear formulario y abrir</h2>
+      <p>Tras verificar el apartado 3, pulsa este botón. Si no hubo cambios, se reutiliza el formulario; si los hubo, sus desplegables mostrarán los PRAs actualizados de 2026/2027.</p>
+      <div class="actions"><button class="btn primary" id="sOpenForm" disabled>Crear formulario y abrir ↗</button></div>
+      <p class="help">El botón se habilitará cuando Google confirme la verificación. Si tu navegador no devuelve la confirmación, podrás abrir el formulario desde la propia ventana de comprobación.</p>
     </div>
   </div>
 <div class="card pad section-group-5">
     <div class="mini">05 · CARPETAS POR CURSOS Y GRUPOS</div>
     <h2>Informes del Seguimiento PRA en Drive</h2>
-    <p>Consulta las carpetas del curso académico seleccionado, organizadas por nivel y grupo. El visor real, con el número de PDF de cada carpeta, está disponible dentro de Apps Script.</p>
-    <div class="statusrow"><span>Curso seleccionado</span><b id="folderYear">2026-2027</b></div>
+    <p>Consulta las carpetas del Seguimiento PRA 2026/2027, organizadas por nivel y grupo. El visor de PDF está en Apps Script.</p>
+    <div class="statusrow"><span>Curso de seguimiento</span><b id="folderYear">2026-2027</b></div>
     <div class="actions">
       <button class="btn primary" id="sSeeFolders">Ver carpetas y PDF reales ↗</button>
       <button class="btn outline" id="sOpenFolder">Abrir carpeta de Drive ↗</button>
@@ -357,7 +355,7 @@ function saveSeguimiento(){
  persist();render();return true;
 }
 function launchGoogleApp(view){
- const b=book();const errors=validationIssues(view==="gestor"?"gestor":"seguimiento");
+ const b=view==="gestor"?book():followBook();const errors=validationIssues(view==="gestor"?"gestor":"seguimiento");
  if(errors.length){status(view==="gestor"?"gestorStatus":"sUpdateStatus",errors.join(" "),true);return;}
  const url=new URL(DEFAULT_FORM);
  if(view==="gestor"){
@@ -365,21 +363,25 @@ function launchGoogleApp(view){
   url.searchParams.set("hoja",b.sheet);url.searchParams.set("carpeta",b.folderG);
   url.searchParams.set("niveles",b.levels.join("|"));url.searchParams.set("accion","revisar");
  }else{
-  url.searchParams.set("view","validar");url.searchParams.set("curso",state.year);
-  url.searchParams.set("hoja",b.sheet);url.searchParams.set("carpetaG",b.folderG);
-  url.searchParams.set("carpetaS",b.folderS);
+  url.searchParams.set("view","validar");url.searchParams.set("curso",FOLLOW_YEAR);
+  url.searchParams.set("hoja",b.sheet);url.searchParams.set("carpetaS",b.folderS);
+  const nonce=crypto.randomUUID();state.pendingNonce=nonce;url.searchParams.set("nonce",nonce);
  }
- window.open(url.href,"_blank","noopener,noreferrer");
+ const popup=window.open(url.href,"_blank");
+ if(!popup)status("sUpdateStatus","El navegador ha bloqueado la comprobación en Google. Permite ventanas emergentes.",true);
 }
 function openForm(){
  if($("sOpenForm").disabled)return;
- if(!validUrl("app",state.form)){status("sUpdateStatus","No hay una implementación válida del formulario.",true);return;}
- window.open(state.form,"_blank","noopener,noreferrer");
+ const url=new URL(DEFAULT_FORM);url.searchParams.set("view","crear");
+ window.open(url.href,"_blank","noopener,noreferrer");
+ status("sUpdateStatus","Google volverá a comprobar que la hoja no ha cambiado y abrirá el formulario con los datos vigentes.");
 }
 function navigate(tab){
  document.querySelectorAll(".view").forEach(el=>el.classList.toggle("active",el.id===tab));
  document.querySelectorAll(".navbtn").forEach(el=>el.classList.toggle("active",el.dataset.nav===tab));
  $("breadcrumb").textContent=VIEWS[tab]||"Inicio";
+ const topcourse=document.querySelector(".topcourse");if(topcourse)topcourse.hidden=tab==="seguimiento";
+ $("yearTag").textContent=tab==="seguimiento"?FOLLOW_YEAR:state.year;
  if(location.hash!=="#"+tab)history.replaceState(null,"","#"+tab);
  window.scrollTo({top:0,behavior:"smooth"});
 }
@@ -420,17 +422,25 @@ $("sEditTemplate").addEventListener("click",()=>openValue(state.templateS,"templ
 $("sOpenSheet").addEventListener("click",()=>{capture();openValue(followBook().sheet,"sheet","sUpdateStatus");});
 $("sUpdate").addEventListener("click",()=>{
  capture();if(!saveSeguimiento())return;
- state.checkStarted=false;refreshButtons();
+ state.followVerified=false;refreshButtons();
  launchGoogleApp("validar");
- status("sUpdateStatus","Se abre la página de verificación de Apps Script, NO el formulario. Allí pulsa «Actualizar y verificar datos». Solo tras la respuesta correcta de Google se mostrará el botón para abrir el formulario actualizado.");
+ status("sUpdateStatus","Google está comprobando los PRAs abiertos de 2026/2027. Cuando termine, se habilitará «Crear formulario y abrir».");
 });
-$("sOpenForm").addEventListener("click",()=>status("sUpdateStatus","Primero hay que verificar los datos dentro de Apps Script. El formulario se abre directamente desde el resultado validado.",true));
+$("sOpenForm").addEventListener("click",openForm);
 $("sSeeFolders").addEventListener("click",()=>{capture();if(!validUrl("app",DEFAULT_FORM)){status("sFoldersStatus","La aplicación de Google Workspace del centro no está disponible.",true);return;}const url=new URL(DEFAULT_FORM);url.searchParams.set("view","gestor");window.open(url.href,"_blank","noopener,noreferrer");status("sFoldersStatus","Dentro de la aplicación de Google, abre Seguimiento PRA y pulsa «Actualizar carpetas e informes».");});
 $("sOpenFolder").addEventListener("click",()=>{capture();openValue(followBook().folderS,"folder","sFoldersStatus");});
 
-$("sCopyForm").addEventListener("click",()=>{if(!$("sCopyForm").disabled)tryCopy(state.form,"sUpdateStatus");});
+window.addEventListener("message",event=>{
+ const trusted=event.origin==="https://script.google.com"||/^https:\/\/(?:[a-z0-9-]+\.)*googleusercontent\.com$/i.test(event.origin);
+ if(!trusted)return;
+ const d=event.data;
+ if(!d||d.type!=="PRA_SEGUIMIENTO_VERIFICADO"||d.curso!==FOLLOW_YEAR||!state.pendingNonce||d.nonce!==state.pendingNonce)return;
+ state.followVerified=true;state.pendingNonce="";refreshButtons();
+ const result=d.estado==="modificados"?"Se han detectado cambios; se utilizarán los datos actuales.":d.estado==="sin_cambios"?"No se han detectado modificaciones.":"Datos comprobados por primera vez.";
+ status("sUpdateStatus","Verificación confirmada por Google. "+result+" Ya puedes pulsar «Crear formulario y abrir» en el apartado 4.");
+});
 load();
-const first=location.hash.slice(1);if(Object.prototype.hasOwnProperty.call(VIEWS,first))navigate(first);
+const first=location.hash.slice(1);if(Object.prototype.hasOwnProperty.call(VIEWS,first))navigate(first);else navigate("inicio");
 </script>
 </body>
 </html>
